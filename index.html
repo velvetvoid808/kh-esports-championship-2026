@@ -564,8 +564,7 @@
         }
 
         /* =====================================================
-           NEW FEATURE
-           TOP SCROLL PROGRESS BAR
+           SCROLL PROGRESS BAR
         ===================================================== */
 
         .scroll-progress {
@@ -597,7 +596,6 @@
         }
 
         /* =====================================================
-           NEW FEATURE
            HERO ENTRANCE ANIMATION
         ===================================================== */
 
@@ -649,7 +647,6 @@
         }
 
         /* =====================================================
-           NEW FEATURE
            BACK TO TOP BUTTON
         ===================================================== */
 
@@ -878,7 +875,6 @@
 <body>
 
 <!-- =====================================================
-     NEW FEATURE
      SCROLL PROGRESS BAR
 ===================================================== -->
 
@@ -931,6 +927,10 @@
 
             <a href="#tournament">
                 TOURNAMENT
+            </a>
+
+            <a href="#bracket">
+                BRACKET
             </a>
 
             <a href="#schedule">
@@ -1029,6 +1029,10 @@
 
             <a href="#tournament">
                 TOURNAMENT
+            </a>
+
+            <a href="#bracket">
+                BRACKET
             </a>
 
             <a href="#schedule">
@@ -1507,6 +1511,474 @@
 </section>
 
 <!-- =====================================================
+     LIVE TOURNAMENT BRACKET
+===================================================== -->
+
+<section
+    id="bracket"
+    class="section bracket-section"
+>
+
+    <div class="section-heading reveal">
+
+        <span class="section-index">
+            04
+        </span>
+
+        <div>
+
+            <p class="section-kicker">
+                FOLLOW THE BATTLE
+            </p>
+
+            <h2>
+                LIVE <span>BRACKET</span>
+            </h2>
+
+        </div>
+
+    </div>
+
+    <!-- TITLE SWITCHER -->
+
+    <div class="bracket-switcher reveal">
+
+        <button
+            type="button"
+            class="bracket-tab active"
+            data-bracket="hok"
+        >
+            HONOR OF KINGS
+        </button>
+
+        <button
+            type="button"
+            class="bracket-tab"
+            data-bracket="mlbb"
+        >
+            MOBILE LEGENDS
+        </button>
+
+    </div>
+
+    <!-- =================================================
+         HONOR OF KINGS BRACKET
+    ================================================== -->
+
+    <div
+        class="bracket-panel active"
+        id="bracket-hok"
+        data-panel="hok"
+    >
+
+        <div class="bracket-header reveal">
+
+            <div>
+
+                <span>
+                    HONOR OF KINGS
+                </span>
+
+                <strong>
+                    KNOCKOUT STAGE
+                </strong>
+
+            </div>
+
+            <small>
+                32 TEAMS → 8 GROUP WINNERS
+            </small>
+
+        </div>
+
+        <div class="bracket-board">
+
+            <!-- QUARTERFINALS -->
+
+            <div class="bracket-column reveal">
+
+                <div class="bracket-column-title">
+                    QUARTERFINALS
+                    <span>BO3</span>
+                </div>
+
+                <div class="bracket-match">
+
+                    <span class="match-number">
+                        QF1
+                    </span>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+                <div class="bracket-match">
+
+                    <span class="match-number">
+                        QF2
+                    </span>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+                <div class="bracket-match">
+
+                    <span class="match-number">
+                        QF3
+                    </span>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+                <div class="bracket-match">
+
+                    <span class="match-number">
+                        QF4
+                    </span>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SEMIFINALS -->
+
+            <div class="bracket-column reveal reveal-delay-1">
+
+                <div class="bracket-column-title">
+                    SEMIFINALS
+                    <span>BO3</span>
+                </div>
+
+                <div class="bracket-match bracket-match-large">
+
+                    <span class="match-number">
+                        SF1
+                    </span>
+
+                    <div class="team">
+                        <span>QF1 WINNER</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>QF2 WINNER</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+                <div class="bracket-match bracket-match-large">
+
+                    <span class="match-number">
+                        SF2
+                    </span>
+
+                    <div class="team">
+                        <span>QF3 WINNER</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>QF4 WINNER</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- GRAND FINAL -->
+
+            <div class="bracket-column grand-final-column reveal reveal-delay-2">
+
+                <div class="bracket-column-title">
+                    GRAND FINAL
+                    <span>BO5</span>
+                </div>
+
+                <div class="bracket-match grand-final-match">
+
+                    <span class="match-number">
+                        GF
+                    </span>
+
+                    <div class="team">
+                        <span>SF1 WINNER</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>SF2 WINNER</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+                <div class="champion-placeholder">
+
+                    <span>
+                        CHAMPION
+                    </span>
+
+                    <strong>
+                        TBD
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =================================================
+         MOBILE LEGENDS BRACKET
+    ================================================== -->
+
+    <div
+        class="bracket-panel"
+        id="bracket-mlbb"
+        data-panel="mlbb"
+        hidden
+    >
+
+        <div class="bracket-header reveal">
+
+            <div>
+
+                <span>
+                    MOBILE LEGENDS
+                </span>
+
+                <strong>
+                    KNOCKOUT STAGE
+                </strong>
+
+            </div>
+
+            <small>
+                32 TEAMS → 8 GROUP WINNERS
+            </small>
+
+        </div>
+
+        <div class="bracket-board">
+
+            <!-- QUARTERFINALS -->
+
+            <div class="bracket-column reveal">
+
+                <div class="bracket-column-title">
+                    QUARTERFINALS
+                    <span>BO3</span>
+                </div>
+
+                <div class="bracket-match">
+
+                    <span class="match-number">
+                        QF1
+                    </span>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+                <div class="bracket-match">
+
+                    <span class="match-number">
+                        QF2
+                    </span>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+                <div class="bracket-match">
+
+                    <span class="match-number">
+                        QF3
+                    </span>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+                <div class="bracket-match">
+
+                    <span class="match-number">
+                        QF4
+                    </span>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>TBD</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SEMIFINALS -->
+
+            <div class="bracket-column reveal reveal-delay-1">
+
+                <div class="bracket-column-title">
+                    SEMIFINALS
+                    <span>BO3</span>
+                </div>
+
+                <div class="bracket-match bracket-match-large">
+
+                    <span class="match-number">
+                        SF1
+                    </span>
+
+                    <div class="team">
+                        <span>QF1 WINNER</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>QF2 WINNER</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+                <div class="bracket-match bracket-match-large">
+
+                    <span class="match-number">
+                        SF2
+                    </span>
+
+                    <div class="team">
+                        <span>QF3 WINNER</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>QF4 WINNER</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- GRAND FINAL -->
+
+            <div class="bracket-column grand-final-column reveal reveal-delay-2">
+
+                <div class="bracket-column-title">
+                    GRAND FINAL
+                    <span>BO5</span>
+                </div>
+
+                <div class="bracket-match grand-final-match">
+
+                    <span class="match-number">
+                        GF
+                    </span>
+
+                    <div class="team">
+                        <span>SF1 WINNER</span>
+                        <strong>—</strong>
+                    </div>
+
+                    <div class="team">
+                        <span>SF2 WINNER</span>
+                        <strong>—</strong>
+                    </div>
+
+                </div>
+
+                <div class="champion-placeholder">
+
+                    <span>
+                        CHAMPION
+                    </span>
+
+                    <strong>
+                        TBD
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
      SCHEDULE
 ===================================================== -->
 
@@ -1518,7 +1990,7 @@
     <div class="section-heading reveal">
 
         <span class="section-index">
-            04
+            05
         </span>
 
         <div>
@@ -1663,7 +2135,7 @@
     <div class="section-heading reveal">
 
         <span class="section-index">
-            05
+            06
         </span>
 
         <div>
@@ -1738,7 +2210,7 @@
     <div class="section-heading reveal">
 
         <span class="section-index">
-            06
+            07
         </span>
 
         <div>
@@ -1959,7 +2431,6 @@
 </footer>
 
 <!-- =====================================================
-     NEW FEATURE
      BACK TO TOP BUTTON
 ===================================================== -->
 
@@ -2029,7 +2500,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =====================================================
-       NEW FEATURE
        SCROLL PROGRESS
     ===================================================== */
 
@@ -2070,7 +2540,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* =====================================================
-       NEW FEATURE
        BACK TO TOP
     ===================================================== */
 
@@ -2387,6 +2856,64 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     /* =====================================================
+       BRACKET TITLE SWITCHER
+    ===================================================== */
+
+    const bracketTabs =
+        Array.from(
+            document.querySelectorAll(".bracket-tab")
+        );
+
+    const bracketPanels =
+        Array.from(
+            document.querySelectorAll(".bracket-panel")
+        );
+
+    function activateBracket(title) {
+
+        bracketTabs.forEach(tab => {
+
+            tab.classList.toggle(
+                "active",
+                tab.dataset.bracket === title
+            );
+
+        });
+
+        bracketPanels.forEach(panel => {
+
+            const isActive =
+                panel.dataset.panel === title;
+
+            panel.classList.toggle(
+                "active",
+                isActive
+            );
+
+            panel.hidden =
+                !isActive;
+
+        });
+
+    }
+
+    bracketTabs.forEach(tab => {
+
+        tab.addEventListener(
+            "click",
+            () => {
+
+                const title =
+                    tab.dataset.bracket;
+
+                activateBracket(title);
+
+            }
+        );
+
+    });
+
+    /* =====================================================
        RESIZE
     ===================================================== */
 
@@ -2463,12 +2990,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        REPEATING SCROLL ANIMATION
-       
-       IMPORTANT:
-       The animation is NOT permanently marked as done.
-       When an element leaves the viewport, its animation
-       class is removed. Therefore, when the user scrolls
-       to it again, the animation plays again.
     ===================================================== */
 
     const revealElements =
@@ -2524,8 +3045,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     } else {
 
-        /* Fallback for older browsers */
-
         revealElements.forEach(
             element => {
 
@@ -2541,6 +3060,8 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =====================================================
        INITIAL STATE
     ===================================================== */
+
+    activateBracket("hok");
 
     updateNavbar();
 
