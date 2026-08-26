@@ -1,6 +1,7 @@
 /* =====================================================
    KH ESPORTS CHAMPIONSHIP 2026
-   MASTER JAVASCRIPT
+   MASTER INTERACTION SYSTEM
+   VERSION 2.0
 ===================================================== */
 
 (() => {
@@ -47,7 +48,7 @@
 
 
     /* =====================================================
-       REDUCED MOTION
+       MOTION PREFERENCE
     ===================================================== */
 
     const prefersReducedMotion =
@@ -220,18 +221,11 @@
             getHeaderOffset();
 
         window.scrollTo({
-
-            top:
-                Math.max(
-                    0,
-                    targetPosition
-                ),
-
+            top: Math.max(0, targetPosition),
             behavior:
                 prefersReducedMotion
                     ? "auto"
                     : "smooth"
-
         });
 
     }
@@ -355,8 +349,8 @@
                 220
             );
 
-        let currentSection =
-            "home";
+
+        let currentSection = "home";
 
 
         for (
@@ -385,19 +379,17 @@
 
 
         /*
-         * Registration does not have
-         * a corresponding navigation item.
+         * Registration has no direct
+         * navigation item.
          *
          * RULES remains highlighted.
          */
 
         if (
-            currentSection ===
-            "register"
+            currentSection === "register"
         ) {
 
-            currentSection =
-                "rules";
+            currentSection = "rules";
 
         }
 
@@ -410,11 +402,840 @@
 
 
     /* =====================================================
-       SCROLL HANDLER
+       SCROLL PROGRESS
     ===================================================== */
 
-    let ticking =
-        false;
+    let progressBar = null;
+
+
+    function createScrollProgress() {
+
+        if (
+            document.getElementById(
+                "scrollProgress"
+            )
+        ) {
+            progressBar =
+                document.getElementById(
+                    "scrollProgress"
+                );
+
+            return;
+        }
+
+
+        progressBar =
+            document.createElement("div");
+
+        progressBar.id =
+            "scrollProgress";
+
+        progressBar.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+        Object.assign(
+            progressBar.style,
+            {
+                position: "fixed",
+                top: "0",
+                left: "0",
+                width: "0%",
+                height: "2px",
+                zIndex: "2000",
+                pointerEvents: "none",
+                background:
+                    "linear-gradient(90deg, #a855f7, #22d3ee)",
+                boxShadow:
+                    "0 0 12px rgba(168,85,247,0.45)",
+                transformOrigin: "left center",
+                transition:
+                    prefersReducedMotion
+                        ? "none"
+                        : "width 0.08s linear"
+            }
+        );
+
+
+        document.body.appendChild(
+            progressBar
+        );
+
+    }
+
+
+    function updateScrollProgress() {
+
+        if (!progressBar) {
+            return;
+        }
+
+
+        const scrollTop =
+            window.scrollY;
+
+        const scrollHeight =
+            document.documentElement.scrollHeight -
+            window.innerHeight;
+
+
+        if (scrollHeight <= 0) {
+
+            progressBar.style.width =
+                "0%";
+
+            return;
+
+        }
+
+
+        const percentage =
+            Math.min(
+                100,
+                Math.max(
+                    0,
+                    (scrollTop / scrollHeight) * 100
+                )
+            );
+
+
+        progressBar.style.width =
+            `${percentage}%`;
+
+    }
+
+
+    /* =====================================================
+       REVEAL SYSTEM
+    ===================================================== */
+
+    function prepareRevealElements() {
+
+        if (prefersReducedMotion) {
+            return;
+        }
+
+
+        const selectors = [
+
+            ".section-heading",
+
+            ".about-main",
+
+            ".about-objectives",
+
+            ".title-card",
+
+            ".format-step",
+
+            ".feature-card",
+
+            ".schedule-card",
+
+            ".venue-banner",
+
+            ".prize-total",
+
+            ".prize-card",
+
+            ".rule",
+
+            ".register-content",
+
+            ".footer-main"
+
+        ];
+
+
+        const elements =
+            document.querySelectorAll(
+                selectors.join(",")
+            );
+
+
+        elements.forEach(
+            element => {
+
+                element.classList.add(
+                    "js-reveal"
+                );
+
+                element.style.opacity =
+                    "0";
+
+                element.style.transform =
+                    "translateY(28px)";
+
+                element.style.transition =
+                    "opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), " +
+                    "transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)";
+
+                element.style.willChange =
+                    "opacity, transform";
+
+            }
+        );
+
+
+        createRevealObserver(
+            elements
+        );
+
+    }
+
+
+    function createRevealObserver(elements) {
+
+        if (
+            !("IntersectionObserver" in window)
+        ) {
+
+            elements.forEach(
+                element => {
+
+                    element.style.opacity =
+                        "1";
+
+                    element.style.transform =
+                        "translateY(0)";
+
+                }
+            );
+
+            return;
+
+        }
+
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(
+                        entry => {
+
+                            if (
+                                !entry.isIntersecting
+                            ) {
+                                return;
+                            }
+
+
+                            const element =
+                                entry.target;
+
+
+                            element.style.opacity =
+                                "1";
+
+                            element.style.transform =
+                                "translateY(0)";
+
+
+                            observer.unobserve(
+                                element
+                            );
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: 0.12,
+                    rootMargin:
+                        "0px 0px -50px 0px"
+                }
+            );
+
+
+        elements.forEach(
+            element => {
+
+                observer.observe(
+                    element
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       STAGGER EFFECT
+    ===================================================== */
+
+    function applyStagger() {
+
+        if (prefersReducedMotion) {
+            return;
+        }
+
+
+        const groups = [
+
+            ".title-grid",
+
+            ".format-flow",
+
+            ".format-features",
+
+            ".schedule-grid",
+
+            ".prize-grid",
+
+            ".rules-grid"
+
+        ];
+
+
+        groups.forEach(
+            selector => {
+
+                const container =
+                    document.querySelector(
+                        selector
+                    );
+
+
+                if (!container) {
+                    return;
+                }
+
+
+                const children =
+                    Array.from(
+                        container.children
+                    ).filter(
+                        child =>
+                            !child.classList.contains(
+                                "flow-line"
+                            )
+                    );
+
+
+                children.forEach(
+                    (child, index) => {
+
+                        child.style.transitionDelay =
+                            `${index * 90}ms`;
+
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       HERO ENTRANCE ANIMATION
+    ===================================================== */
+
+    function prepareHeroAnimation() {
+
+        if (prefersReducedMotion) {
+            return;
+        }
+
+
+        const hero =
+            document.querySelector(
+                ".hero"
+            );
+
+
+        if (!hero) {
+            return;
+        }
+
+
+        const elements = [
+
+            hero.querySelector(
+                ".eyebrow"
+            ),
+
+            hero.querySelector(
+                "h1"
+            ),
+
+            hero.querySelector(
+                ".hero-tagline"
+            ),
+
+            hero.querySelector(
+                ".hero-description"
+            ),
+
+            hero.querySelector(
+                ".hero-actions"
+            ),
+
+            hero.querySelector(
+                ".hero-bottom"
+            )
+
+        ].filter(Boolean);
+
+
+        elements.forEach(
+            (element, index) => {
+
+                element.style.opacity =
+                    "0";
+
+                element.style.transform =
+                    "translateY(22px)";
+
+                element.style.transition =
+                    "opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), " +
+                    "transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)";
+
+
+                window.setTimeout(
+                    () => {
+
+                        element.style.opacity =
+                            "1";
+
+                        element.style.transform =
+                            "translateY(0)";
+
+                    },
+                    120 + index * 120
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       BACK TO TOP BUTTON
+    ===================================================== */
+
+    let backToTop = null;
+
+
+    function createBackToTop() {
+
+        if (
+            document.getElementById(
+                "backToTop"
+            )
+        ) {
+
+            backToTop =
+                document.getElementById(
+                    "backToTop"
+                );
+
+            return;
+
+        }
+
+
+        backToTop =
+            document.createElement("button");
+
+        backToTop.id =
+            "backToTop";
+
+        backToTop.type =
+            "button";
+
+        backToTop.setAttribute(
+            "aria-label",
+            "Back to top"
+        );
+
+        backToTop.innerHTML =
+            "↑";
+
+
+        Object.assign(
+            backToTop.style,
+            {
+                position: "fixed",
+                right: "22px",
+                bottom: "22px",
+                width: "42px",
+                height: "42px",
+                zIndex: "900",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                border:
+                    "1px solid rgba(168,85,247,0.35)",
+                background:
+                    "rgba(7,8,13,0.82)",
+                color: "#f4f5f7",
+                fontSize: "17px",
+                fontWeight: "700",
+                cursor: "pointer",
+                opacity: "0",
+                visibility: "hidden",
+                transform: "translateY(10px)",
+                backdropFilter:
+                    "blur(14px)",
+                WebkitBackdropFilter:
+                    "blur(14px)",
+                transition:
+                    "opacity 0.25s ease, " +
+                    "visibility 0.25s ease, " +
+                    "transform 0.25s ease, " +
+                    "border-color 0.25s ease"
+            }
+        );
+
+
+        document.body.appendChild(
+            backToTop
+        );
+
+
+        backToTop.addEventListener(
+            "mouseenter",
+            () => {
+
+                backToTop.style.borderColor =
+                    "rgba(168,85,247,0.8)";
+
+            }
+        );
+
+
+        backToTop.addEventListener(
+            "mouseleave",
+            () => {
+
+                backToTop.style.borderColor =
+                    "rgba(168,85,247,0.35)";
+
+            }
+        );
+
+
+        backToTop.addEventListener(
+            "click",
+            () => {
+
+                window.scrollTo({
+                    top: 0,
+                    behavior:
+                        prefersReducedMotion
+                            ? "auto"
+                            : "smooth"
+                });
+
+            }
+        );
+
+    }
+
+
+    function updateBackToTop() {
+
+        if (!backToTop) {
+            return;
+        }
+
+
+        const visible =
+            window.scrollY >
+            window.innerHeight * 0.65;
+
+
+        backToTop.style.opacity =
+            visible ? "1" : "0";
+
+        backToTop.style.visibility =
+            visible ? "visible" : "hidden";
+
+        backToTop.style.transform =
+            visible
+                ? "translateY(0)"
+                : "translateY(10px)";
+
+    }
+
+
+    /* =====================================================
+       HERO MOUSE PARALLAX
+    ===================================================== */
+
+    function initializeHeroParallax() {
+
+        if (
+            prefersReducedMotion ||
+            window.matchMedia(
+                "(pointer: coarse)"
+            ).matches
+        ) {
+            return;
+        }
+
+
+        const hero =
+            document.querySelector(
+                ".hero"
+            );
+
+
+        if (!hero) {
+            return;
+        }
+
+
+        const heroGrid =
+            hero.querySelector(
+                ".hero-grid"
+            );
+
+
+        if (!heroGrid) {
+            return;
+        }
+
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+        let currentX = 0;
+        let currentY = 0;
+
+        let animationRunning = false;
+
+
+        function animateParallax() {
+
+            currentX +=
+                (mouseX - currentX) * 0.045;
+
+            currentY +=
+                (mouseY - currentY) * 0.045;
+
+
+            heroGrid.style.transform =
+                `translate3d(${currentX}px, ${currentY}px, 0)`;
+
+
+            if (
+                Math.abs(mouseX - currentX) > 0.05 ||
+                Math.abs(mouseY - currentY) > 0.05
+            ) {
+
+                requestAnimationFrame(
+                    animateParallax
+                );
+
+            } else {
+
+                animationRunning = false;
+
+            }
+
+        }
+
+
+        hero.addEventListener(
+            "pointermove",
+            event => {
+
+                const rect =
+                    hero.getBoundingClientRect();
+
+
+                const x =
+                    (
+                        event.clientX -
+                        rect.left
+                    ) /
+                    rect.width;
+
+
+                const y =
+                    (
+                        event.clientY -
+                        rect.top
+                    ) /
+                    rect.height;
+
+
+                mouseX =
+                    (x - 0.5) * 10;
+
+                mouseY =
+                    (y - 0.5) * 10;
+
+
+                if (!animationRunning) {
+
+                    animationRunning =
+                        true;
+
+                    requestAnimationFrame(
+                        animateParallax
+                    );
+
+                }
+
+            },
+            {
+                passive: true
+            }
+        );
+
+
+        hero.addEventListener(
+            "pointerleave",
+            () => {
+
+                mouseX = 0;
+                mouseY = 0;
+
+
+                if (!animationRunning) {
+
+                    animationRunning =
+                        true;
+
+                    requestAnimationFrame(
+                        animateParallax
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       CARD TILT EFFECT
+    ===================================================== */
+
+    function initializeCardTilt() {
+
+        if (
+            prefersReducedMotion ||
+            window.matchMedia(
+                "(pointer: coarse)"
+            ).matches
+        ) {
+            return;
+        }
+
+
+        const cards =
+            document.querySelectorAll(
+                ".title-card, .feature-card, .prize-card"
+            );
+
+
+        cards.forEach(
+            card => {
+
+                card.addEventListener(
+                    "pointermove",
+                    event => {
+
+                        const rect =
+                            card.getBoundingClientRect();
+
+
+                        const x =
+                            event.clientX -
+                            rect.left;
+
+
+                        const y =
+                            event.clientY -
+                            rect.top;
+
+
+                        const centerX =
+                            rect.width / 2;
+
+
+                        const centerY =
+                            rect.height / 2;
+
+
+                        const rotateY =
+                            (
+                                (x - centerX) /
+                                centerX
+                            ) * 2.5;
+
+
+                        const rotateX =
+                            -(
+                                (y - centerY) /
+                                centerY
+                            ) * 2.5;
+
+
+                        card.style.transform =
+                            `perspective(900px) ` +
+                            `rotateX(${rotateX}deg) ` +
+                            `rotateY(${rotateY}deg) ` +
+                            `translateY(-5px)`;
+
+                    },
+                    {
+                        passive: true
+                    }
+                );
+
+
+                card.addEventListener(
+                    "pointerleave",
+                    () => {
+
+                        card.style.transform =
+                            "";
+
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       KEYBOARD ACCESSIBILITY
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeMenu();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       COMBINED SCROLL HANDLER
+    ===================================================== */
+
+    let ticking = false;
 
 
     function handleScroll() {
@@ -423,8 +1244,9 @@
             return;
         }
 
-        ticking =
-            true;
+
+        ticking = true;
+
 
         window.requestAnimationFrame(
             () => {
@@ -433,8 +1255,12 @@
 
                 updateActiveSection();
 
-                ticking =
-                    false;
+                updateScrollProgress();
+
+                updateBackToTop();
+
+
+                ticking = false;
 
             }
         );
@@ -467,970 +1293,40 @@
 
             }
 
+
             updateActiveSection();
 
-        }
-    );
-
-
-    /* =====================================================
-       ESCAPE KEY
-    ===================================================== */
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key ===
-                "Escape"
-            ) {
-
-                closeMenu();
-
-            }
+            updateScrollProgress();
 
         }
     );
 
 
     /* =====================================================
-       ANIMATION SYSTEM
-       
-       This section controls:
-       - Scroll reveal
-       - Staggered cards
-       - Hero entrance
-       - Counter animation
+       INITIALIZATION
     ===================================================== */
 
+    createScrollProgress();
 
-    /* =====================================================
-       REVEAL SELECTOR
-    ===================================================== */
+    createBackToTop();
 
-    const revealSelectors = [
+    prepareHeroAnimation();
 
-        ".section-heading",
+    prepareRevealElements();
 
-        ".about-main",
+    applyStagger();
 
-        ".about-objectives",
+    initializeHeroParallax();
 
-        ".title-card",
-
-        ".format-flow",
-
-        ".feature-card",
-
-        ".schedule-card",
-
-        ".venue-banner",
-
-        ".prize-total",
-
-        ".prize-card",
-
-        ".rule",
-
-        ".register-content",
-
-        ".footer-main"
-
-    ];
-
-
-    /* =====================================================
-       PREPARE REVEAL ELEMENTS
-    ===================================================== */
-
-    function prepareRevealElements() {
-
-        if (prefersReducedMotion) {
-            return;
-        }
-
-        revealSelectors.forEach(
-            selector => {
-
-                const elements =
-                    document.querySelectorAll(
-                        selector
-                    );
-
-                elements.forEach(
-                    element => {
-
-                        element.classList.add(
-                            "js-reveal"
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       STAGGER GROUPS
-    ===================================================== */
-
-    function prepareStaggerGroups() {
-
-        if (prefersReducedMotion) {
-            return;
-        }
-
-        const groups = [
-
-            ".title-grid .title-card",
-
-            ".format-features .feature-card",
-
-            ".schedule-grid .schedule-card",
-
-            ".prize-grid .prize-card",
-
-            ".rules-grid .rule",
-
-            ".stats-section .stat-card"
-
-        ];
-
-
-        groups.forEach(
-            selector => {
-
-                const elements =
-                    Array.from(
-                        document.querySelectorAll(
-                            selector
-                        )
-                    );
-
-
-                elements.forEach(
-                    (element, index) => {
-
-                        element.style
-                            .setProperty(
-                                "--reveal-delay",
-                                `${index * 90}ms`
-                            );
-
-                    }
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       HERO ELEMENTS
-    ===================================================== */
-
-    function prepareHero() {
-
-        if (prefersReducedMotion) {
-            return;
-        }
-
-        const heroElements = [
-
-            document.querySelector(
-                ".hero .eyebrow"
-            ),
-
-            document.querySelector(
-                ".hero h1"
-            ),
-
-            document.querySelector(
-                ".hero-tagline"
-            ),
-
-            document.querySelector(
-                ".hero-description"
-            ),
-
-            document.querySelector(
-                ".hero-actions"
-            ),
-
-            document.querySelector(
-                ".hero-bottom"
-            )
-
-        ].filter(Boolean);
-
-
-        heroElements.forEach(
-            (element, index) => {
-
-                element.classList.add(
-                    "hero-enter"
-                );
-
-                element.style
-                    .setProperty(
-                        "--hero-delay",
-                        `${index * 110}ms`
-                    );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       ADD ANIMATION STYLES
-       
-       The CSS file does not need to be
-       modified for this first animation layer.
-       
-       JavaScript injects the required
-       animation CSS dynamically.
-    ===================================================== */
-
-    function injectAnimationStyles() {
-
-        if (prefersReducedMotion) {
-            return;
-        }
-
-        if (
-            document.getElementById(
-                "kh-animation-styles"
-            )
-        ) {
-            return;
-        }
-
-
-        const style =
-            document.createElement(
-                "style"
-            );
-
-        style.id =
-            "kh-animation-styles";
-
-
-        style.textContent = `
-
-            /* =========================================
-               SCROLL REVEAL
-            ========================================= */
-
-            .js-reveal {
-
-                opacity: 0;
-
-                transform:
-                    translateY(28px);
-
-                transition:
-                    opacity 0.75s cubic-bezier(
-                        0.22,
-                        1,
-                        0.36,
-                        1
-                    ),
-                    transform 0.75s cubic-bezier(
-                        0.22,
-                        1,
-                        0.36,
-                        1
-                    );
-
-                transition-delay:
-                    var(--reveal-delay, 0ms);
-
-            }
-
-
-            .js-reveal.is-visible {
-
-                opacity: 1;
-
-                transform:
-                    translateY(0);
-
-            }
-
-
-            /* =========================================
-               HERO ENTRANCE
-            ========================================= */
-
-            .hero-enter {
-
-                opacity: 0;
-
-                transform:
-                    translateY(22px);
-
-                animation:
-                    khHeroEnter
-                    0.85s cubic-bezier(
-                        0.22,
-                        1,
-                        0.36,
-                        1
-                    )
-                    forwards;
-
-                animation-delay:
-                    var(--hero-delay, 0ms);
-
-            }
-
-
-            @keyframes khHeroEnter {
-
-                from {
-
-                    opacity: 0;
-
-                    transform:
-                        translateY(22px);
-
-                }
-
-                to {
-
-                    opacity: 1;
-
-                    transform:
-                        translateY(0);
-
-                }
-
-            }
-
-
-            /* =========================================
-               HERO TITLE ENHANCEMENT
-            ========================================= */
-
-            .hero h1.hero-title-active {
-
-                animation:
-                    khHeroTitleGlow
-                    1.4s ease-out
-                    0.15s both;
-
-            }
-
-
-            @keyframes khHeroTitleGlow {
-
-                0% {
-
-                    filter:
-                        blur(4px);
-
-                }
-
-                100% {
-
-                    filter:
-                        blur(0);
-
-                }
-
-            }
-
-
-            /* =========================================
-               COUNTER
-            ========================================= */
-
-            .counter-value {
-
-                display: inline-block;
-
-                font-variant-numeric:
-                    tabular-nums;
-
-            }
-
-
-            /* =========================================
-               CARD HOVER ENHANCEMENT
-            ========================================= */
-
-            .title-card,
-            .feature-card,
-            .schedule-card,
-            .prize-card,
-            .rule,
-            .stat-card {
-
-                will-change:
-                    transform;
-
-            }
-
-
-            /* =========================================
-               REVEAL LINE
-            ========================================= */
-
-            .section-heading.is-visible
-            .section-index {
-
-                animation:
-                    khIndexReveal
-                    0.65s ease-out
-                    both;
-
-            }
-
-
-            @keyframes khIndexReveal {
-
-                from {
-
-                    opacity: 0;
-
-                    transform:
-                        translateX(-12px);
-
-                }
-
-                to {
-
-                    opacity: 1;
-
-                    transform:
-                        translateX(0);
-
-                }
-
-            }
-
-        `;
-
-
-        document.head.appendChild(
-            style
-        );
-
-    }
-
-
-    /* =====================================================
-       INTERSECTION OBSERVER
-    ===================================================== */
-
-    function setupRevealObserver() {
-
-        if (prefersReducedMotion) {
-
-            document
-                .querySelectorAll(
-                    ".js-reveal"
-                )
-                .forEach(
-                    element => {
-
-                        element.classList.add(
-                            "is-visible"
-                        );
-
-                    }
-                );
-
-            return;
-
-        }
-
-
-        if (
-            !("IntersectionObserver" in window)
-        ) {
-
-            document
-                .querySelectorAll(
-                    ".js-reveal"
-                )
-                .forEach(
-                    element => {
-
-                        element.classList.add(
-                            "is-visible"
-                        );
-
-                    }
-                );
-
-            return;
-
-        }
-
-
-        const observer =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(
-                        entry => {
-
-                            if (
-                                !entry.isIntersecting
-                            ) {
-                                return;
-                            }
-
-
-                            entry.target.classList.add(
-                                "is-visible"
-                            );
-
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-                    );
-
-                },
-                {
-
-                    threshold: 0.12,
-
-                    rootMargin:
-                        "0px 0px -55px 0px"
-
-                }
-            );
-
-
-        document
-            .querySelectorAll(
-                ".js-reveal"
-            )
-            .forEach(
-                element => {
-
-                    observer.observe(
-                        element
-                    );
-
-                }
-            );
-
-    }
-
-
-    /* =====================================================
-       COUNTER SYSTEM
-       
-       Automatically detects numbers inside
-       selected statistic / prize elements.
-    ===================================================== */
-
-    function animateNumber(
-        element,
-        target,
-        duration = 1200
-    ) {
-
-        if (prefersReducedMotion) {
-
-            element.textContent =
-                target.toLocaleString();
-
-            return;
-
-        }
-
-
-        const start =
-            0;
-
-        const startTime =
-            performance.now();
-
-
-        function update(
-            currentTime
-        ) {
-
-            const elapsed =
-                currentTime -
-                startTime;
-
-            const progress =
-                Math.min(
-                    elapsed / duration,
-                    1
-                );
-
-
-            /*
-             * Ease-out curve.
-             */
-
-            const eased =
-                1 -
-                Math.pow(
-                    1 - progress,
-                    3
-                );
-
-
-            const currentValue =
-                Math.round(
-                    start +
-                    (
-                        target -
-                        start
-                    ) *
-                    eased
-                );
-
-
-            element.textContent =
-                currentValue.toLocaleString();
-
-
-            if (
-                progress < 1
-            ) {
-
-                requestAnimationFrame(
-                    update
-                );
-
-            }
-
-        }
-
-
-        requestAnimationFrame(
-            update
-        );
-
-    }
-
-
-    function setupCounters() {
-
-        if (
-            !("IntersectionObserver" in window)
-        ) {
-            return;
-        }
-
-
-        const counterElements = [];
-
-
-        /*
-         * STAT CARDS
-         */
-
-        document
-            .querySelectorAll(
-                ".stat-number"
-            )
-            .forEach(
-                element => {
-
-                    const raw =
-                        element.textContent
-                            .replace(
-                                /,/g,
-                                ""
-                            )
-                            .replace(
-                                /[^\d.]/g,
-                                ""
-                            );
-
-                    const target =
-                        Number(raw);
-
-
-                    if (
-                        Number.isFinite(
-                            target
-                        )
-                    ) {
-
-                        const prefix =
-                            element.textContent
-                                .trim()
-                                .startsWith(
-                                    "RM"
-                                )
-                                ? "RM"
-                                : "";
-
-                        const suffix =
-                            element.textContent
-                                .trim()
-                                .endsWith(
-                                    "+"
-                                )
-                                ? "+"
-                                : "";
-
-
-                        counterElements.push({
-
-                            element,
-
-                            target,
-
-                            prefix,
-
-                            suffix
-
-                        });
-
-                    }
-
-                }
-            );
-
-
-        /*
-         * PRIZE TOTAL
-         */
-
-        document
-            .querySelectorAll(
-                ".prize-total strong"
-            )
-            .forEach(
-                element => {
-
-                    const raw =
-                        element.textContent
-                            .replace(
-                                /,/g,
-                                ""
-                            )
-                            .replace(
-                                /[^\d.]/g,
-                                ""
-                            );
-
-                    const target =
-                        Number(raw);
-
-
-                    if (
-                        Number.isFinite(
-                            target
-                        )
-                    ) {
-
-                        counterElements.push({
-
-                            element,
-
-                            target,
-
-                            prefix:
-                                "RM",
-
-                            suffix:
-                                ""
-
-                        });
-
-                    }
-
-                }
-            );
-
-
-        if (
-            !counterElements.length
-        ) {
-            return;
-        }
-
-
-        const observer =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(
-                        entry => {
-
-                            if (
-                                !entry.isIntersecting
-                            ) {
-                                return;
-                            }
-
-
-                            const item =
-                                counterElements.find(
-                                    counter =>
-                                        counter.element ===
-                                        entry.target
-                                );
-
-
-                            if (!item) {
-                                return;
-                            }
-
-
-                            const {
-                                element,
-                                target,
-                                prefix,
-                                suffix
-                            } = item;
-
-
-                            /*
-                             * Remove the original
-                             * content before counting.
-                             */
-
-                            element.textContent =
-                                `${prefix}0${suffix}`;
-
-
-                            /*
-                             * Custom animation so
-                             * RM formatting remains correct.
-                             */
-
-                            const startTime =
-                                performance.now();
-
-                            const duration =
-                                1250;
-
-
-                            function updateCounter(
-                                currentTime
-                            ) {
-
-                                const elapsed =
-                                    currentTime -
-                                    startTime;
-
-                                const progress =
-                                    Math.min(
-                                        elapsed /
-                                        duration,
-                                        1
-                                    );
-
-
-                                const eased =
-                                    1 -
-                                    Math.pow(
-                                        1 - progress,
-                                        3
-                                    );
-
-
-                                const value =
-                                    Math.round(
-                                        target *
-                                        eased
-                                    );
-
-
-                                element.textContent =
-                                    `${prefix}${value.toLocaleString()}${suffix}`;
-
-
-                                if (
-                                    progress < 1
-                                ) {
-
-                                    requestAnimationFrame(
-                                        updateCounter
-                                    );
-
-                                }
-
-                            }
-
-
-                            requestAnimationFrame(
-                                updateCounter
-                            );
-
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-                    );
-
-                },
-                {
-
-                    threshold: 0.6
-
-                }
-            );
-
-
-        counterElements.forEach(
-            item => {
-
-                observer.observe(
-                    item.element
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       INITIALISE ANIMATION SYSTEM
-    ===================================================== */
-
-    function initializeAnimations() {
-
-        prepareRevealElements();
-
-        prepareStaggerGroups();
-
-        prepareHero();
-
-        injectAnimationStyles();
-
-        setupRevealObserver();
-
-        setupCounters();
-
-    }
-
-
-    /* =====================================================
-       INITIAL STATE
-    ===================================================== */
+    initializeCardTilt();
 
     updateNavbar();
 
     updateActiveSection();
 
-    initializeAnimations();
+    updateScrollProgress();
+
+    updateBackToTop();
 
 
 })();
