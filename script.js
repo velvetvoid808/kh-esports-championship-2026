@@ -1,10 +1,9 @@
-/* =====================================================
+/* =========================================================
    KH ESPORTS CHAMPIONSHIP 2026
-   MASTER JAVASCRIPT
-===================================================== */
+   MAIN JAVASCRIPT
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-
 
     /* =====================================================
        ELEMENTS
@@ -43,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll("main section[id]")
         );
 
-
     /* =====================================================
        NAVBAR
     ===================================================== */
@@ -56,9 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "scrolled",
             window.scrollY > 30
         );
-
     }
-
 
     /* =====================================================
        SCROLL PROGRESS
@@ -71,30 +67,26 @@ document.addEventListener("DOMContentLoaded", () => {
         const scrollTop =
             window.scrollY;
 
-        const scrollable =
+        const scrollableHeight =
             document.documentElement.scrollHeight -
             window.innerHeight;
 
-        if (scrollable <= 0) {
+        if (scrollableHeight <= 0) {
 
-            scrollProgress.style.width =
-                "100%";
+            scrollProgress.style.width = "100%";
 
             return;
-
         }
 
         const progress =
-            (scrollTop / scrollable) * 100;
+            (scrollTop / scrollableHeight) * 100;
 
         scrollProgress.style.width =
             Math.min(
                 100,
                 Math.max(0, progress)
             ) + "%";
-
     }
-
 
     /* =====================================================
        BACK TO TOP
@@ -108,9 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "visible",
             window.scrollY > 600
         );
-
     }
-
 
     if (backToTop) {
 
@@ -125,9 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         );
-
     }
-
 
     /* =====================================================
        ACTIVE NAVIGATION
@@ -135,19 +123,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function setActiveSection(sectionId) {
 
-        [...desktopLinks, ...mobileLinks]
-            .forEach(link => {
+        desktopLinks.forEach(link => {
 
-                link.classList.toggle(
-                    "active",
-                    link.getAttribute("href") ===
-                    "#" + sectionId
-                );
+            link.classList.toggle(
+                "active",
+                link.getAttribute("href") ===
+                "#" + sectionId
+            );
 
-            });
+        });
 
+        mobileLinks.forEach(link => {
+
+            link.classList.toggle(
+                "active",
+                link.getAttribute("href") ===
+                "#" + sectionId
+            );
+
+        });
     }
-
 
     function getCurrentSection() {
 
@@ -156,25 +151,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const navbarHeight =
-            navbar
-                ? navbar.offsetHeight
-                : 0;
+            navbar ?
+            navbar.offsetHeight :
+            0;
 
         const activationPoint =
             window.scrollY +
             navbarHeight +
-            100;
+            80;
 
         let current =
             sections[0].id;
 
         for (const section of sections) {
 
-            const top =
+            const sectionTop =
                 section.getBoundingClientRect().top +
                 window.scrollY;
 
-            if (activationPoint >= top) {
+            if (activationPoint >= sectionTop) {
 
                 current =
                     section.id;
@@ -184,22 +179,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 break;
 
             }
-
         }
 
         return current;
-
     }
-
 
     function updateActiveNavigation() {
 
         setActiveSection(
             getCurrentSection()
         );
-
     }
-
 
     /* =====================================================
        MOBILE MENU
@@ -216,9 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         mobileMenu.classList.add("open");
-
         menuBackdrop.classList.add("open");
-
         menuToggle.classList.add("open");
 
         menuToggle.setAttribute(
@@ -234,9 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.add(
             "menu-open"
         );
-
     }
-
 
     function closeMenu() {
 
@@ -249,9 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         mobileMenu.classList.remove("open");
-
         menuBackdrop.classList.remove("open");
-
         menuToggle.classList.remove("open");
 
         menuToggle.setAttribute(
@@ -267,9 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.remove(
             "menu-open"
         );
-
     }
-
 
     if (menuToggle) {
 
@@ -291,9 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         );
-
     }
-
 
     if (menuBackdrop) {
 
@@ -301,9 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             closeMenu
         );
-
     }
-
 
     /* =====================================================
        SMOOTH NAVIGATION
@@ -339,9 +317,9 @@ document.addEventListener("DOMContentLoaded", () => {
         closeMenu();
 
         const navbarHeight =
-            navbar
-                ? navbar.offsetHeight
-                : 0;
+            navbar ?
+            navbar.offsetHeight :
+            0;
 
         const targetTop =
             target.getBoundingClientRect().top +
@@ -349,13 +327,16 @@ document.addEventListener("DOMContentLoaded", () => {
             navbarHeight;
 
         window.scrollTo({
+
             top:
                 Math.max(
                     0,
                     targetTop
                 ),
+
             behavior:
                 "smooth"
+
         });
 
         if (
@@ -368,855 +349,152 @@ document.addEventListener("DOMContentLoaded", () => {
                 "",
                 href
             );
-
         }
-
     }
 
+    desktopLinks.forEach(link => {
 
-    desktopLinks.forEach(
-        link => {
+        link.addEventListener(
+            "click",
+            handleNavigationClick
+        );
 
-            link.addEventListener(
-                "click",
-                handleNavigationClick
-            );
+    });
 
-        }
-    );
+    mobileLinks.forEach(link => {
 
+        link.addEventListener(
+            "click",
+            handleNavigationClick
+        );
 
-    mobileLinks.forEach(
-        link => {
-
-            link.addEventListener(
-                "click",
-                handleNavigationClick
-            );
-
-        }
-    );
-
+    });
 
     /* =====================================================
-       ESCAPE KEY
+       ESCAPE
     ===================================================== */
 
     document.addEventListener(
         "keydown",
         event => {
 
-            if (
-                event.key === "Escape"
-            ) {
+            if (event.key === "Escape") {
 
                 closeMenu();
 
                 closeFlowModal();
 
-                closeTeamModal();
-
             }
 
         }
     );
 
-
     /* =====================================================
-       COUNTDOWN
+       RESIZE
     ===================================================== */
 
-    const countdownTargets = {
+    window.addEventListener(
+        "resize",
+        () => {
 
-        hok: {
-            date:
-                "2026-11-20T08:00:00+08:00",
-
-            element:
-                document.getElementById(
-                    "hokCountdown"
-                )
-        },
-
-        mlbb: {
-            date:
-                "2026-11-27T08:00:00+08:00",
-
-            element:
-                document.getElementById(
-                    "mlbbCountdown"
-                )
-
-        }
-
-    };
-
-
-    function pad(number) {
-
-        return String(number)
-            .padStart(2, "0");
-
-    }
-
-
-    function updateCountdown(
-        target
-    ) {
-
-        if (
-            !target.element
-        ) {
-            return;
-        }
-
-        const targetDate =
-            new Date(target.date)
-                .getTime();
-
-        const now =
-            Date.now();
-
-        let difference =
-            targetDate -
-            now;
-
-        if (difference < 0) {
-            difference = 0;
-        }
-
-        const totalSeconds =
-            Math.floor(
-                difference / 1000
-            );
-
-        const days =
-            Math.floor(
-                totalSeconds /
-                86400
-            );
-
-        const hours =
-            Math.floor(
-                (totalSeconds % 86400) /
-                3600
-            );
-
-        const minutes =
-            Math.floor(
-                (totalSeconds % 3600) /
-                60
-            );
-
-        const seconds =
-            totalSeconds % 60;
-
-
-        const daysElement =
-            target.element.querySelector(
-                "[data-days]"
-            );
-
-        const hoursElement =
-            target.element.querySelector(
-                "[data-hours]"
-            );
-
-        const minutesElement =
-            target.element.querySelector(
-                "[data-minutes]"
-            );
-
-        const secondsElement =
-            target.element.querySelector(
-                "[data-seconds]"
-            );
-
-
-        if (daysElement) {
-
-            daysElement.textContent =
-                String(days)
-                    .padStart(3, "0");
-
-        }
-
-        if (hoursElement) {
-
-            hoursElement.textContent =
-                pad(hours);
-
-        }
-
-        if (minutesElement) {
-
-            minutesElement.textContent =
-                pad(minutes);
-
-        }
-
-        if (secondsElement) {
-
-            secondsElement.textContent =
-                pad(seconds);
-
-        }
-
-    }
-
-
-    function updateAllCountdowns() {
-
-        Object.values(
-            countdownTargets
-        ).forEach(
-            updateCountdown
-        );
-
-    }
-
-
-    updateAllCountdowns();
-
-    setInterval(
-        updateAllCountdowns,
-        1000
-    );
-
-
-    /* =====================================================
-       BRACKET TITLE TABS
-    ===================================================== */
-
-    const bracketTabs =
-        Array.from(
-            document.querySelectorAll(
-                ".bracket-tab"
-            )
-        );
-
-    const bracketPanels =
-        Array.from(
-            document.querySelectorAll(
-                ".bracket-panel"
-            )
-        );
-
-
-    function activateBracket(
-        bracket
-    ) {
-
-        bracketTabs.forEach(
-            tab => {
-
-                tab.classList.toggle(
-                    "active",
-                    tab.dataset.bracket ===
-                    bracket
-                );
-
+            if (window.innerWidth > 1100) {
+                closeMenu();
             }
-        );
 
-
-        bracketPanels.forEach(
-            panel => {
-
-                panel.classList.toggle(
-                    "active",
-                    panel.id ===
-                    bracket + "Bracket"
-                );
-
-            }
-        );
-
-    }
-
-
-    bracketTabs.forEach(
-        tab => {
-
-            tab.addEventListener(
-                "click",
-                () => {
-
-                    activateBracket(
-                        tab.dataset.bracket
-                    );
-
-                }
-            );
+            updateActiveNavigation();
+            updateScrollProgress();
 
         }
     );
 
-
     /* =====================================================
-       ACCORDION
-       
-       IMPORTANT:
-       Default = CLOSED
-       Click = OPEN
-       Click again = CLOSED
+       SCROLL
     ===================================================== */
 
-    const accordions =
-        Array.from(
-            document.querySelectorAll(
-                ".bracket-accordion"
-            )
-        );
+    let scrollTicking = false;
 
+    window.addEventListener(
+        "scroll",
+        () => {
 
-    accordions.forEach(
-        accordion => {
+            updateNavbar();
+            updateBackToTop();
+            updateScrollProgress();
 
-            const trigger =
-                accordion.querySelector(
-                    ".accordion-trigger"
-                );
+            if (!scrollTicking) {
 
-            if (!trigger) return;
-
-
-            trigger.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-
-            trigger.addEventListener(
-                "click",
-                () => {
-
-                    const isOpen =
-                        accordion.classList.contains(
-                            "open"
-                        );
-
-
-                    if (isOpen) {
-
-                        accordion.classList.remove(
-                            "open"
-                        );
-
-                        trigger.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-                    } else {
-
-                        accordion.classList.add(
-                            "open"
-                        );
-
-                        trigger.setAttribute(
-                            "aria-expanded",
-                            "true"
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       TENTATIVE FLOW MODAL
-    ===================================================== */
-
-    const flowButton =
-        document.getElementById(
-            "flowButton"
-        );
-
-    const flowModal =
-        document.getElementById(
-            "flowModal"
-        );
-
-    const flowModalClose =
-        document.getElementById(
-            "flowModalClose"
-        );
-
-
-    function openFlowModal() {
-
-        if (!flowModal) return;
-
-        flowModal.classList.add(
-            "open"
-        );
-
-        flowModal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.classList.add(
-            "menu-open"
-        );
-
-    }
-
-
-    function closeFlowModal() {
-
-        if (!flowModal) return;
-
-        flowModal.classList.remove(
-            "open"
-        );
-
-        flowModal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        if (
-            !teamModal ||
-            !teamModal.classList.contains("open")
-        ) {
-
-            document.body.classList.remove(
-                "menu-open"
-            );
-
-        }
-
-    }
-
-
-    if (flowButton) {
-
-        flowButton.addEventListener(
-            "click",
-            openFlowModal
-        );
-
-    }
-
-
-    if (flowModalClose) {
-
-        flowModalClose.addEventListener(
-            "click",
-            closeFlowModal
-        );
-
-    }
-
-
-    if (flowModal) {
-
-        flowModal.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target ===
-                    flowModal
-                ) {
-
-                    closeFlowModal();
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       REGISTERED TEAMS
-       
-       EDIT THESE ARRAYS WHEN TEAMS REGISTER.
-       Maximum = 32 per title.
-    ===================================================== */
-
-    const registeredTeams = {
-
-        hok: [
-
-            // Example:
-            // "Team Name 01",
-            // "Team Name 02"
-
-        ],
-
-        mlbb: [
-
-            // Example:
-            // "Team Name 01",
-            // "Team Name 02"
-
-        ]
-
-    };
-
-
-    const teamModal =
-        document.getElementById(
-            "teamModal"
-        );
-
-    const teamModalClose =
-        document.getElementById(
-            "teamModalClose"
-        );
-
-    const teamList =
-        document.getElementById(
-            "teamList"
-        );
-
-    const teamModalGame =
-        document.getElementById(
-            "teamModalGame"
-        );
-
-    const teamModalCount =
-        document.getElementById(
-            "teamModalCount"
-        );
-
-
-    function renderTeamList(
-        game
-    ) {
-
-        if (!teamList) return;
-
-        const teams =
-            registeredTeams[game] || [];
-
-
-        teamList.innerHTML =
-            "";
-
-
-        if (!teams.length) {
-
-            teamList.innerHTML = `
-
-                <div class="empty-team-state">
-
-                    <span>
-                        NO TEAM DATA YET
-                    </span>
-
-                    <p>
-                        Registered team names will appear here
-                        once they are added by the organiser.
-                    </p>
-
-                </div>
-
-            `;
-
-        } else {
-
-            teams
-                .slice(0,32)
-                .forEach(
-                    (team,index) => {
-
-                        const item =
-                            document.createElement(
-                                "div"
-                            );
-
-                        item.className =
-                            "team-list-item";
-
-                        item.innerHTML = `
-
-                            <span>
-                                ${String(index + 1)
-                                    .padStart(2,"0")}
-                            </span>
-
-                            <strong>
-                                ${escapeHTML(team)}
-                            </strong>
-
-                        `;
-
-                        teamList.appendChild(
-                            item
-                        );
-
-                    }
-                );
-
-        }
-
-
-        if (teamModalCount) {
-
-            teamModalCount.textContent =
-                `${Math.min(teams.length,32)} / 32`;
-
-        }
-
-
-        if (teamModalGame) {
-
-            teamModalGame.textContent =
-                game === "hok"
-                    ? "HONOR OF KINGS"
-                    : "MOBILE LEGENDS";
-
-        }
-
-
-        updateTeamProgress(
-            game
-        );
-
-    }
-
-
-    function updateTeamProgress(
-        game
-    ) {
-
-        const teams =
-            registeredTeams[game] || [];
-
-        const progress =
-            Math.min(
-                100,
-                (teams.length / 32) * 100
-            );
-
-
-        const element =
-            document.getElementById(
-                game === "hok"
-                    ? "hokTeamProgress"
-                    : "mlbbTeamProgress"
-            );
-
-
-        if (element) {
-
-            element.style.width =
-                progress + "%";
-
-        }
-
-    }
-
-
-    function openTeamModal(
-        game
-    ) {
-
-        if (!teamModal) return;
-
-        renderTeamList(
-            game
-        );
-
-        teamModal.classList.add(
-            "open"
-        );
-
-        teamModal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.classList.add(
-            "menu-open"
-        );
-
-    }
-
-
-    function closeTeamModal() {
-
-        if (!teamModal) return;
-
-        teamModal.classList.remove(
-            "open"
-        );
-
-        teamModal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        if (
-            !flowModal ||
-            !flowModal.classList.contains("open")
-        ) {
-
-            document.body.classList.remove(
-                "menu-open"
-            );
-
-        }
-
-    }
-
-
-    document
-        .querySelectorAll(
-            "[data-team-modal]"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
+                window.requestAnimationFrame(
                     () => {
 
-                        openTeamModal(
-                            button.dataset.teamModal
-                        );
+                        updateActiveNavigation();
+
+                        scrollTicking =
+                            false;
 
                     }
                 );
 
+                scrollTicking =
+                    true;
             }
-        );
 
-
-    if (teamModalClose) {
-
-        teamModalClose.addEventListener(
-            "click",
-            closeTeamModal
-        );
-
-    }
-
-
-    if (teamModal) {
-
-        teamModal.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target ===
-                    teamModal
-                ) {
-
-                    closeTeamModal();
-
-                }
-
-            }
-        );
-
-    }
-
-
-    function escapeHTML(
-        value
-    ) {
-
-        return String(value)
-            .replace(
-                /&/g,
-                "&amp;"
-            )
-            .replace(
-                /</g,
-                "&lt;"
-            )
-            .replace(
-                />/g,
-                "&gt;"
-            )
-            .replace(
-                /"/g,
-                "&quot;"
-            )
-            .replace(
-                /'/g,
-                "&#039;"
-            );
-
-    }
-
+        },
+        { passive: true }
+    );
 
     /* =====================================================
-       INITIAL TEAM COUNTERS
+       BROWSER BACK / FORWARD
     ===================================================== */
 
-    updateTeamProgress(
-        "hok"
-    );
+    window.addEventListener(
+        "popstate",
+        () => {
 
-    updateTeamProgress(
-        "mlbb"
-    );
+            updateActiveNavigation();
 
+        }
+    );
 
     /* =====================================================
-       REVEAL ANIMATION
+       REVEAL ANIMATIONS
     ===================================================== */
 
     const revealElements =
-        document.querySelectorAll(
-            ".reveal"
-        );
+        document.querySelectorAll(".reveal");
 
-
-    if (
-        "IntersectionObserver"
-        in window
-    ) {
+    if ("IntersectionObserver" in window) {
 
         const revealObserver =
             new IntersectionObserver(
                 entries => {
 
-                    entries.forEach(
-                        entry => {
+                    entries.forEach(entry => {
 
-                            if (
-                                entry.isIntersecting
-                            ) {
+                        if (
+                            entry.isIntersecting
+                        ) {
 
-                                entry.target.classList.add(
-                                    "reveal-visible"
-                                );
+                            entry.target.classList.add(
+                                "reveal-visible"
+                            );
 
-                            } else {
+                        } else {
 
-                                entry.target.classList.remove(
-                                    "reveal-visible"
-                                );
-
-                            }
+                            entry.target.classList.remove(
+                                "reveal-visible"
+                            );
 
                         }
-                    );
+
+                    });
 
                 },
                 {
-                    threshold:
-                        0.12,
-
+                    threshold: 0.12,
                     rootMargin:
                         "0px 0px -8% 0px"
                 }
             );
-
 
         revealElements.forEach(
             element => {
@@ -1239,105 +517,262 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
         );
-
     }
 
-
     /* =====================================================
-       RESIZE
+       BRACKET TITLE TABS
     ===================================================== */
 
-    window.addEventListener(
-        "resize",
-        () => {
+    const bracketTabs =
+        document.querySelectorAll(
+            ".bracket-tab"
+        );
 
-            if (
-                window.innerWidth > 1100
-            ) {
+    const bracketPanels =
+        document.querySelectorAll(
+            ".bracket-panel"
+        );
 
-                closeMenu();
+    bracketTabs.forEach(tab => {
 
-            }
+        tab.addEventListener(
+            "click",
+            () => {
 
-            updateActiveNavigation();
+                const title =
+                    tab.dataset.title;
 
-            updateScrollProgress();
+                bracketTabs.forEach(
+                    item => {
 
-        }
-    );
-
-
-    /* =====================================================
-       SCROLL
-    ===================================================== */
-
-    let scrollTicking =
-        false;
-
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            updateNavbar();
-
-            updateBackToTop();
-
-            updateScrollProgress();
-
-
-            if (!scrollTicking) {
-
-                window.requestAnimationFrame(
-                    () => {
-
-                        updateActiveNavigation();
-
-                        scrollTicking =
-                            false;
+                        item.classList.toggle(
+                            "active",
+                            item === tab
+                        );
 
                     }
                 );
 
-                scrollTicking =
-                    true;
+                bracketPanels.forEach(
+                    panel => {
+
+                        panel.classList.toggle(
+                            "active",
+                            panel.id ===
+                            title + "-bracket"
+                        );
+
+                    }
+                );
 
             }
+        );
 
-        },
-        {
-            passive:
-                true
-        }
-    );
-
+    });
 
     /* =====================================================
-       BROWSER BACK / FORWARD
+       ACCORDIONS
+       DEFAULT = CLOSED
     ===================================================== */
 
-    window.addEventListener(
-        "popstate",
-        () => {
+    const accordions =
+        document.querySelectorAll(
+            ".accordion"
+        );
 
-            updateActiveNavigation();
+    accordions.forEach(accordion => {
+
+        const header =
+            accordion.querySelector(
+                ".accordion-header"
+            );
+
+        if (!header) return;
+
+        header.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+        header.addEventListener(
+            "click",
+            () => {
+
+                const isOpen =
+                    accordion.classList.contains(
+                        "open"
+                    );
+
+                accordion.classList.toggle(
+                    "open",
+                    !isOpen
+                );
+
+                header.setAttribute(
+                    "aria-expanded",
+                    String(!isOpen)
+                );
+
+            }
+        );
+
+    });
+
+    /* =====================================================
+       TENTATIVE FLOW MODAL
+    ===================================================== */
+
+    const flowModal =
+        document.getElementById(
+            "flowModal"
+        );
+
+    const openFlow =
+        document.getElementById(
+            "openFlow"
+        );
+
+    const closeFlow =
+        document.getElementById(
+            "closeFlow"
+        );
+
+    function openFlowModal() {
+
+        if (!flowModal) return;
+
+        flowModal.classList.add("open");
+
+        flowModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.classList.add(
+            "menu-open"
+        );
+    }
+
+    function closeFlowModal() {
+
+        if (!flowModal) return;
+
+        flowModal.classList.remove("open");
+
+        flowModal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        if (
+            !mobileMenu ||
+            !mobileMenu.classList.contains("open")
+        ) {
+
+            document.body.classList.remove(
+                "menu-open"
+            );
 
         }
-    );
+    }
 
+    if (openFlow) {
+
+        openFlow.addEventListener(
+            "click",
+            openFlowModal
+        );
+
+    }
+
+    if (closeFlow) {
+
+        closeFlow.addEventListener(
+            "click",
+            closeFlowModal
+        );
+
+    }
+
+    if (flowModal) {
+
+        flowModal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    flowModal
+                ) {
+
+                    closeFlowModal();
+
+                }
+
+            }
+        );
+
+    }
+
+    /* =====================================================
+       FLOW MODAL TABS
+    ===================================================== */
+
+    const flowTabs =
+        document.querySelectorAll(
+            ".flow-tab"
+        );
+
+    const flowPanels =
+        document.querySelectorAll(
+            ".flow-panel"
+        );
+
+    flowTabs.forEach(tab => {
+
+        tab.addEventListener(
+            "click",
+            () => {
+
+                const selected =
+                    tab.dataset.flow;
+
+                flowTabs.forEach(
+                    item => {
+
+                        item.classList.toggle(
+                            "active",
+                            item === tab
+                        );
+
+                    }
+                );
+
+                flowPanels.forEach(
+                    panel => {
+
+                        panel.classList.toggle(
+                            "active",
+                            panel.id ===
+                            "flow-" + selected
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    });
 
     /* =====================================================
        INITIAL STATE
     ===================================================== */
 
     updateNavbar();
-
     updateScrollProgress();
-
     updateBackToTop();
-
     updateActiveNavigation();
-
 
     window.setTimeout(
         updateActiveNavigation,
