@@ -1,7 +1,7 @@
-/* =========================================================
+/* =====================================================
    KH ESPORTS CHAMPIONSHIP 2026
-   JAVASCRIPT 
-========================================================= */
+   MASTER JAVASCRIPT
+===================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -28,24 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const backToTop =
         document.getElementById("backToTop");
 
-    const flowDetailButton =
-        document.getElementById("flowDetailButton");
-
-    const flowModal =
-        document.getElementById("flowModal");
-
-    const teamModal =
-        document.getElementById("teamModal");
-
-    const teamModalList =
-        document.getElementById("teamModalList");
-
-    const teamModalTitle =
-        document.getElementById("teamModalTitle");
-
-    const teamModalSubtitle =
-        document.getElementById("teamModalSubtitle");
-
     const desktopLinks =
         Array.from(
             document.querySelectorAll(".nav-links a")
@@ -58,9 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const sections =
         Array.from(
-            document.querySelectorAll(
-                "main section[id]"
-            )
+            document.querySelectorAll("main section[id]")
         );
 
 
@@ -91,20 +71,21 @@ document.addEventListener("DOMContentLoaded", () => {
         const scrollTop =
             window.scrollY;
 
-        const scrollableHeight =
+        const scrollable =
             document.documentElement.scrollHeight -
             window.innerHeight;
 
-        if (scrollableHeight <= 0) {
+        if (scrollable <= 0) {
 
             scrollProgress.style.width =
                 "100%";
 
             return;
+
         }
 
         const progress =
-            (scrollTop / scrollableHeight) * 100;
+            (scrollTop / scrollable) * 100;
 
         scrollProgress.style.width =
             Math.min(
@@ -130,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
     if (backToTop) {
 
         backToTop.addEventListener(
@@ -153,25 +135,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function setActiveSection(sectionId) {
 
-        desktopLinks.forEach(link => {
+        [...desktopLinks, ...mobileLinks]
+            .forEach(link => {
 
-            link.classList.toggle(
-                "active",
-                link.getAttribute("href") ===
-                "#" + sectionId
-            );
+                link.classList.toggle(
+                    "active",
+                    link.getAttribute("href") ===
+                    "#" + sectionId
+                );
 
-        });
-
-        mobileLinks.forEach(link => {
-
-            link.classList.toggle(
-                "active",
-                link.getAttribute("href") ===
-                "#" + sectionId
-            );
-
-        });
+            });
 
     }
 
@@ -197,13 +170,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         for (const section of sections) {
 
-            const sectionTop =
+            const top =
                 section.getBoundingClientRect().top +
                 window.scrollY;
 
-            if (
-                activationPoint >= sectionTop
-            ) {
+            if (activationPoint >= top) {
 
                 current =
                     section.id;
@@ -335,7 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       INTERNAL NAVIGATION
+       SMOOTH NAVIGATION
     ===================================================== */
 
     function handleNavigationClick(event) {
@@ -378,16 +349,13 @@ document.addEventListener("DOMContentLoaded", () => {
             navbarHeight;
 
         window.scrollTo({
-
             top:
                 Math.max(
                     0,
                     targetTop
                 ),
-
             behavior:
                 "smooth"
-
         });
 
         if (
@@ -406,28 +374,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    desktopLinks.forEach(link => {
+    desktopLinks.forEach(
+        link => {
 
-        link.addEventListener(
-            "click",
-            handleNavigationClick
-        );
+            link.addEventListener(
+                "click",
+                handleNavigationClick
+            );
 
-    });
+        }
+    );
 
 
-    mobileLinks.forEach(link => {
+    mobileLinks.forEach(
+        link => {
 
-        link.addEventListener(
-            "click",
-            handleNavigationClick
-        );
+            link.addEventListener(
+                "click",
+                handleNavigationClick
+            );
 
-    });
+        }
+    );
 
 
     /* =====================================================
-       ESCAPE
+       ESCAPE KEY
     ===================================================== */
 
     document.addEventListener(
@@ -454,12 +426,30 @@ document.addEventListener("DOMContentLoaded", () => {
        COUNTDOWN
     ===================================================== */
 
-    const countdowns =
-        Array.from(
-            document.querySelectorAll(
-                "[data-countdown]"
-            )
-        );
+    const countdownTargets = {
+
+        hok: {
+            date:
+                "2026-11-20T08:00:00+08:00",
+
+            element:
+                document.getElementById(
+                    "hokCountdown"
+                )
+        },
+
+        mlbb: {
+            date:
+                "2026-11-27T08:00:00+08:00",
+
+            element:
+                document.getElementById(
+                    "mlbbCountdown"
+                )
+
+        }
+
+    };
 
 
     function pad(number) {
@@ -470,95 +460,106 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function updateCountdown(element) {
+    function updateCountdown(
+        target
+    ) {
+
+        if (
+            !target.element
+        ) {
+            return;
+        }
 
         const targetDate =
-            new Date(
-                element.dataset.countdown
-            ).getTime();
+            new Date(target.date)
+                .getTime();
 
         const now =
             Date.now();
 
-        const difference =
-            targetDate - now;
+        let difference =
+            targetDate -
+            now;
 
-
-        const days =
-            element.querySelector(
-                '[data-unit="days"]'
-            );
-
-        const hours =
-            element.querySelector(
-                '[data-unit="hours"]'
-            );
-
-        const minutes =
-            element.querySelector(
-                '[data-unit="minutes"]'
-            );
-
-        const seconds =
-            element.querySelector(
-                '[data-unit="seconds"]'
-            );
-
-
-        if (difference <= 0) {
-
-            if (days) days.textContent = "00";
-            if (hours) hours.textContent = "00";
-            if (minutes) minutes.textContent = "00";
-            if (seconds) seconds.textContent = "00";
-
-            return;
-
+        if (difference < 0) {
+            difference = 0;
         }
-
 
         const totalSeconds =
             Math.floor(
                 difference / 1000
             );
 
-        const dayValue =
+        const days =
             Math.floor(
-                totalSeconds / 86400
+                totalSeconds /
+                86400
             );
 
-        const hourValue =
+        const hours =
             Math.floor(
-                (totalSeconds % 86400) / 3600
+                (totalSeconds % 86400) /
+                3600
             );
 
-        const minuteValue =
+        const minutes =
             Math.floor(
-                (totalSeconds % 3600) / 60
+                (totalSeconds % 3600) /
+                60
             );
 
-        const secondValue =
+        const seconds =
             totalSeconds % 60;
 
 
-        if (days) {
-            days.textContent =
-                String(dayValue);
+        const daysElement =
+            target.element.querySelector(
+                "[data-days]"
+            );
+
+        const hoursElement =
+            target.element.querySelector(
+                "[data-hours]"
+            );
+
+        const minutesElement =
+            target.element.querySelector(
+                "[data-minutes]"
+            );
+
+        const secondsElement =
+            target.element.querySelector(
+                "[data-seconds]"
+            );
+
+
+        if (daysElement) {
+
+            daysElement.textContent =
+                String(days)
+                    .padStart(3, "0");
+
         }
 
-        if (hours) {
-            hours.textContent =
-                pad(hourValue);
+        if (hoursElement) {
+
+            hoursElement.textContent =
+                pad(hours);
+
         }
 
-        if (minutes) {
-            minutes.textContent =
-                pad(minuteValue);
+        if (minutesElement) {
+
+            minutesElement.textContent =
+                pad(minutes);
+
         }
 
-        if (seconds) {
-            seconds.textContent =
-                pad(secondValue);
+        if (secondsElement) {
+
+            secondsElement.textContent =
+                pad(seconds);
+
         }
 
     }
@@ -566,7 +567,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateAllCountdowns() {
 
-        countdowns.forEach(
+        Object.values(
+            countdownTargets
+        ).forEach(
             updateCountdown
         );
 
@@ -582,8 +585,589 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
+       BRACKET TITLE TABS
+    ===================================================== */
+
+    const bracketTabs =
+        Array.from(
+            document.querySelectorAll(
+                ".bracket-tab"
+            )
+        );
+
+    const bracketPanels =
+        Array.from(
+            document.querySelectorAll(
+                ".bracket-panel"
+            )
+        );
+
+
+    function activateBracket(
+        bracket
+    ) {
+
+        bracketTabs.forEach(
+            tab => {
+
+                tab.classList.toggle(
+                    "active",
+                    tab.dataset.bracket ===
+                    bracket
+                );
+
+            }
+        );
+
+
+        bracketPanels.forEach(
+            panel => {
+
+                panel.classList.toggle(
+                    "active",
+                    panel.id ===
+                    bracket + "Bracket"
+                );
+
+            }
+        );
+
+    }
+
+
+    bracketTabs.forEach(
+        tab => {
+
+            tab.addEventListener(
+                "click",
+                () => {
+
+                    activateBracket(
+                        tab.dataset.bracket
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       ACCORDION
+       
+       IMPORTANT:
+       Default = CLOSED
+       Click = OPEN
+       Click again = CLOSED
+    ===================================================== */
+
+    const accordions =
+        Array.from(
+            document.querySelectorAll(
+                ".bracket-accordion"
+            )
+        );
+
+
+    accordions.forEach(
+        accordion => {
+
+            const trigger =
+                accordion.querySelector(
+                    ".accordion-trigger"
+                );
+
+            if (!trigger) return;
+
+
+            trigger.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+
+            trigger.addEventListener(
+                "click",
+                () => {
+
+                    const isOpen =
+                        accordion.classList.contains(
+                            "open"
+                        );
+
+
+                    if (isOpen) {
+
+                        accordion.classList.remove(
+                            "open"
+                        );
+
+                        trigger.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                    } else {
+
+                        accordion.classList.add(
+                            "open"
+                        );
+
+                        trigger.setAttribute(
+                            "aria-expanded",
+                            "true"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       TENTATIVE FLOW MODAL
+    ===================================================== */
+
+    const flowButton =
+        document.getElementById(
+            "flowButton"
+        );
+
+    const flowModal =
+        document.getElementById(
+            "flowModal"
+        );
+
+    const flowModalClose =
+        document.getElementById(
+            "flowModalClose"
+        );
+
+
+    function openFlowModal() {
+
+        if (!flowModal) return;
+
+        flowModal.classList.add(
+            "open"
+        );
+
+        flowModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.classList.add(
+            "menu-open"
+        );
+
+    }
+
+
+    function closeFlowModal() {
+
+        if (!flowModal) return;
+
+        flowModal.classList.remove(
+            "open"
+        );
+
+        flowModal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        if (
+            !teamModal ||
+            !teamModal.classList.contains("open")
+        ) {
+
+            document.body.classList.remove(
+                "menu-open"
+            );
+
+        }
+
+    }
+
+
+    if (flowButton) {
+
+        flowButton.addEventListener(
+            "click",
+            openFlowModal
+        );
+
+    }
+
+
+    if (flowModalClose) {
+
+        flowModalClose.addEventListener(
+            "click",
+            closeFlowModal
+        );
+
+    }
+
+
+    if (flowModal) {
+
+        flowModal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    flowModal
+                ) {
+
+                    closeFlowModal();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       REGISTERED TEAMS
+       
+       EDIT THESE ARRAYS WHEN TEAMS REGISTER.
+       Maximum = 32 per title.
+    ===================================================== */
+
+    const registeredTeams = {
+
+        hok: [
+
+            // Example:
+            // "Team Name 01",
+            // "Team Name 02"
+
+        ],
+
+        mlbb: [
+
+            // Example:
+            // "Team Name 01",
+            // "Team Name 02"
+
+        ]
+
+    };
+
+
+    const teamModal =
+        document.getElementById(
+            "teamModal"
+        );
+
+    const teamModalClose =
+        document.getElementById(
+            "teamModalClose"
+        );
+
+    const teamList =
+        document.getElementById(
+            "teamList"
+        );
+
+    const teamModalGame =
+        document.getElementById(
+            "teamModalGame"
+        );
+
+    const teamModalCount =
+        document.getElementById(
+            "teamModalCount"
+        );
+
+
+    function renderTeamList(
+        game
+    ) {
+
+        if (!teamList) return;
+
+        const teams =
+            registeredTeams[game] || [];
+
+
+        teamList.innerHTML =
+            "";
+
+
+        if (!teams.length) {
+
+            teamList.innerHTML = `
+
+                <div class="empty-team-state">
+
+                    <span>
+                        NO TEAM DATA YET
+                    </span>
+
+                    <p>
+                        Registered team names will appear here
+                        once they are added by the organiser.
+                    </p>
+
+                </div>
+
+            `;
+
+        } else {
+
+            teams
+                .slice(0,32)
+                .forEach(
+                    (team,index) => {
+
+                        const item =
+                            document.createElement(
+                                "div"
+                            );
+
+                        item.className =
+                            "team-list-item";
+
+                        item.innerHTML = `
+
+                            <span>
+                                ${String(index + 1)
+                                    .padStart(2,"0")}
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(team)}
+                            </strong>
+
+                        `;
+
+                        teamList.appendChild(
+                            item
+                        );
+
+                    }
+                );
+
+        }
+
+
+        if (teamModalCount) {
+
+            teamModalCount.textContent =
+                `${Math.min(teams.length,32)} / 32`;
+
+        }
+
+
+        if (teamModalGame) {
+
+            teamModalGame.textContent =
+                game === "hok"
+                    ? "HONOR OF KINGS"
+                    : "MOBILE LEGENDS";
+
+        }
+
+
+        updateTeamProgress(
+            game
+        );
+
+    }
+
+
+    function updateTeamProgress(
+        game
+    ) {
+
+        const teams =
+            registeredTeams[game] || [];
+
+        const progress =
+            Math.min(
+                100,
+                (teams.length / 32) * 100
+            );
+
+
+        const element =
+            document.getElementById(
+                game === "hok"
+                    ? "hokTeamProgress"
+                    : "mlbbTeamProgress"
+            );
+
+
+        if (element) {
+
+            element.style.width =
+                progress + "%";
+
+        }
+
+    }
+
+
+    function openTeamModal(
+        game
+    ) {
+
+        if (!teamModal) return;
+
+        renderTeamList(
+            game
+        );
+
+        teamModal.classList.add(
+            "open"
+        );
+
+        teamModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.classList.add(
+            "menu-open"
+        );
+
+    }
+
+
+    function closeTeamModal() {
+
+        if (!teamModal) return;
+
+        teamModal.classList.remove(
+            "open"
+        );
+
+        teamModal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        if (
+            !flowModal ||
+            !flowModal.classList.contains("open")
+        ) {
+
+            document.body.classList.remove(
+                "menu-open"
+            );
+
+        }
+
+    }
+
+
+    document
+        .querySelectorAll(
+            "[data-team-modal]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        openTeamModal(
+                            button.dataset.teamModal
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    if (teamModalClose) {
+
+        teamModalClose.addEventListener(
+            "click",
+            closeTeamModal
+        );
+
+    }
+
+
+    if (teamModal) {
+
+        teamModal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    teamModal
+                ) {
+
+                    closeTeamModal();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    function escapeHTML(
+        value
+    ) {
+
+        return String(value)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    /* =====================================================
+       INITIAL TEAM COUNTERS
+    ===================================================== */
+
+    updateTeamProgress(
+        "hok"
+    );
+
+    updateTeamProgress(
+        "mlbb"
+    );
+
+
+    /* =====================================================
        REVEAL ANIMATION
-       Replays when entering viewport again.
     ===================================================== */
 
     const revealElements =
@@ -593,7 +1177,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     if (
-        "IntersectionObserver" in window
+        "IntersectionObserver"
+        in window
     ) {
 
         const revealObserver =
@@ -624,7 +1209,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 },
                 {
-                    threshold: 0.12,
+                    threshold:
+                        0.12,
 
                     rootMargin:
                         "0px 0px -8% 0px"
@@ -650,624 +1236,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 element.classList.add(
                     "reveal-visible"
                 );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       BRACKET TITLE SWITCHER
-    ===================================================== */
-
-    const bracketTabs =
-        Array.from(
-            document.querySelectorAll(
-                ".bracket-tab"
-            )
-        );
-
-    const bracketPanels =
-        Array.from(
-            document.querySelectorAll(
-                ".bracket-panel"
-            )
-        );
-
-
-    bracketTabs.forEach(
-        tab => {
-
-            tab.addEventListener(
-                "click",
-                () => {
-
-                    const selected =
-                        tab.dataset.bracket;
-
-
-                    bracketTabs.forEach(
-                        item => {
-
-                            item.classList.toggle(
-                                "active",
-                                item === tab
-                            );
-
-                        }
-                    );
-
-
-                    bracketPanels.forEach(
-                        panel => {
-
-                            panel.classList.toggle(
-                                "active",
-                                panel.id ===
-                                "bracket-" +
-                                selected
-                            );
-
-                        }
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       BRACKET ACCORDIONS
-       DEFAULT = CLOSED
-    ===================================================== */
-
-    const accordionHeaders =
-        document.querySelectorAll(
-            ".accordion-header"
-        );
-
-
-    accordionHeaders.forEach(
-        header => {
-
-            header.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-
-            header.addEventListener(
-                "click",
-                () => {
-
-                    const accordion =
-                        header.closest(
-                            ".bracket-accordion"
-                        );
-
-                    if (!accordion) {
-                        return;
-                    }
-
-
-                    const isOpen =
-                        accordion.classList.contains(
-                            "open"
-                        );
-
-
-                    accordion.classList.toggle(
-                        "open",
-                        !isOpen
-                    );
-
-
-                    header.setAttribute(
-                        "aria-expanded",
-                        String(!isOpen)
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       REGISTERED TEAM TABS
-    ===================================================== */
-
-    const registeredTabs =
-        Array.from(
-            document.querySelectorAll(
-                ".registered-tab"
-            )
-        );
-
-    const teamListPanels =
-        Array.from(
-            document.querySelectorAll(
-                ".team-list-panel"
-            )
-        );
-
-
-    registeredTabs.forEach(
-        tab => {
-
-            tab.addEventListener(
-                "click",
-                () => {
-
-                    const selected =
-                        tab.dataset.teamList;
-
-
-                    registeredTabs.forEach(
-                        item => {
-
-                            item.classList.toggle(
-                                "active",
-                                item === tab
-                            );
-
-                        }
-                    );
-
-
-                    teamListPanels.forEach(
-                        panel => {
-
-                            panel.classList.toggle(
-                                "active",
-                                panel.id ===
-                                "team-list-" +
-                                selected
-                            );
-
-                        }
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       REGISTERED TEAM DATA
-       
-       Replace the empty arrays with real teams later.
-       Example:
-       "TEAM NAME"
-    ===================================================== */
-
-    const registeredTeams = {
-
-        hok: [
-
-            // "Team Name 01",
-            // "Team Name 02"
-
-        ],
-
-        mlbb: [
-
-            // "Team Name 01",
-            // "Team Name 02"
-
-        ]
-
-    };
-
-
-    /* =====================================================
-       UPDATE REGISTERED TEAM COUNTERS
-    ===================================================== */
-
-    function updateRegisteredCounters() {
-
-        const hokCount =
-            registeredTeams.hok.length;
-
-        const mlbbCount =
-            registeredTeams.mlbb.length;
-
-
-        const hokPanel =
-            document.getElementById(
-                "team-list-hok"
-            );
-
-        const mlbbPanel =
-            document.getElementById(
-                "team-list-mlbb"
-            );
-
-
-        if (hokPanel) {
-
-            const strong =
-                hokPanel.querySelector(
-                    ".team-progress-top strong"
-                );
-
-            const bar =
-                hokPanel.querySelector(
-                    ".team-progress-bar"
-                );
-
-            if (strong) {
-
-                strong.textContent =
-                    `${hokCount} / 32 TEAMS`;
-
-            }
-
-            if (bar) {
-
-                bar.style.width =
-                    `${Math.min(
-                        100,
-                        (hokCount / 32) * 100
-                    )}%`;
-
-            }
-
-        }
-
-
-        if (mlbbPanel) {
-
-            const strong =
-                mlbbPanel.querySelector(
-                    ".team-progress-top strong"
-                );
-
-            const bar =
-                mlbbPanel.querySelector(
-                    ".team-progress-bar"
-                );
-
-            if (strong) {
-
-                strong.textContent =
-                    `${mlbbCount} / 32 TEAMS`;
-
-            }
-
-            if (bar) {
-
-                bar.style.width =
-                    `${Math.min(
-                        100,
-                        (mlbbCount / 32) * 100
-                    )}%`;
-
-            }
-
-        }
-
-    }
-
-
-    updateRegisteredCounters();
-
-
-    /* =====================================================
-       TEAM MODAL
-    ===================================================== */
-
-    function openTeamModal(type) {
-
-        if (!teamModal) {
-            return;
-        }
-
-
-        const teams =
-            registeredTeams[type] || [];
-
-
-        const title =
-            type === "hok"
-                ? "HONOR OF KINGS"
-                : "MOBILE LEGENDS";
-
-
-        if (teamModalSubtitle) {
-
-            teamModalSubtitle.textContent =
-                title;
-
-        }
-
-
-        if (teamModalList) {
-
-            teamModalList.innerHTML = "";
-
-
-            if (!teams.length) {
-
-                const empty =
-                    document.createElement(
-                        "div"
-                    );
-
-                empty.className =
-                    "team-entry";
-
-                empty.style.gridColumn =
-                    "1 / -1";
-
-                empty.textContent =
-                    "No teams have been registered yet.";
-
-                teamModalList.appendChild(
-                    empty
-                );
-
-            } else {
-
-                teams.forEach(
-                    (team, index) => {
-
-                        const entry =
-                            document.createElement(
-                                "div"
-                            );
-
-                        entry.className =
-                            "team-entry";
-
-
-                        const number =
-                            document.createElement(
-                                "span"
-                            );
-
-                        number.textContent =
-                            String(
-                                index + 1
-                            ).padStart(
-                                2,
-                                "0"
-                            );
-
-
-                        const name =
-                            document.createElement(
-                                "strong"
-                            );
-
-                        name.textContent =
-                            team;
-
-
-                        entry.appendChild(
-                            number
-                        );
-
-                        entry.appendChild(
-                            name
-                        );
-
-
-                        teamModalList.appendChild(
-                            entry
-                        );
-
-                    }
-                );
-
-            }
-
-        }
-
-
-        teamModal.classList.add(
-            "open"
-        );
-
-        teamModal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.classList.add(
-            "menu-open"
-        );
-
-    }
-
-
-    function closeTeamModal() {
-
-        if (!teamModal) {
-            return;
-        }
-
-        teamModal.classList.remove(
-            "open"
-        );
-
-        teamModal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        if (
-            !flowModal ||
-            !flowModal.classList.contains(
-                "open"
-            )
-        ) {
-
-            document.body.classList.remove(
-                "menu-open"
-            );
-
-        }
-
-    }
-
-
-    document.querySelectorAll(
-        "[data-team-modal]"
-    ).forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    openTeamModal(
-                        button.dataset.teamModal
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-    document.querySelectorAll(
-        "[data-close-team-modal]"
-    ).forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                closeTeamModal
-            );
-
-        }
-    );
-
-
-    if (teamModal) {
-
-        teamModal.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target ===
-                    teamModal
-                ) {
-
-                    closeTeamModal();
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       TENTATIVE FLOW MODAL
-    ===================================================== */
-
-    function openFlowModal() {
-
-        if (!flowModal) {
-            return;
-        }
-
-        flowModal.classList.add(
-            "open"
-        );
-
-        flowModal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.classList.add(
-            "menu-open"
-        );
-
-    }
-
-
-    function closeFlowModal() {
-
-        if (!flowModal) {
-            return;
-        }
-
-        flowModal.classList.remove(
-            "open"
-        );
-
-        flowModal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        if (
-            !teamModal ||
-            !teamModal.classList.contains(
-                "open"
-            )
-        ) {
-
-            document.body.classList.remove(
-                "menu-open"
-            );
-
-        }
-
-    }
-
-
-    if (flowDetailButton) {
-
-        flowDetailButton.addEventListener(
-            "click",
-            openFlowModal
-        );
-
-    }
-
-
-    document.querySelectorAll(
-        "[data-close-modal]"
-    ).forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                closeFlowModal
-            );
-
-        }
-    );
-
-
-    if (flowModal) {
-
-        flowModal.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target ===
-                    flowModal
-                ) {
-
-                    closeFlowModal();
-
-                }
 
             }
         );
@@ -1331,7 +1299,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 );
 
-
                 scrollTicking =
                     true;
 
@@ -1339,7 +1306,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         },
         {
-            passive: true
+            passive:
+                true
         }
     );
 
@@ -1375,7 +1343,6 @@ document.addEventListener("DOMContentLoaded", () => {
         updateActiveNavigation,
         100
     );
-
 
     window.setTimeout(
         updateActiveNavigation,
