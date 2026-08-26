@@ -1,7 +1,6 @@
 /* =====================================================
    KH ESPORTS CHAMPIONSHIP 2026
    MASTER INTERACTION SYSTEM
-   VERSION 2.0
 ===================================================== */
 
 (() => {
@@ -58,6 +57,575 @@
 
 
     /* =====================================================
+       CREATE SCROLL PROGRESS BAR
+       
+       Created automatically.
+       No HTML modification required.
+    ===================================================== */
+
+    const progressBar =
+        document.createElement("div");
+
+    progressBar.id =
+        "scrollProgress";
+
+    progressBar.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+    document.body.appendChild(
+        progressBar
+    );
+
+
+    /* =====================================================
+       CREATE BACK TO TOP BUTTON
+       
+       Created automatically.
+       No HTML modification required.
+    ===================================================== */
+
+    const backToTop =
+        document.createElement("button");
+
+    backToTop.id =
+        "backToTop";
+
+    backToTop.type =
+        "button";
+
+    backToTop.setAttribute(
+        "aria-label",
+        "Back to top"
+    );
+
+    backToTop.setAttribute(
+        "title",
+        "Back to top"
+    );
+
+    backToTop.innerHTML =
+        `
+            <span class="back-to-top-line"></span>
+            <span class="back-to-top-arrow">↑</span>
+        `;
+
+    document.body.appendChild(
+        backToTop
+    );
+
+
+    /* =====================================================
+       INJECT REQUIRED MOTION STYLES
+       
+       This makes the new interaction system
+       work even if the existing CSS does not
+       contain animation styles yet.
+    ===================================================== */
+
+    const interactionStyles =
+        document.createElement("style");
+
+    interactionStyles.id =
+        "khInteractionStyles";
+
+    interactionStyles.textContent = `
+
+        /* ---------------------------------------------
+           SCROLL PROGRESS
+        --------------------------------------------- */
+
+        #scrollProgress {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 0%;
+            height: 2px;
+
+            z-index: 2000;
+
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #a855f7 0%,
+                    #c084fc 45%,
+                    #22d3ee 100%
+                );
+
+            box-shadow:
+                0 0 10px
+                rgba(168,85,247,0.55),
+                0 0 18px
+                rgba(34,211,238,0.25);
+
+            transform-origin: left center;
+
+            transition:
+                width 0.08s linear;
+
+            opacity: 0.95;
+        }
+
+
+        /* ---------------------------------------------
+           BACK TO TOP
+        --------------------------------------------- */
+
+        #backToTop {
+            position: fixed;
+
+            right: 28px;
+            bottom: 28px;
+
+            width: 46px;
+            height: 46px;
+
+            z-index: 1200;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            flex-direction: column;
+
+            gap: 2px;
+
+            padding: 0;
+
+            border:
+                1px solid
+                rgba(168,85,247,0.35);
+
+            background:
+                rgba(7,8,13,0.78);
+
+            color: #f4f5f7;
+
+            cursor: pointer;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform:
+                translateY(14px)
+                scale(0.92);
+
+            backdrop-filter:
+                blur(14px);
+
+            -webkit-backdrop-filter:
+                blur(14px);
+
+            box-shadow:
+                0 10px 35px
+                rgba(0,0,0,0.35);
+
+            transition:
+                opacity 0.3s ease,
+                visibility 0.3s ease,
+                transform 0.3s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        #backToTop.visible {
+            opacity: 1;
+            visibility: visible;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+
+        #backToTop:hover {
+            border-color:
+                rgba(168,85,247,0.8);
+
+            background:
+                rgba(168,85,247,0.12);
+
+            transform:
+                translateY(-3px)
+                scale(1.02);
+        }
+
+
+        .back-to-top-arrow {
+            font-size: 17px;
+
+            line-height: 1;
+
+            font-weight: 500;
+        }
+
+
+        .back-to-top-line {
+            width: 10px;
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #a855f7,
+                    #22d3ee
+                );
+
+            opacity: 0.8;
+        }
+
+
+        /* ---------------------------------------------
+           INITIAL HERO ANIMATION
+        --------------------------------------------- */
+
+        body.kh-page-ready
+        .hero .eyebrow {
+
+            opacity: 0;
+
+            transform:
+                translateY(14px);
+
+            animation:
+                khFadeUp
+                0.7s
+                cubic-bezier(.22,1,.36,1)
+                0.08s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero h1 span {
+
+            opacity: 0;
+
+            transform:
+                translateY(28px);
+
+            animation:
+                khFadeUp
+                0.85s
+                cubic-bezier(.22,1,.36,1)
+                0.16s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero h1 strong {
+
+            opacity: 0;
+
+            transform:
+                translateY(35px)
+                scale(0.985);
+
+            animation:
+                khHeroTitle
+                1s
+                cubic-bezier(.22,1,.36,1)
+                0.24s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero h1 em {
+
+            opacity: 0;
+
+            transform:
+                translateY(22px);
+
+            animation:
+                khFadeUp
+                0.85s
+                cubic-bezier(.22,1,.36,1)
+                0.36s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero h1 small {
+
+            opacity: 0;
+
+            transform:
+                translateY(15px);
+
+            animation:
+                khFadeUp
+                0.7s
+                cubic-bezier(.22,1,.36,1)
+                0.46s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero .hero-tagline {
+
+            opacity: 0;
+
+            transform:
+                translateY(12px);
+
+            animation:
+                khFadeUp
+                0.7s
+                cubic-bezier(.22,1,.36,1)
+                0.58s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero .hero-description {
+
+            opacity: 0;
+
+            transform:
+                translateY(12px);
+
+            animation:
+                khFadeUp
+                0.7s
+                cubic-bezier(.22,1,.36,1)
+                0.68s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero .hero-actions {
+
+            opacity: 0;
+
+            transform:
+                translateY(12px);
+
+            animation:
+                khFadeUp
+                0.7s
+                cubic-bezier(.22,1,.36,1)
+                0.78s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero .hero-bottom {
+
+            opacity: 0;
+
+            transform:
+                translateY(10px);
+
+            animation:
+                khFadeUp
+                0.65s
+                cubic-bezier(.22,1,.36,1)
+                0.9s
+                forwards;
+        }
+
+
+        /* ---------------------------------------------
+           SCROLL REVEAL
+        --------------------------------------------- */
+
+        .kh-reveal {
+
+            opacity: 0;
+
+            transform:
+                translateY(28px);
+
+            transition:
+                opacity 0.75s
+                cubic-bezier(.22,1,.36,1),
+                transform 0.75s
+                cubic-bezier(.22,1,.36,1);
+        }
+
+
+        .kh-reveal.kh-visible {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* ---------------------------------------------
+           CARD REVEAL
+        --------------------------------------------- */
+
+        .kh-card-reveal {
+
+            opacity: 0;
+
+            transform:
+                translateY(24px)
+                scale(0.985);
+
+            transition:
+                opacity 0.7s
+                cubic-bezier(.22,1,.36,1),
+                transform 0.7s
+                cubic-bezier(.22,1,.36,1);
+        }
+
+
+        .kh-card-reveal.kh-visible {
+
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+
+        /* ---------------------------------------------
+           KEYFRAMES
+        --------------------------------------------- */
+
+        @keyframes khFadeUp {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+
+        }
+
+
+        @keyframes khHeroTitle {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(35px)
+                    scale(0.985);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+
+
+        /* ---------------------------------------------
+           MOBILE
+        --------------------------------------------- */
+
+        @media (max-width: 760px) {
+
+            #scrollProgress {
+                height: 2px;
+            }
+
+            #backToTop {
+
+                right: 17px;
+                bottom: 18px;
+
+                width: 42px;
+                height: 42px;
+            }
+
+        }
+
+
+        /* ---------------------------------------------
+           REDUCED MOTION
+        --------------------------------------------- */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            #scrollProgress {
+                transition: none;
+            }
+
+            #backToTop {
+                transition: none;
+            }
+
+            .kh-reveal,
+            .kh-card-reveal {
+
+                opacity: 1;
+
+                transform:
+                    none;
+
+                transition: none;
+            }
+
+            body.kh-page-ready
+            .hero .eyebrow,
+            body.kh-page-ready
+            .hero h1 span,
+            body.kh-page-ready
+            .hero h1 strong,
+            body.kh-page-ready
+            .hero h1 em,
+            body.kh-page-ready
+            .hero h1 small,
+            body.kh-page-ready
+            .hero .hero-tagline,
+            body.kh-page-ready
+            .hero .hero-description,
+            body.kh-page-ready
+            .hero .hero-actions,
+            body.kh-page-ready
+            .hero .hero-bottom {
+
+                opacity: 1;
+
+                transform:
+                    none;
+
+                animation: none;
+            }
+
+        }
+
+    `;
+
+    document.head.appendChild(
+        interactionStyles
+    );
+
+
+    /* =====================================================
        NAVBAR SCROLL EFFECT
     ===================================================== */
 
@@ -71,6 +639,71 @@
         );
 
     }
+
+
+    /* =====================================================
+       SCROLL PROGRESS
+    ===================================================== */
+
+    function updateProgress() {
+
+        const documentHeight =
+            document.documentElement.scrollHeight -
+            window.innerHeight;
+
+        if (documentHeight <= 0) {
+
+            progressBar.style.width =
+                "0%";
+
+            return;
+        }
+
+        const progress =
+            (
+                window.scrollY /
+                documentHeight
+            ) * 100;
+
+        progressBar.style.width =
+            `${Math.min(100, Math.max(0, progress))}%`;
+
+    }
+
+
+    /* =====================================================
+       BACK TO TOP VISIBILITY
+    ===================================================== */
+
+    function updateBackToTop() {
+
+        backToTop.classList.toggle(
+            "visible",
+            window.scrollY > 500
+        );
+
+    }
+
+
+    /* =====================================================
+       BACK TO TOP ACTION
+    ===================================================== */
+
+    backToTop.addEventListener(
+        "click",
+        () => {
+
+            window.scrollTo({
+                top: 0,
+
+                behavior:
+                    prefersReducedMotion
+                        ? "auto"
+                        : "smooth"
+            });
+
+        }
+    );
 
 
     /* =====================================================
@@ -93,7 +726,9 @@
 
         menuToggle.classList.add("open");
 
-        document.body.classList.add("menu-open");
+        document.body.classList.add(
+            "menu-open"
+        );
 
         menuToggle.setAttribute(
             "aria-expanded",
@@ -134,7 +769,9 @@
 
         menuToggle.classList.remove("open");
 
-        document.body.classList.remove("menu-open");
+        document.body.classList.remove(
+            "menu-open"
+        );
 
         menuToggle.setAttribute(
             "aria-expanded",
@@ -167,12 +804,18 @@
 
                 const isOpen =
                     mobileMenu &&
-                    mobileMenu.classList.contains("open");
+                    mobileMenu.classList.contains(
+                        "open"
+                    );
 
                 if (isOpen) {
+
                     closeMenu();
+
                 } else {
+
                     openMenu();
+
                 }
 
             }
@@ -209,7 +852,9 @@
     function scrollToTarget(targetId) {
 
         const target =
-            document.getElementById(targetId);
+            document.getElementById(
+                targetId
+            );
 
         if (!target) {
             return;
@@ -221,17 +866,26 @@
             getHeaderOffset();
 
         window.scrollTo({
-            top: Math.max(0, targetPosition),
+
+            top:
+                Math.max(
+                    0,
+                    targetPosition
+                ),
+
             behavior:
                 prefersReducedMotion
                     ? "auto"
                     : "smooth"
+
         });
 
     }
 
 
-    function handleNavigationClick(event) {
+    function handleNavigationClick(
+        event
+    ) {
 
         const link =
             event.currentTarget;
@@ -251,7 +905,9 @@
             href.substring(1);
 
         const target =
-            document.getElementById(targetId);
+            document.getElementById(
+                targetId
+            );
 
         if (!target) {
             return;
@@ -261,7 +917,9 @@
 
         closeMenu();
 
-        scrollToTarget(targetId);
+        scrollToTarget(
+            targetId
+        );
 
     }
 
@@ -294,7 +952,9 @@
        ACTIVE NAVIGATION
     ===================================================== */
 
-    function setActiveSection(sectionId) {
+    function setActiveSection(
+        sectionId
+    ) {
 
         desktopLinks.forEach(
             link => {
@@ -350,7 +1010,8 @@
             );
 
 
-        let currentSection = "home";
+        let currentSection =
+            "home";
 
 
         for (
@@ -363,7 +1024,8 @@
                 sections[i];
 
             if (
-                marker >= section.offsetTop
+                marker >=
+                section.offsetTop
             ) {
 
                 currentSection =
@@ -378,18 +1040,13 @@
         }
 
 
-        /*
-         * Registration has no direct
-         * navigation item.
-         *
-         * RULES remains highlighted.
-         */
-
         if (
-            currentSection === "register"
+            currentSection ===
+            "register"
         ) {
 
-            currentSection = "rules";
+            currentSection =
+                "rules";
 
         }
 
@@ -402,210 +1059,131 @@
 
 
     /* =====================================================
-       SCROLL PROGRESS
+       SCROLL REVEAL SETUP
     ===================================================== */
 
-    let progressBar = null;
+    function prepareRevealElements() {
 
+        /*
+         * Section headings
+         */
 
-    function createScrollProgress() {
+        const headings =
+            document.querySelectorAll(
+                ".section-heading"
+            );
 
-        if (
-            document.getElementById(
-                "scrollProgress"
-            )
-        ) {
-            progressBar =
-                document.getElementById(
-                    "scrollProgress"
+        headings.forEach(
+            element => {
+
+                element.classList.add(
+                    "kh-reveal"
                 );
 
-            return;
-        }
-
-
-        progressBar =
-            document.createElement("div");
-
-        progressBar.id =
-            "scrollProgress";
-
-        progressBar.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-
-        Object.assign(
-            progressBar.style,
-            {
-                position: "fixed",
-                top: "0",
-                left: "0",
-                width: "0%",
-                height: "2px",
-                zIndex: "2000",
-                pointerEvents: "none",
-                background:
-                    "linear-gradient(90deg, #a855f7, #22d3ee)",
-                boxShadow:
-                    "0 0 12px rgba(168,85,247,0.45)",
-                transformOrigin: "left center",
-                transition:
-                    prefersReducedMotion
-                        ? "none"
-                        : "width 0.08s linear"
             }
         );
 
 
-        document.body.appendChild(
-            progressBar
-        );
+        /*
+         * Main content blocks
+         */
 
-    }
-
-
-    function updateScrollProgress() {
-
-        if (!progressBar) {
-            return;
-        }
-
-
-        const scrollTop =
-            window.scrollY;
-
-        const scrollHeight =
-            document.documentElement.scrollHeight -
-            window.innerHeight;
-
-
-        if (scrollHeight <= 0) {
-
-            progressBar.style.width =
-                "0%";
-
-            return;
-
-        }
-
-
-        const percentage =
-            Math.min(
-                100,
-                Math.max(
-                    0,
-                    (scrollTop / scrollHeight) * 100
-                )
+        const contentBlocks =
+            document.querySelectorAll(
+                `
+                .about-main,
+                .format-flow,
+                .format-features,
+                .schedule-grid,
+                .venue-banner,
+                .prize-total,
+                .prize-grid,
+                .rules-grid,
+                .register-content,
+                .footer-main
+                `
             );
 
+        contentBlocks.forEach(
+            element => {
 
-        progressBar.style.width =
-            `${percentage}%`;
+                element.classList.add(
+                    "kh-reveal"
+                );
+
+            }
+        );
+
+
+        /*
+         * Cards
+         */
+
+        const cards =
+            document.querySelectorAll(
+                `
+                .stat-card,
+                .title-card,
+                .format-step,
+                .feature-card,
+                .schedule-card,
+                .prize-card,
+                .rule
+                `
+            );
+
+        cards.forEach(
+            element => {
+
+                element.classList.add(
+                    "kh-card-reveal"
+                );
+
+            }
+        );
+
+
+        return [
+            ...document.querySelectorAll(
+                ".kh-reveal, .kh-card-reveal"
+            )
+        ];
 
     }
 
 
     /* =====================================================
-       REVEAL SYSTEM
+       REVEAL OBSERVER
     ===================================================== */
 
-    function prepareRevealElements() {
+    function setupRevealObserver() {
 
-        if (prefersReducedMotion) {
+        const revealElements =
+            prepareRevealElements();
+
+        if (
+            !revealElements.length
+        ) {
             return;
         }
 
 
-        const selectors = [
-
-            ".section-heading",
-
-            ".about-main",
-
-            ".about-objectives",
-
-            ".title-card",
-
-            ".format-step",
-
-            ".feature-card",
-
-            ".schedule-card",
-
-            ".venue-banner",
-
-            ".prize-total",
-
-            ".prize-card",
-
-            ".rule",
-
-            ".register-content",
-
-            ".footer-main"
-
-        ];
-
-
-        const elements =
-            document.querySelectorAll(
-                selectors.join(",")
-            );
-
-
-        elements.forEach(
-            element => {
-
-                element.classList.add(
-                    "js-reveal"
-                );
-
-                element.style.opacity =
-                    "0";
-
-                element.style.transform =
-                    "translateY(28px)";
-
-                element.style.transition =
-                    "opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), " +
-                    "transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)";
-
-                element.style.willChange =
-                    "opacity, transform";
-
-            }
-        );
-
-
-        createRevealObserver(
-            elements
-        );
-
-    }
-
-
-    function createRevealObserver(elements) {
-
         if (
+            prefersReducedMotion ||
             !("IntersectionObserver" in window)
         ) {
 
-            elements.forEach(
+            revealElements.forEach(
                 element => {
 
-                    element.style.opacity =
-                        "1";
-
-                    element.style.transform =
-                        "translateY(0)";
+                    element.classList.add(
+                        "kh-visible"
+                    );
 
                 }
             );
 
             return;
-
         }
 
 
@@ -622,20 +1200,12 @@
                                 return;
                             }
 
-
-                            const element =
-                                entry.target;
-
-
-                            element.style.opacity =
-                                "1";
-
-                            element.style.transform =
-                                "translateY(0)";
-
+                            entry.target.classList.add(
+                                "kh-visible"
+                            );
 
                             observer.unobserve(
-                                element
+                                entry.target
                             );
 
                         }
@@ -644,13 +1214,14 @@
                 },
                 {
                     threshold: 0.12,
+
                     rootMargin:
-                        "0px 0px -50px 0px"
+                        "0px 0px -60px 0px"
                 }
             );
 
 
-        elements.forEach(
+        revealElements.forEach(
             element => {
 
                 observer.observe(
@@ -664,21 +1235,16 @@
 
 
     /* =====================================================
-       STAGGER EFFECT
+       STAGGER CARD ANIMATIONS
     ===================================================== */
 
-    function applyStagger() {
-
-        if (prefersReducedMotion) {
-            return;
-        }
-
+    function setupCardStagger() {
 
         const groups = [
 
-            ".title-grid",
+            ".stats-section",
 
-            ".format-flow",
+            ".title-grid",
 
             ".format-features",
 
@@ -694,33 +1260,30 @@
         groups.forEach(
             selector => {
 
-                const container =
+                const group =
                     document.querySelector(
                         selector
                     );
 
-
-                if (!container) {
+                if (!group) {
                     return;
                 }
 
 
-                const children =
-                    Array.from(
-                        container.children
-                    ).filter(
-                        child =>
-                            !child.classList.contains(
-                                "flow-line"
-                            )
+                const cards =
+                    group.querySelectorAll(
+                        ".kh-card-reveal"
                     );
 
 
-                children.forEach(
-                    (child, index) => {
+                cards.forEach(
+                    (card, index) => {
 
-                        child.style.transitionDelay =
-                            `${index * 90}ms`;
+                        card.style.transitionDelay =
+                            `${Math.min(
+                                index * 0.08,
+                                0.36
+                            )}s`;
 
                     }
                 );
@@ -732,475 +1295,28 @@
 
 
     /* =====================================================
-       HERO ENTRANCE ANIMATION
+       INITIAL PAGE ANIMATION
     ===================================================== */
 
-    function prepareHeroAnimation() {
+    function startPageAnimation() {
 
-        if (prefersReducedMotion) {
-            return;
-        }
+        /*
+         * Add class on next frame.
+         *
+         * This guarantees that the browser
+         * sees the initial state before
+         * starting the animation.
+         */
 
-
-        const hero =
-            document.querySelector(
-                ".hero"
-            );
-
-
-        if (!hero) {
-            return;
-        }
-
-
-        const elements = [
-
-            hero.querySelector(
-                ".eyebrow"
-            ),
-
-            hero.querySelector(
-                "h1"
-            ),
-
-            hero.querySelector(
-                ".hero-tagline"
-            ),
-
-            hero.querySelector(
-                ".hero-description"
-            ),
-
-            hero.querySelector(
-                ".hero-actions"
-            ),
-
-            hero.querySelector(
-                ".hero-bottom"
-            )
-
-        ].filter(Boolean);
-
-
-        elements.forEach(
-            (element, index) => {
-
-                element.style.opacity =
-                    "0";
-
-                element.style.transform =
-                    "translateY(22px)";
-
-                element.style.transition =
-                    "opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), " +
-                    "transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)";
-
-
-                window.setTimeout(
-                    () => {
-
-                        element.style.opacity =
-                            "1";
-
-                        element.style.transform =
-                            "translateY(0)";
-
-                    },
-                    120 + index * 120
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       BACK TO TOP BUTTON
-    ===================================================== */
-
-    let backToTop = null;
-
-
-    function createBackToTop() {
-
-        if (
-            document.getElementById(
-                "backToTop"
-            )
-        ) {
-
-            backToTop =
-                document.getElementById(
-                    "backToTop"
-                );
-
-            return;
-
-        }
-
-
-        backToTop =
-            document.createElement("button");
-
-        backToTop.id =
-            "backToTop";
-
-        backToTop.type =
-            "button";
-
-        backToTop.setAttribute(
-            "aria-label",
-            "Back to top"
-        );
-
-        backToTop.innerHTML =
-            "↑";
-
-
-        Object.assign(
-            backToTop.style,
-            {
-                position: "fixed",
-                right: "22px",
-                bottom: "22px",
-                width: "42px",
-                height: "42px",
-                zIndex: "900",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                border:
-                    "1px solid rgba(168,85,247,0.35)",
-                background:
-                    "rgba(7,8,13,0.82)",
-                color: "#f4f5f7",
-                fontSize: "17px",
-                fontWeight: "700",
-                cursor: "pointer",
-                opacity: "0",
-                visibility: "hidden",
-                transform: "translateY(10px)",
-                backdropFilter:
-                    "blur(14px)",
-                WebkitBackdropFilter:
-                    "blur(14px)",
-                transition:
-                    "opacity 0.25s ease, " +
-                    "visibility 0.25s ease, " +
-                    "transform 0.25s ease, " +
-                    "border-color 0.25s ease"
-            }
-        );
-
-
-        document.body.appendChild(
-            backToTop
-        );
-
-
-        backToTop.addEventListener(
-            "mouseenter",
+        requestAnimationFrame(
             () => {
-
-                backToTop.style.borderColor =
-                    "rgba(168,85,247,0.8)";
-
-            }
-        );
-
-
-        backToTop.addEventListener(
-            "mouseleave",
-            () => {
-
-                backToTop.style.borderColor =
-                    "rgba(168,85,247,0.35)";
-
-            }
-        );
-
-
-        backToTop.addEventListener(
-            "click",
-            () => {
-
-                window.scrollTo({
-                    top: 0,
-                    behavior:
-                        prefersReducedMotion
-                            ? "auto"
-                            : "smooth"
-                });
-
-            }
-        );
-
-    }
-
-
-    function updateBackToTop() {
-
-        if (!backToTop) {
-            return;
-        }
-
-
-        const visible =
-            window.scrollY >
-            window.innerHeight * 0.65;
-
-
-        backToTop.style.opacity =
-            visible ? "1" : "0";
-
-        backToTop.style.visibility =
-            visible ? "visible" : "hidden";
-
-        backToTop.style.transform =
-            visible
-                ? "translateY(0)"
-                : "translateY(10px)";
-
-    }
-
-
-    /* =====================================================
-       HERO MOUSE PARALLAX
-    ===================================================== */
-
-    function initializeHeroParallax() {
-
-        if (
-            prefersReducedMotion ||
-            window.matchMedia(
-                "(pointer: coarse)"
-            ).matches
-        ) {
-            return;
-        }
-
-
-        const hero =
-            document.querySelector(
-                ".hero"
-            );
-
-
-        if (!hero) {
-            return;
-        }
-
-
-        const heroGrid =
-            hero.querySelector(
-                ".hero-grid"
-            );
-
-
-        if (!heroGrid) {
-            return;
-        }
-
-
-        let mouseX = 0;
-        let mouseY = 0;
-
-        let currentX = 0;
-        let currentY = 0;
-
-        let animationRunning = false;
-
-
-        function animateParallax() {
-
-            currentX +=
-                (mouseX - currentX) * 0.045;
-
-            currentY +=
-                (mouseY - currentY) * 0.045;
-
-
-            heroGrid.style.transform =
-                `translate3d(${currentX}px, ${currentY}px, 0)`;
-
-
-            if (
-                Math.abs(mouseX - currentX) > 0.05 ||
-                Math.abs(mouseY - currentY) > 0.05
-            ) {
 
                 requestAnimationFrame(
-                    animateParallax
-                );
-
-            } else {
-
-                animationRunning = false;
-
-            }
-
-        }
-
-
-        hero.addEventListener(
-            "pointermove",
-            event => {
-
-                const rect =
-                    hero.getBoundingClientRect();
-
-
-                const x =
-                    (
-                        event.clientX -
-                        rect.left
-                    ) /
-                    rect.width;
-
-
-                const y =
-                    (
-                        event.clientY -
-                        rect.top
-                    ) /
-                    rect.height;
-
-
-                mouseX =
-                    (x - 0.5) * 10;
-
-                mouseY =
-                    (y - 0.5) * 10;
-
-
-                if (!animationRunning) {
-
-                    animationRunning =
-                        true;
-
-                    requestAnimationFrame(
-                        animateParallax
-                    );
-
-                }
-
-            },
-            {
-                passive: true
-            }
-        );
-
-
-        hero.addEventListener(
-            "pointerleave",
-            () => {
-
-                mouseX = 0;
-                mouseY = 0;
-
-
-                if (!animationRunning) {
-
-                    animationRunning =
-                        true;
-
-                    requestAnimationFrame(
-                        animateParallax
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       CARD TILT EFFECT
-    ===================================================== */
-
-    function initializeCardTilt() {
-
-        if (
-            prefersReducedMotion ||
-            window.matchMedia(
-                "(pointer: coarse)"
-            ).matches
-        ) {
-            return;
-        }
-
-
-        const cards =
-            document.querySelectorAll(
-                ".title-card, .feature-card, .prize-card"
-            );
-
-
-        cards.forEach(
-            card => {
-
-                card.addEventListener(
-                    "pointermove",
-                    event => {
-
-                        const rect =
-                            card.getBoundingClientRect();
-
-
-                        const x =
-                            event.clientX -
-                            rect.left;
-
-
-                        const y =
-                            event.clientY -
-                            rect.top;
-
-
-                        const centerX =
-                            rect.width / 2;
-
-
-                        const centerY =
-                            rect.height / 2;
-
-
-                        const rotateY =
-                            (
-                                (x - centerX) /
-                                centerX
-                            ) * 2.5;
-
-
-                        const rotateX =
-                            -(
-                                (y - centerY) /
-                                centerY
-                            ) * 2.5;
-
-
-                        card.style.transform =
-                            `perspective(900px) ` +
-                            `rotateX(${rotateX}deg) ` +
-                            `rotateY(${rotateY}deg) ` +
-                            `translateY(-5px)`;
-
-                    },
-                    {
-                        passive: true
-                    }
-                );
-
-
-                card.addEventListener(
-                    "pointerleave",
                     () => {
 
-                        card.style.transform =
-                            "";
+                        document.body.classList.add(
+                            "kh-page-ready"
+                        );
 
                     }
                 );
@@ -1209,33 +1325,14 @@
         );
 
     }
-
-
-    /* =====================================================
-       KEYBOARD ACCESSIBILITY
-    ===================================================== */
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key === "Escape"
-            ) {
-
-                closeMenu();
-
-            }
-
-        }
-    );
 
 
     /* =====================================================
        COMBINED SCROLL HANDLER
     ===================================================== */
 
-    let ticking = false;
+    let ticking =
+        false;
 
 
     function handleScroll() {
@@ -1244,8 +1341,8 @@
             return;
         }
 
-
-        ticking = true;
+        ticking =
+            true;
 
 
         window.requestAnimationFrame(
@@ -1253,14 +1350,14 @@
 
                 updateNavbar();
 
-                updateActiveSection();
-
-                updateScrollProgress();
+                updateProgress();
 
                 updateBackToTop();
 
+                updateActiveSection();
 
-                ticking = false;
+                ticking =
+                    false;
 
             }
         );
@@ -1293,10 +1390,30 @@
 
             }
 
+            updateProgress();
 
             updateActiveSection();
 
-            updateScrollProgress();
+        }
+    );
+
+
+    /* =====================================================
+       ESCAPE KEY
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                closeMenu();
+
+            }
 
         }
     );
@@ -1306,27 +1423,19 @@
        INITIALIZATION
     ===================================================== */
 
-    createScrollProgress();
+    setupRevealObserver();
 
-    createBackToTop();
-
-    prepareHeroAnimation();
-
-    prepareRevealElements();
-
-    applyStagger();
-
-    initializeHeroParallax();
-
-    initializeCardTilt();
+    setupCardStagger();
 
     updateNavbar();
 
-    updateActiveSection();
-
-    updateScrollProgress();
+    updateProgress();
 
     updateBackToTop();
+
+    updateActiveSection();
+
+    startPageAnimation();
 
 
 })();
