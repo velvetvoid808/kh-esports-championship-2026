@@ -2,3088 +2,2794 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>KH Esports Championship 2026</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <meta
         name="description"
-        content="Keat Hwa Esports Championship 2026 — Honor of Kings × Mobile Legends: Bang Bang"
+        content="KH Esports Championship 2026 — Mobile Legends: Bang Bang and Honor of Kings."
     >
 
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-
-        /* =====================================================
-           NAVIGATION
-        ===================================================== */
-
-        .navbar {
-            transition:
-                background 0.35s ease,
-                border-color 0.35s ease,
-                box-shadow 0.35s ease;
-        }
-
-        .navbar.scrolled {
-            background: rgba(6, 7, 11, 0.88);
-            border-bottom-color: rgba(168, 85, 247, 0.16);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.22);
-        }
-
-        .logo {
-            position: relative;
-        }
-
-        .logo-kh {
-            transition:
-                color 0.25s ease,
-                text-shadow 0.25s ease;
-        }
-
-        .logo:hover .logo-kh {
-            color: #ffffff;
-            text-shadow:
-                0 0 18px rgba(168, 85, 247, 0.45);
-        }
-
-        .nav-links a {
-            position: relative;
-            padding: 8px 0;
-        }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 1px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #a855f7,
-                    #22d3ee
-                );
-
-            transform: scaleX(0);
-            transform-origin: center;
-
-            transition:
-                transform 0.3s ease;
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            transform: scaleX(1);
-        }
-
-        .nav-links a.active {
-            color: #f4f5f7;
-        }
-
-        /* =====================================================
-           NAV BUTTONS
-        ===================================================== */
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 8px;
-
-            margin-left: auto;
-
-            flex-shrink: 0;
-        }
-
-        .nav-button,
-        .nav-rulebook {
-            position: relative;
-            overflow: hidden;
-
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            min-height: 40px;
-            padding: 0 16px;
-
-            border: 1px solid rgba(168, 85, 247, 0.42);
-
-            font-size: 9px;
-            font-weight: 800;
-            letter-spacing: 0.14em;
-
-            white-space: nowrap;
-
-            transition:
-                border-color 0.25s ease,
-                background 0.25s ease,
-                transform 0.25s ease;
-        }
-
-        .nav-button {
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(168, 85, 247, 0.14),
-                    rgba(34, 211, 238, 0.07)
-                );
-        }
-
-        .nav-rulebook {
-            border-color:
-                rgba(34, 211, 238, 0.45);
-
-            background:
-                rgba(34, 211, 238, 0.07);
-        }
-
-        .nav-button::before,
-        .nav-rulebook::before {
-            content: "";
-
-            position: absolute;
-            top: 0;
-            left: -120%;
-
-            width: 70%;
-            height: 100%;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    transparent,
-                    rgba(255,255,255,0.25),
-                    transparent
-                );
-
-            transform: skewX(-20deg);
-
-            transition:
-                left 0.55s ease;
-        }
-
-        .nav-button:hover::before,
-        .nav-rulebook:hover::before {
-            left: 150%;
-        }
-
-        .nav-button:hover {
-            border-color:
-                rgba(168, 85, 247, 0.75);
-
-            transform:
-                translateY(-1px);
-        }
-
-        .nav-rulebook:hover {
-            border-color:
-                rgba(34, 211, 238, 0.8);
-
-            transform:
-                translateY(-1px);
-        }
-
-        /* =====================================================
-           MOBILE MENU BUTTON
-        ===================================================== */
-
-        .menu-toggle {
-            display: none;
-
-            width: 42px;
-            height: 42px;
-
-            flex: 0 0 42px;
-
-            padding: 0;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.12);
-
-            background:
-                rgba(255,255,255,0.025);
-
-            cursor: pointer;
-
-            position: relative;
-            z-index: 1101;
-
-            margin-left: 0;
-        }
-
-        .menu-toggle span {
-            position: absolute;
-
-            left: 11px;
-
-            width: 19px;
-            height: 1px;
-
-            background: #f4f5f7;
-
-            transition:
-                transform 0.3s ease,
-                top 0.3s ease,
-                opacity 0.25s ease;
-        }
-
-        .menu-toggle span:nth-child(1) {
-            top: 15px;
-        }
-
-        .menu-toggle span:nth-child(2) {
-            top: 21px;
-        }
-
-        .menu-toggle span:nth-child(3) {
-            top: 27px;
-        }
-
-        .menu-toggle.open span:nth-child(1) {
-            top: 21px;
-            transform: rotate(45deg);
-        }
-
-        .menu-toggle.open span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.open span:nth-child(3) {
-            top: 21px;
-            transform: rotate(-45deg);
-        }
-
-        /* =====================================================
-           MOBILE MENU
-        ===================================================== */
-
-        .mobile-menu {
-            position: fixed;
-
-            top: 68px;
-            left: 0;
-            right: 0;
-
-            z-index: 1099;
-
-            padding: 18px 16px 24px;
-
-            background:
-                rgba(6,7,11,0.96);
-
-            backdrop-filter:
-                blur(24px);
-
-            -webkit-backdrop-filter:
-                blur(24px);
-
-            border-bottom:
-                1px solid
-                rgba(168,85,247,0.18);
-
-            box-shadow:
-                0 20px 50px
-                rgba(0,0,0,0.35);
-
-            opacity: 0;
-            visibility: hidden;
-
-            transform:
-                translateY(-15px);
-
-            transition:
-                opacity 0.3s ease,
-                transform 0.3s ease,
-                visibility 0.3s ease;
-        }
-
-        .mobile-menu.open {
-            opacity: 1;
-            visibility: visible;
-
-            transform:
-                translateY(0);
-        }
-
-        .mobile-menu-inner {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .mobile-menu-label {
-            display: block;
-
-            margin-bottom: 12px;
-
-            font-size: 8px;
-            letter-spacing: 0.22em;
-
-            color: #8d94a5;
-        }
-
-        .mobile-links {
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 8px;
-        }
-
-        .mobile-links a {
-            min-height: 54px;
-
-            display: flex;
-            align-items: center;
-
-            padding: 0 16px;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.08);
-
-            background:
-                rgba(255,255,255,0.025);
-
-            font-size: 10px;
-            letter-spacing: 0.14em;
-
-            color: #8d94a5;
-
-            transition:
-                color 0.25s ease,
-                border-color 0.25s ease,
-                background 0.25s ease,
-                transform 0.25s ease;
-        }
-
-        .mobile-links a:hover,
-        .mobile-links a.active {
-            color: #f4f5f7;
-
-            border-color:
-                rgba(168,85,247,0.45);
-
-            background:
-                rgba(168,85,247,0.08);
-
-            transform:
-                translateX(3px);
-        }
-
-        /* =====================================================
-           MOBILE REGISTER + RULEBOOK
-           SAME SIZE
-        ===================================================== */
-
-        .mobile-action {
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            width: 100%;
-            min-height: 52px;
-
-            margin-top: 10px;
-
-            font-size: 10px;
-            font-weight: 800;
-
-            letter-spacing: 0.18em;
-
-            border:
-                1px solid
-                rgba(168,85,247,0.45);
-
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(168,85,247,0.12),
-                    rgba(34,211,238,0.06)
-                );
-
-            transition:
-                border-color 0.25s ease,
-                background 0.25s ease,
-                transform 0.25s ease;
-        }
-
-        .mobile-action:hover {
-            transform:
-                translateY(-1px);
-        }
-
-        .mobile-rulebook {
-            border-color:
-                rgba(34,211,238,0.48);
-
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(34,211,238,0.10),
-                    rgba(168,85,247,0.06)
-                );
-        }
-
-        /* =====================================================
-           MOBILE BACKDROP
-        ===================================================== */
-
-        .menu-backdrop {
-            position: fixed;
-
-            inset: 0;
-
-            z-index: 1098;
-
-            background:
-                rgba(0,0,0,0.45);
-
-            opacity: 0;
-            visibility: hidden;
-
-            transition:
-                opacity 0.3s ease,
-                visibility 0.3s ease;
-        }
-
-        .menu-backdrop.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        body.menu-open {
-            overflow: hidden;
-        }
-
-        /* =====================================================
-           RULEBOOK BUTTON IN RULES SECTION
-        ===================================================== */
-
-        .rules-action {
-            margin-top: 42px;
-
-            display: flex;
-            justify-content: center;
-        }
-
-        .rules-book-button {
-            position: relative;
-            overflow: hidden;
-
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            min-height: 52px;
-            padding: 0 28px;
-
-            border:
-                1px solid
-                rgba(34,211,238,0.48);
-
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(34,211,238,0.09),
-                    rgba(168,85,247,0.08)
-                );
-
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 0.18em;
-
-            transition:
-                border-color 0.3s ease,
-                transform 0.3s ease,
-                box-shadow 0.3s ease;
-        }
-
-        .rules-book-button:hover {
-            border-color:
-                rgba(34,211,238,0.85);
-
-            transform:
-                translateY(-2px);
-
-            box-shadow:
-                0 10px 35px
-                rgba(34,211,238,0.10);
-        }
-
-        /* =====================================================
-           REVEAL ANIMATIONS
-        ===================================================== */
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(35px);
-
-            transition:
-                opacity 0.75s ease,
-                transform 0.75s cubic-bezier(.22,.61,.36,1);
-        }
-
-        .reveal.reveal-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal-delay-1 {
-            transition-delay: 0.08s;
-        }
-
-        .reveal-delay-2 {
-            transition-delay: 0.16s;
-        }
-
-        .reveal-delay-3 {
-            transition-delay: 0.24s;
-        }
-
-        .reveal-delay-4 {
-            transition-delay: 0.32s;
-        }
-
-        /* =====================================================
-           REGISTRATION REVEAL
-        ===================================================== */
-
-        .register-content .reveal {
-            will-change:
-                opacity,
-                transform;
-        }
-
-        /* =====================================================
-           SCROLL PROGRESS BAR
-        ===================================================== */
-
-        .scroll-progress {
-            position: fixed;
-
-            top: 0;
-            left: 0;
-
-            width: 0%;
-            height: 2px;
-
-            z-index: 2000;
-
-            pointer-events: none;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #a855f7,
-                    #22d3ee
-                );
-
-            box-shadow:
-                0 0 12px
-                rgba(168,85,247,0.35);
-
-            transition:
-                width 0.08s linear;
-        }
-
-        /* =====================================================
-           HERO ENTRANCE ANIMATION
-        ===================================================== */
-
-        .hero-content > * {
-            opacity: 0;
-            transform: translateY(24px);
-
-            animation:
-                heroItemIn
-                0.9s
-                cubic-bezier(.22,.61,.36,1)
-                forwards;
-        }
-
-        .hero-content .eyebrow {
-            animation-delay: 0.08s;
-        }
-
-        .hero-content h1 {
-            animation-delay: 0.18s;
-        }
-
-        .hero-content .hero-tagline {
-            animation-delay: 0.30s;
-        }
-
-        .hero-content .hero-description {
-            animation-delay: 0.40s;
-        }
-
-        .hero-content .hero-actions {
-            animation-delay: 0.52s;
-        }
-
-        @keyframes heroItemIn {
-
-            from {
-                opacity: 0;
-                transform:
-                    translateY(24px);
-            }
-
-            to {
-                opacity: 1;
-                transform:
-                    translateY(0);
-            }
-
-        }
-
-        /* =====================================================
-           BACK TO TOP BUTTON
-        ===================================================== */
-
-        .back-to-top {
-            position: fixed;
-
-            right: 24px;
-            bottom: 24px;
-
-            width: 46px;
-            height: 46px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            z-index: 1000;
-
-            border:
-                1px solid
-                rgba(168,85,247,0.38);
-
-            background:
-                rgba(6,7,11,0.78);
-
-            backdrop-filter:
-                blur(14px);
-
-            -webkit-backdrop-filter:
-                blur(14px);
-
-            color: #f4f5f7;
-
-            font-size: 18px;
-
-            cursor: pointer;
-
-            opacity: 0;
-            visibility: hidden;
-
-            transform:
-                translateY(12px);
-
-            transition:
-                opacity 0.3s ease,
-                visibility 0.3s ease,
-                transform 0.3s ease,
-                border-color 0.25s ease,
-                background 0.25s ease,
-                box-shadow 0.25s ease;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-
-            transform:
-                translateY(0);
-        }
-
-        .back-to-top:hover {
-            border-color:
-                rgba(34,211,238,0.72);
-
-            background:
-                rgba(34,211,238,0.08);
-
-            box-shadow:
-                0 10px 35px
-                rgba(34,211,238,0.10);
-
-            transform:
-                translateY(-3px);
-        }
-
-        .back-to-top span {
-            display: block;
-
-            transform:
-                translateY(-1px);
-
-            transition:
-                transform 0.25s ease;
-        }
-
-        .back-to-top:hover span {
-            transform:
-                translateY(-4px);
-        }
-
-        /* =====================================================
-           RESPONSIVE NAVIGATION
-        ===================================================== */
-
-        @media (max-width: 1100px) {
-
-            .nav-links {
-                display: none;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .nav-container {
-                gap: 10px;
-            }
-        }
-
-        /* =====================================================
-           IPAD / TABLET LANDSCAPE
-        ===================================================== */
-
-        @media (min-width: 761px) and (max-width: 1100px) {
-
-            .nav-container {
-                display: flex;
-                align-items: center;
-            }
-
-            .mobile-menu {
-                top: 78px;
-            }
-
-            .nav-actions {
-                display: flex;
-
-                margin-left: auto;
-
-                align-items: center;
-                justify-content: flex-end;
-
-                gap: 8px;
-
-                flex-shrink: 0;
-            }
-
-            .nav-button,
-            .nav-rulebook {
-                min-height: 38px;
-                padding: 0 13px;
-                font-size: 8px;
-            }
-
-            .menu-toggle {
-                display: block;
-
-                margin-left: 0;
-
-                flex: 0 0 42px;
-            }
-        }
-
-        /* =====================================================
-           IPAD PORTRAIT / MOBILE
-        ===================================================== */
-
-        @media (max-width: 760px) {
-
-            .nav-container {
-                height: 68px;
-            }
-
-            .nav-actions {
-                display: none;
-            }
-
-            .menu-toggle {
-                display: block;
-
-                margin-left: auto;
-            }
-
-            .back-to-top {
-                right: 16px;
-                bottom: 16px;
-
-                width: 42px;
-                height: 42px;
-
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 500px) {
-
-            .mobile-links {
-                grid-template-columns: 1fr;
-            }
-
-            .mobile-links a {
-                min-height: 50px;
-            }
-
-        }
-
-        /* =====================================================
-           REDUCED MOTION
-        ===================================================== */
-
-        @media (prefers-reduced-motion: reduce) {
-
-            .reveal {
-                opacity: 1;
-                transform: none;
-                transition: none;
-            }
-
-            .hero-content > * {
-                opacity: 1;
-                transform: none;
-                animation: none;
-            }
-
-            *,
-            *::before,
-            *::after {
-                scroll-behavior: auto !important;
-            }
-
-        }
-
-    </style>
+    <meta
+        name="theme-color"
+        content="#07080d"
+    >
+
+    <title>
+        KH Esports Championship 2026
+    </title>
+
+    <!-- =================================================
+         GOOGLE FONTS
+    ================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- =================================================
+         STYLESHEET
+    ================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
 
 <body>
 
-<!-- =====================================================
-     SCROLL PROGRESS BAR
-===================================================== -->
+    <!-- =================================================
+         NAVIGATION
+    ================================================== -->
 
-<div
-    class="scroll-progress"
-    id="scrollProgress"
-    aria-hidden="true"
-></div>
+    <header
+        class="navbar"
+        id="navbar"
+    >
 
-<!-- =====================================================
-     NAVIGATION
-===================================================== -->
-
-<header class="navbar" id="navbar">
-
-    <div class="nav-container">
-
-        <a
-            href="#home"
-            class="logo"
-            aria-label="KH Esports Championship Home"
-        >
-
-            <span class="logo-kh">KH</span>
-
-            <span class="logo-text">
-                ESPORTS
-            </span>
-
-        </a>
-
-        <!-- DESKTOP NAVIGATION -->
-
-        <nav
-            class="nav-links"
-            aria-label="Main navigation"
-        >
-
-            <a href="#home" class="active">
-                HOME
-            </a>
-
-            <a href="#about">
-                ABOUT
-            </a>
-
-            <a href="#titles">
-                TITLES
-            </a>
-
-            <a href="#tournament">
-                TOURNAMENT
-            </a>
-
-            <a href="#bracket">
-                BRACKET
-            </a>
-
-            <a href="#schedule">
-                SCHEDULE
-            </a>
-
-            <a href="#prizes">
-                PRIZES
-            </a>
-
-            <a href="#rules">
-                RULES
-            </a>
-
-        </nav>
-
-        <!-- DESKTOP / IPAD LANDSCAPE ACTION BUTTONS -->
-
-        <div class="nav-actions">
+        <div class="nav-container">
 
             <a
-                href="https://docs.google.com/document/d/1CHqOSmuEXEscJ_CEOeg7fHXTDzFF-yI-7PfxptN_4qU/edit?usp=drivesdk"
-                class="nav-rulebook"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#home"
+                class="nav-brand"
+                aria-label="KH Esports Championship Home"
             >
-                RULEBOOK ↗
+
+                <span class="brand-mark">
+                    KH
+                </span>
+
+                <span class="brand-text">
+                    <strong>KH</strong>
+                    <span>ESPORTS</span>
+                </span>
+
             </a>
 
-            <a
-                href="https://forms.gle/n1F13zaxE4oSdtKV6"
-                class="nav-button"
-                target="_blank"
-                rel="noopener noreferrer"
+
+            <!-- Desktop Navigation -->
+
+            <nav
+                class="nav-links"
+                aria-label="Primary navigation"
             >
-                REGISTER
-            </a>
+
+                <a
+                    href="#home"
+                    class="active"
+                >
+                    Home
+                </a>
+
+                <a href="#about">
+                    About
+                </a>
+
+                <a href="#titles">
+                    Titles
+                </a>
+
+                <a href="#format">
+                    Format
+                </a>
+
+                <a href="#bracket">
+                    Bracket
+                </a>
+
+                <a href="#schedule">
+                    Schedule
+                </a>
+
+                <a href="#prizes">
+                    Prizes
+                </a>
+
+                <a href="#rules">
+                    Rules
+                </a>
+
+                <a
+                    href="#register"
+                    class="nav-register"
+                >
+                    Register
+                </a>
+
+            </nav>
+
+
+            <!-- Mobile Toggle -->
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+            >
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
 
         </div>
 
-        <!-- MOBILE / TABLET MENU BUTTON -->
+    </header>
 
-        <button
-            class="menu-toggle"
-            id="menuToggle"
-            aria-label="Open navigation menu"
-            aria-expanded="false"
-        >
 
-            <span></span>
-            <span></span>
-            <span></span>
+    <!-- =================================================
+         MOBILE MENU
+    ================================================== -->
 
-        </button>
+    <div
+        class="menu-backdrop"
+        id="menuBackdrop"
+        aria-hidden="true"
+    ></div>
 
-    </div>
 
-</header>
+    <aside
+        class="mobile-menu"
+        id="mobileMenu"
+        aria-hidden="true"
+    >
 
-<!-- =====================================================
-     MOBILE MENU
-===================================================== -->
+        <div class="mobile-menu-header">
 
-<div
-    class="menu-backdrop"
-    id="menuBackdrop"
-></div>
+            <span class="mobile-menu-label">
+                NAVIGATION
+            </span>
 
-<div
-    class="mobile-menu"
-    id="mobileMenu"
->
+            <span class="mobile-menu-status">
+                KH // 26
+            </span>
 
-    <div class="mobile-menu-inner">
+        </div>
 
-        <span class="mobile-menu-label">
-            NAVIGATION / 2026
-        </span>
 
         <nav
             class="mobile-links"
             aria-label="Mobile navigation"
         >
 
-            <a href="#home" class="active">
-                HOME
+            <a href="#home">
+                <span>01</span>
+                Home
             </a>
 
             <a href="#about">
-                ABOUT
+                <span>02</span>
+                About
             </a>
 
             <a href="#titles">
-                TITLES
+                <span>03</span>
+                Titles
             </a>
 
-            <a href="#tournament">
-                TOURNAMENT
+            <a href="#format">
+                <span>04</span>
+                Format
             </a>
 
             <a href="#bracket">
-                BRACKET
+                <span>05</span>
+                Bracket
             </a>
 
             <a href="#schedule">
-                SCHEDULE
+                <span>06</span>
+                Schedule
             </a>
 
             <a href="#prizes">
-                PRIZES
+                <span>07</span>
+                Prizes
             </a>
 
             <a href="#rules">
-                RULES
+                <span>08</span>
+                Rules
+            </a>
+
+            <a
+                href="#register"
+                class="mobile-register"
+            >
+                <span>09</span>
+                Register
             </a>
 
         </nav>
 
-        <a
-            href="https://docs.google.com/document/d/1CHqOSmuEXEscJ_CEOeg7fHXTDzFF-yI-7PfxptN_4qU/edit?usp=drivesdk"
-            class="mobile-action mobile-rulebook"
-            target="_blank"
-            rel="noopener noreferrer"
+    </aside>
+
+
+    <main>
+
+        <!-- =================================================
+             HERO / HOME
+        ================================================== -->
+
+        <section
+            class="hero section"
+            id="home"
         >
-            RULEBOOK ↗
-        </a>
 
-        <a
-            href="https://forms.gle/n1F13zaxE4oSdtKV6"
-            class="mobile-action"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            REGISTER NOW ↗
-        </a>
+            <div class="hero-grid"></div>
 
-    </div>
+            <div class="hero-orb hero-orb-one"></div>
+            <div class="hero-orb hero-orb-two"></div>
 
-</div>
+            <div class="hero-container">
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
+                <div class="hero-content">
 
-<main>
+                    <div class="eyebrow">
+                        <span class="eyebrow-dot"></span>
 
-<!-- =====================================================
-     HERO
-===================================================== -->
+                        KEAT HWA × TECHVERSE
 
-<section id="home" class="hero">
+                        <span class="eyebrow-line"></span>
 
-    <div class="hero-grid"></div>
+                        2026
+                    </div>
 
-    <div class="hero-content">
 
-        <div class="eyebrow">
-            <span></span>
-            KEAT HWA • MALAYSIA
-        </div>
+                    <h1>
 
-        <h1>
+                        <span class="hero-kicker">
+                            THE NEXT GENERATION OF
+                        </span>
 
-            <span>KH</span>
+                        <strong class="rainbow-word">
+                            ESPORTS
+                        </strong>
 
-            <strong>ESPORTS</strong>
+                        <em>
+                            CHAMPIONSHIP
+                        </em>
 
-            <em>CHAMPIONSHIP</em>
+                        <small>
+                            KEDAH · MALAYSIA
+                        </small>
 
-            <small>2026</small>
+                    </h1>
 
-        </h1>
 
-        <p class="hero-tagline">
-            TWO TITLES. ONE CHAMPIONSHIP.
-        </p>
+                    <p class="hero-tagline">
+                        COMPETE. CONNECT. CONQUER.
+                    </p>
 
-        <p class="hero-description">
-            A competitive esports championship organised by
-            Techverse Club SMJK Keat Hwa.
-        </p>
 
-        <div class="hero-actions">
+                    <p class="hero-description">
+                        A competitive esports championship organised by
+                        Techverse Club, SMJK Keat Hwa, featuring
+                        Mobile Legends: Bang Bang and Honor of Kings.
+                    </p>
 
-            <a
-                href="#titles"
-                class="primary-button"
-            >
-                EXPLORE CHAMPIONSHIP
-                <span>↗</span>
-            </a>
 
-            <a
-                href="#tournament"
-                class="secondary-button"
-            >
-                VIEW FORMAT
-            </a>
+                    <div class="hero-actions">
 
-        </div>
+                        <a
+                            href="#register"
+                            class="btn btn-primary"
+                        >
+                            <span>
+                                Register Your Team
+                            </span>
 
-    </div>
+                            <span class="btn-arrow">
+                                ↗
+                            </span>
+                        </a>
 
-    <div class="hero-side">
 
-        <div class="vertical-label">
-            EST. 2026
-        </div>
+                        <a
+                            href="#format"
+                            class="btn btn-secondary"
+                        >
+                            Explore Tournament
+                        </a>
 
-    </div>
+                    </div>
 
-    <div class="hero-bottom">
+                </div>
 
-        <div class="hero-date">
 
-            <span>
-                HONOR OF KINGS
-            </span>
+                <!-- Hero Event Dates -->
 
-            <strong>
-                20—21 NOV 2026
-            </strong>
+                <div class="hero-events">
 
-        </div>
+                    <div class="event-date-card hok-card">
 
-        <div class="hero-divider"></div>
+                        <div class="event-game">
+                            HONOR OF KINGS
+                        </div>
 
-        <div class="hero-date">
+                        <div class="event-date">
+                            20 — 21
+                            <span>NOV 2026</span>
+                        </div>
 
-            <span>
-                MOBILE LEGENDS
-            </span>
+                        <div class="event-meta">
+                            GROUP STAGE → GRAND FINAL
+                        </div>
 
-            <strong>
-                27—28 NOV 2026
-            </strong>
+                    </div>
 
-        </div>
 
-    </div>
+                    <div class="event-date-card mlbb-card">
 
-</section>
+                        <div class="event-game">
+                            MOBILE LEGENDS: BANG BANG
+                        </div>
 
-<!-- =====================================================
-     QUICK STATS
-===================================================== -->
+                        <div class="event-date">
+                            27 — 28
+                            <span>NOV 2026</span>
+                        </div>
 
-<section class="stats-section">
+                        <div class="event-meta">
+                            GROUP STAGE → GRAND FINAL
+                        </div>
 
-    <div class="stat-card reveal">
-        <span class="stat-number">32</span>
-        <span class="stat-label">TEAMS / TITLE</span>
-    </div>
+                    </div>
 
-    <div class="stat-card reveal reveal-delay-1">
-        <span class="stat-number">5</span>
-        <span class="stat-label">PLAYERS / TEAM</span>
-    </div>
+                </div>
 
-    <div class="stat-card reveal reveal-delay-2">
-        <span class="stat-number">RM1,300</span>
-        <span class="stat-label">PRIZE / TITLE</span>
-    </div>
 
-    <div class="stat-card reveal reveal-delay-3">
-        <span class="stat-number">2</span>
-        <span class="stat-label">ESPORTS TITLES</span>
-    </div>
+                <!-- Hero Bottom -->
 
-</section>
-
-<!-- =====================================================
-     ABOUT
-===================================================== -->
-
-<section
-    id="about"
-    class="section about-section"
->
-
-    <div class="section-heading reveal">
-
-        <span class="section-index">
-            01
-        </span>
-
-        <div>
-
-            <p class="section-kicker">
-                THE CHAMPIONSHIP
-            </p>
-
-            <h2>
-                ABOUT <span>KH ESPORTS</span>
-            </h2>
-
-        </div>
-
-    </div>
-
-    <div class="about-grid">
-
-        <div class="about-main reveal">
-
-            <p class="large-text">
-                Keat Hwa Esports Championship 2026 is a
-                competitive esports platform designed to provide
-                students with an opportunity to develop their
-                strategic thinking, communication, leadership,
-                teamwork and sportsmanship.
-            </p>
-
-            <p>
-                Organised by Techverse Club SMJK Keat Hwa,
-                the championship brings together two competitive
-                titles in a structured and professional tournament
-                environment.
-            </p>
-
-        </div>
-
-        <div class="about-objectives">
-
-            <div class="objective reveal reveal-delay-1">
-                <span>01</span>
-                <p>Positive use of digital technology</p>
-            </div>
-
-            <div class="objective reveal reveal-delay-2">
-                <span>02</span>
-                <p>Communication & teamwork</p>
-            </div>
-
-            <div class="objective reveal reveal-delay-3">
-                <span>03</span>
-                <p>Healthy competitive culture</p>
-            </div>
-
-            <div class="objective reveal reveal-delay-4">
-                <span>04</span>
-                <p>Professional esports management</p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     TITLES
-===================================================== -->
-
-<section
-    id="titles"
-    class="section titles-section"
->
-
-    <div class="section-heading reveal">
-
-        <span class="section-index">
-            02
-        </span>
-
-        <div>
-
-            <p class="section-kicker">
-                CHOOSE YOUR BATTLEFIELD
-            </p>
-
-            <h2>
-                GAME <span>TITLES</span>
-            </h2>
-
-        </div>
-
-    </div>
-
-    <div class="title-grid">
-
-        <article class="title-card hok-card reveal">
-
-            <div class="title-number">
-                01
-            </div>
-
-            <div class="title-content">
-
-                <p class="title-kicker">
-                    ESPORTS TITLE
-                </p>
-
-                <h3>
-                    HONOR<br>
-                    <span>OF KINGS</span>
-                </h3>
-
-                <p>
-                    20—21 NOVEMBER 2026
-                </p>
-
-                <div class="title-meta">
+                <div class="hero-bottom">
 
                     <div>
-                        <strong>32</strong>
-                        <span>TEAMS</span>
+                        <span class="hero-bottom-label">
+                            VENUE
+                        </span>
+
+                        <strong>
+                            SMJK KEAT HWA
+                        </strong>
                     </div>
 
+
                     <div>
-                        <strong>RM1,300</strong>
-                        <span>PRIZE POOL</span>
+                        <span class="hero-bottom-label">
+                            FORMAT
+                        </span>
+
+                        <strong>
+                            32 TEAMS / TITLE
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span class="hero-bottom-label">
+                            ORGANISER
+                        </span>
+
+                        <strong>
+                            TECHVERSE CLUB
+                        </strong>
                     </div>
 
                 </div>
 
             </div>
 
-            <div class="card-arrow">
-                ↗
-            </div>
+        </section>
 
-        </article>
 
-        <article class="title-card mlbb-card reveal reveal-delay-1">
+        <!-- =================================================
+             COUNTDOWN
+        ================================================== -->
 
-            <div class="title-number">
-                02
-            </div>
-
-            <div class="title-content">
-
-                <p class="title-kicker">
-                    ESPORTS TITLE
-                </p>
-
-                <h3>
-                    MOBILE<br>
-                    <span>LEGENDS</span>
-                </h3>
-
-                <p>
-                    27—28 NOVEMBER 2026
-                </p>
-
-                <div class="title-meta">
-
-                    <div>
-                        <strong>32</strong>
-                        <span>TEAMS</span>
-                    </div>
-
-                    <div>
-                        <strong>RM1,300</strong>
-                        <span>PRIZE POOL</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="card-arrow">
-                ↗
-            </div>
-
-        </article>
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     TOURNAMENT FORMAT
-===================================================== -->
-
-<section
-    id="tournament"
-    class="section tournament-section"
->
-
-    <div class="section-heading reveal">
-
-        <span class="section-index">
-            03
-        </span>
-
-        <div>
-
-            <p class="section-kicker">
-                THE ROAD TO VICTORY
-            </p>
-
-            <h2>
-                TOURNAMENT <span>FORMAT</span>
-            </h2>
-
-        </div>
-
-    </div>
-
-    <div class="format-flow">
-
-        <div class="format-step reveal">
-            <span>01</span>
-            <strong>32 TEAMS</strong>
-            <small>PER TITLE</small>
-        </div>
-
-        <div class="flow-line"></div>
-
-        <div class="format-step reveal reveal-delay-1">
-            <span>02</span>
-            <strong>8 GROUPS</strong>
-            <small>4 TEAMS / GROUP</small>
-        </div>
-
-        <div class="flow-line"></div>
-
-        <div class="format-step reveal reveal-delay-2">
-            <span>03</span>
-            <strong>GROUP STAGE</strong>
-            <small>ROUND ROBIN • BO1</small>
-        </div>
-
-        <div class="flow-line"></div>
-
-        <div class="format-step reveal reveal-delay-3">
-            <span>04</span>
-            <strong>QUARTERFINALS</strong>
-            <small>BO3</small>
-        </div>
-
-        <div class="flow-line"></div>
-
-        <div class="format-step reveal reveal-delay-4">
-            <span>05</span>
-            <strong>SEMIFINALS</strong>
-            <small>BO3</small>
-        </div>
-
-        <div class="flow-line"></div>
-
-        <div class="format-step final-step reveal">
-            <span>06</span>
-            <strong>GRAND FINAL</strong>
-            <small>BO5</small>
-        </div>
-
-    </div>
-
-    <div class="format-features">
-
-        <div class="feature-card reveal">
-            <span>GLOBAL BP</span>
-            <p>
-                Global Ban & Pick is used throughout
-                the tournament.
-            </p>
-        </div>
-
-        <div class="feature-card reveal reveal-delay-1">
-            <span>NO SEEDING</span>
-            <p>
-                All teams have an equal opportunity
-                through digital roulette draw.
-            </p>
-        </div>
-
-        <div class="feature-card reveal reveal-delay-2">
-            <span>ELIMINATION</span>
-            <p>
-                Knockout-stage losers are immediately
-                eliminated.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     LIVE TOURNAMENT BRACKET
-===================================================== -->
-
-<section
-    id="bracket"
-    class="section bracket-section"
->
-
-    <div class="section-heading reveal">
-
-        <span class="section-index">
-            04
-        </span>
-
-        <div>
-
-            <p class="section-kicker">
-                FOLLOW THE BATTLE
-            </p>
-
-            <h2>
-                LIVE <span>BRACKET</span>
-            </h2>
-
-        </div>
-
-    </div>
-
-    <!-- TITLE SWITCHER -->
-
-    <div class="bracket-switcher reveal">
-
-        <button
-            type="button"
-            class="bracket-tab active"
-            data-bracket="hok"
+        <section
+            class="countdown-section section-dark"
         >
-            HONOR OF KINGS
-        </button>
 
-        <button
-            type="button"
-            class="bracket-tab"
-            data-bracket="mlbb"
+            <div class="container">
+
+                <div class="section-heading compact-heading">
+
+                    <span class="section-number">
+                        01
+                    </span>
+
+                    <div>
+                        <span class="section-label">
+                            COUNTDOWN
+                        </span>
+
+                        <h2>
+                            THE BATTLE
+                            <span>BEGINS SOON.</span>
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="countdown-grid">
+
+                    <!-- HOK -->
+
+                    <article class="countdown-card">
+
+                        <div class="countdown-top">
+
+                            <span>
+                                HONOR OF KINGS
+                            </span>
+
+                            <span class="countdown-code">
+                                HOK // 26
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="countdown"
+                            data-countdown="2026-11-20T08:00:00+08:00"
+                        >
+
+                            <div class="time-unit">
+                                <strong data-days>
+                                    00
+                                </strong>
+
+                                <span>
+                                    DAYS
+                                </span>
+                            </div>
+
+                            <div class="time-separator">
+                                :
+                            </div>
+
+                            <div class="time-unit">
+                                <strong data-hours>
+                                    00
+                                </strong>
+
+                                <span>
+                                    HOURS
+                                </span>
+                            </div>
+
+                            <div class="time-separator">
+                                :
+                            </div>
+
+                            <div class="time-unit">
+                                <strong data-minutes>
+                                    00
+                                </strong>
+
+                                <span>
+                                    MINUTES
+                                </span>
+                            </div>
+
+                            <div class="time-separator">
+                                :
+                            </div>
+
+                            <div class="time-unit">
+                                <strong data-seconds>
+                                    00
+                                </strong>
+
+                                <span>
+                                    SECONDS
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="countdown-date">
+                            20 NOVEMBER 2026 · 08:00 AM
+                        </div>
+
+                    </article>
+
+
+                    <!-- MLBB -->
+
+                    <article class="countdown-card">
+
+                        <div class="countdown-top">
+
+                            <span>
+                                MOBILE LEGENDS: BANG BANG
+                            </span>
+
+                            <span class="countdown-code">
+                                MLBB // 26
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="countdown"
+                            data-countdown="2026-11-27T08:00:00+08:00"
+                        >
+
+                            <div class="time-unit">
+                                <strong data-days>
+                                    00
+                                </strong>
+
+                                <span>
+                                    DAYS
+                                </span>
+                            </div>
+
+                            <div class="time-separator">
+                                :
+                            </div>
+
+                            <div class="time-unit">
+                                <strong data-hours>
+                                    00
+                                </strong>
+
+                                <span>
+                                    HOURS
+                                </span>
+                            </div>
+
+                            <div class="time-separator">
+                                :
+                            </div>
+
+                            <div class="time-unit">
+                                <strong data-minutes>
+                                    00
+                                </strong>
+
+                                <span>
+                                    MINUTES
+                                </span>
+                            </div>
+
+                            <div class="time-separator">
+                                :
+                            </div>
+
+                            <div class="time-unit">
+                                <strong data-seconds>
+                                    00
+                                </strong>
+
+                                <span>
+                                    SECONDS
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="countdown-date">
+                            27 NOVEMBER 2026 · 08:00 AM
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STATS
+        ================================================== -->
+
+        <section
+            class="stats-section section-dark"
         >
-            MOBILE LEGENDS
-        </button>
 
-    </div>
+            <div class="container">
 
-    <!-- =================================================
-         HONOR OF KINGS BRACKET
-    ================================================== -->
+                <div class="stats-grid">
 
-    <div
-        class="bracket-panel active"
-        id="bracket-hok"
-        data-panel="hok"
-    >
+                    <div class="stat-card">
+                        <span class="stat-number">
+                            02
+                        </span>
 
-        <div class="bracket-header reveal">
-
-            <div>
-
-                <span>
-                    HONOR OF KINGS
-                </span>
-
-                <strong>
-                    KNOCKOUT STAGE
-                </strong>
-
-            </div>
-
-            <small>
-                32 TEAMS → 8 GROUP WINNERS
-            </small>
-
-        </div>
-
-        <div class="bracket-board">
-
-            <!-- QUARTERFINALS -->
-
-            <div class="bracket-column reveal">
-
-                <div class="bracket-column-title">
-                    QUARTERFINALS
-                    <span>BO3</span>
-                </div>
-
-                <div class="bracket-match">
-
-                    <span class="match-number">
-                        QF1
-                    </span>
-
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
+                        <span class="stat-label">
+                            ESPORTS TITLES
+                        </span>
                     </div>
 
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
+
+                    <div class="stat-card">
+                        <span class="stat-number">
+                            32
+                        </span>
+
+                        <span class="stat-label">
+                            TEAMS / TITLE
+                        </span>
                     </div>
 
-                </div>
 
-                <div class="bracket-match">
+                    <div class="stat-card">
+                        <span class="stat-number">
+                            08
+                        </span>
 
-                    <span class="match-number">
-                        QF2
-                    </span>
-
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
+                        <span class="stat-label">
+                            GROUPS / TITLE
+                        </span>
                     </div>
 
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
-                    </div>
 
-                </div>
+                    <div class="stat-card">
+                        <span class="stat-number">
+                            01
+                        </span>
 
-                <div class="bracket-match">
-
-                    <span class="match-number">
-                        QF3
-                    </span>
-
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
-                    </div>
-
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
-                    </div>
-
-                </div>
-
-                <div class="bracket-match">
-
-                    <span class="match-number">
-                        QF4
-                    </span>
-
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
-                    </div>
-
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
+                        <span class="stat-label">
+                            CHAMPION / TITLE
+                        </span>
                     </div>
 
                 </div>
 
             </div>
 
-            <!-- SEMIFINALS -->
+        </section>
 
-            <div class="bracket-column reveal reveal-delay-1">
 
-                <div class="bracket-column-title">
-                    SEMIFINALS
-                    <span>BO3</span>
-                </div>
+        <!-- =================================================
+             ABOUT
+        ================================================== -->
 
-                <div class="bracket-match bracket-match-large">
+        <section
+            class="about-section section"
+            id="about"
+        >
 
-                    <span class="match-number">
-                        SF1
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        02
                     </span>
 
-                    <div class="team">
-                        <span>QF1 WINNER</span>
-                        <strong>—</strong>
-                    </div>
+                    <div>
+                        <span class="section-label">
+                            ABOUT THE EVENT
+                        </span>
 
-                    <div class="team">
-                        <span>QF2 WINNER</span>
-                        <strong>—</strong>
+                        <h2>
+                            MORE THAN
+                            <span>A MATCH.</span>
+                        </h2>
                     </div>
 
                 </div>
 
-                <div class="bracket-match bracket-match-large">
 
-                    <span class="match-number">
-                        SF2
-                    </span>
+                <div class="about-layout">
 
-                    <div class="team">
-                        <span>QF3 WINNER</span>
-                        <strong>—</strong>
+                    <div class="about-main">
+
+                        <p class="about-lead">
+                            KH Esports Championship 2026 is a
+                            competitive gaming event organised by
+                            <strong>Techverse Club, SMJK Keat Hwa</strong>.
+                        </p>
+
+
+                        <p>
+                            The championship brings together
+                            competitive players in two major titles:
+                            <strong>Honor of Kings</strong> and
+                            <strong>Mobile Legends: Bang Bang</strong>.
+                        </p>
+
+
+                        <p>
+                            Beyond competition, the event aims to
+                            create a structured and professional
+                            esports environment where teamwork,
+                            communication, discipline, strategy and
+                            sportsmanship are equally valued.
+                        </p>
+
+
+                        <div class="about-line"></div>
+
+
+                        <div class="about-bottom">
+
+                            <span>
+                                KEDAH · MALAYSIA
+                            </span>
+
+                            <span>
+                                EST. 2026
+                            </span>
+
+                            <span>
+                                TECHVERSE CLUB
+                            </span>
+
+                        </div>
+
                     </div>
 
-                    <div class="team">
-                        <span>QF4 WINNER</span>
-                        <strong>—</strong>
+
+                    <div class="about-side">
+
+                        <div class="about-feature">
+
+                            <span class="feature-index">
+                                01
+                            </span>
+
+                            <div>
+                                <h3>
+                                    COMPETITION
+                                </h3>
+
+                                <p>
+                                    Structured competitive gameplay
+                                    from group stage to grand final.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="about-feature">
+
+                            <span class="feature-index">
+                                02
+                            </span>
+
+                            <div>
+                                <h3>
+                                    TEAMWORK
+                                </h3>
+
+                                <p>
+                                    Communication and coordination
+                                    under competitive pressure.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="about-feature">
+
+                            <span class="feature-index">
+                                03
+                            </span>
+
+                            <div>
+                                <h3>
+                                    SPORTSMANSHIP
+                                </h3>
+
+                                <p>
+                                    Respect, discipline and fair play
+                                    throughout the championship.
+                                </p>
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
 
             </div>
 
-            <!-- GRAND FINAL -->
+        </section>
 
-            <div class="bracket-column grand-final-column reveal reveal-delay-2">
 
-                <div class="bracket-column-title">
-                    GRAND FINAL
-                    <span>BO5</span>
-                </div>
+        <!-- =================================================
+             TITLES
+        ================================================== -->
 
-                <div class="bracket-match grand-final-match">
+        <section
+            class="titles-section section-dark section"
+            id="titles"
+        >
 
-                    <span class="match-number">
-                        GF
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        03
                     </span>
 
-                    <div class="team">
-                        <span>SF1 WINNER</span>
-                        <strong>—</strong>
-                    </div>
+                    <div>
+                        <span class="section-label">
+                            FEATURED TITLES
+                        </span>
 
-                    <div class="team">
-                        <span>SF2 WINNER</span>
-                        <strong>—</strong>
+                        <h2>
+                            TWO TITLES.
+                            <span>ONE STAGE.</span>
+                        </h2>
                     </div>
 
                 </div>
 
-                <div class="champion-placeholder">
+
+                <div class="title-grid">
+
+                    <!-- HOK -->
+
+                    <article class="title-card title-hok">
+
+                        <div class="title-card-top">
+
+                            <span class="title-index">
+                                01
+                            </span>
+
+                            <span>
+                                20 — 21 NOV 2026
+                            </span>
+
+                        </div>
+
+
+                        <div class="title-logo-text">
+                            HOK
+                        </div>
+
+
+                        <h3>
+                            HONOR OF KINGS
+                        </h3>
+
+
+                        <p>
+                            A strategic 5v5 multiplayer battle
+                            featuring coordinated team play,
+                            objective control and tactical decision
+                            making.
+                        </p>
+
+
+                        <div class="title-details">
+
+                            <div>
+                                <span>
+                                    TEAMS
+                                </span>
+
+                                <strong>
+                                    32
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>
+                                    GROUPS
+                                </span>
+
+                                <strong>
+                                    8
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>
+                                    FINAL
+                                </span>
+
+                                <strong>
+                                    BO5
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- MLBB -->
+
+                    <article class="title-card title-mlbb">
+
+                        <div class="title-card-top">
+
+                            <span class="title-index">
+                                02
+                            </span>
+
+                            <span>
+                                27 — 28 NOV 2026
+                            </span>
+
+                        </div>
+
+
+                        <div class="title-logo-text">
+                            MLBB
+                        </div>
+
+
+                        <h3>
+                            MOBILE LEGENDS:
+                            BANG BANG
+                        </h3>
+
+
+                        <p>
+                            Fast-paced 5v5 competition combining
+                            mechanical skill, macro strategy,
+                            communication and team execution.
+                        </p>
+
+
+                        <div class="title-details">
+
+                            <div>
+                                <span>
+                                    TEAMS
+                                </span>
+
+                                <strong>
+                                    32
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>
+                                    GROUPS
+                                </span>
+
+                                <strong>
+                                    8
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>
+                                    FINAL
+                                </span>
+
+                                <strong>
+                                    BO5
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TOURNAMENT FORMAT
+        ================================================== -->
+
+        <section
+            class="format-section section"
+            id="format"
+        >
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        04
+                    </span>
+
+                    <div>
+                        <span class="section-label">
+                            TOURNAMENT FORMAT
+                        </span>
+
+                        <h2>
+                            THE ROAD TO
+                            <span>THE TITLE.</span>
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="format-intro">
+
+                    <p>
+                        Each title begins with 32 participating
+                        teams. Teams are divided into eight groups
+                        of four before advancing through the
+                        knockout bracket.
+                    </p>
+
+                </div>
+
+
+                <!-- Connected Format Line -->
+
+                <div class="format-flow">
+
+                    <div class="format-step">
+
+                        <span class="format-node">
+                            01
+                        </span>
+
+                        <div>
+                            <strong>
+                                32 TEAMS
+                            </strong>
+
+                            <span>
+                                PER TITLE
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="format-connector"></div>
+
+
+                    <div class="format-step">
+
+                        <span class="format-node">
+                            02
+                        </span>
+
+                        <div>
+                            <strong>
+                                8 GROUPS
+                            </strong>
+
+                            <span>
+                                4 TEAMS / GROUP
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="format-connector"></div>
+
+
+                    <div class="format-step">
+
+                        <span class="format-node">
+                            03
+                        </span>
+
+                        <div>
+                            <strong>
+                                GROUP STAGE
+                            </strong>
+
+                            <span>
+                                6 MATCH ROUNDS
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="format-connector"></div>
+
+
+                    <div class="format-step">
+
+                        <span class="format-node">
+                            04
+                        </span>
+
+                        <div>
+                            <strong>
+                                TOP 16
+                            </strong>
+
+                            <span>
+                                2 / GROUP
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="format-connector"></div>
+
+
+                    <div class="format-step">
+
+                        <span class="format-node">
+                            05
+                        </span>
+
+                        <div>
+                            <strong>
+                                ROUND OF 16
+                            </strong>
+
+                            <span>
+                                KNOCKOUT
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="format-connector"></div>
+
+
+                    <div class="format-step">
+
+                        <span class="format-node">
+                            06
+                        </span>
+
+                        <div>
+                            <strong>
+                                QUARTERFINALS
+                            </strong>
+
+                            <span>
+                                BO3
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="format-connector"></div>
+
+
+                    <div class="format-step">
+
+                        <span class="format-node">
+                            07
+                        </span>
+
+                        <div>
+                            <strong>
+                                SEMIFINALS
+                            </strong>
+
+                            <span>
+                                BO3
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="format-connector"></div>
+
+
+                    <div class="format-step format-final">
+
+                        <span class="format-node">
+                            08
+                        </span>
+
+                        <div>
+                            <strong>
+                                GRAND FINAL
+                            </strong>
+
+                            <span>
+                                BO5
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="format-features">
+
+                    <div class="feature-card">
+
+                        <span>
+                            GROUP STAGE
+                        </span>
+
+                        <strong>
+                            ROUND ROBIN
+                        </strong>
+
+                        <p>
+                            8 groups × 4 teams.
+                            Every team faces every other
+                            team in its group once.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            KNOCKOUT
+                        </span>
+
+                        <strong>
+                            SINGLE ELIMINATION
+                        </strong>
+
+                        <p>
+                            The top two teams from each group
+                            advance to the 16-team knockout bracket.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            GRAND FINAL
+                        </span>
+
+                        <strong>
+                            BEST OF 5
+                        </strong>
+
+                        <p>
+                            The final two teams compete in a
+                            BO5 series for the championship.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             BRACKET
+        ================================================== -->
+
+        <section
+            class="bracket-section section-dark section"
+            id="bracket"
+        >
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        05
+                    </span>
+
+                    <div>
+                        <span class="section-label">
+                            OFFICIAL BRACKET
+                        </span>
+
+                        <h2>
+                            THE
+                            <span>ROAD TO GLORY.</span>
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <!-- Bracket Switch -->
+
+                <div class="bracket-tabs">
+
+                    <button
+                        class="bracket-tab active"
+                        type="button"
+                        data-bracket="hok"
+                    >
+                        HONOR OF KINGS
+                    </button>
+
+                    <button
+                        class="bracket-tab"
+                        type="button"
+                        data-bracket="mlbb"
+                    >
+                        MOBILE LEGENDS: BANG BANG
+                    </button>
+
+                </div>
+
+
+                <!-- HOK Bracket -->
+
+                <div
+                    class="bracket-wrapper active"
+                    data-bracket-panel="hok"
+                >
+
+                    <div class="bracket-title">
+
+                        <span>
+                            HOK // KNOCKOUT STAGE
+                        </span>
+
+                        <strong>
+                            16 → 8 → 4 → 2 → 1
+                        </strong>
+
+                    </div>
+
+
+                    <div class="bracket-scroll">
+
+                        <div class="bracket">
+
+                            <!-- R16 -->
+
+                            <div class="bracket-column">
+
+                                <div class="bracket-column-title">
+                                    ROUND OF 16
+                                </div>
+
+
+                                <div class="match">
+                                    <span>
+                                        A1
+                                    </span>
+                                    <span>
+                                        B2
+                                    </span>
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        C1
+                                    </span>
+                                    <span>
+                                        D2
+                                    </span>
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        E1
+                                    </span>
+                                    <span>
+                                        F2
+                                    </span>
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        G1
+                                    </span>
+                                    <span>
+                                        H2
+                                    </span>
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        B1
+                                    </span>
+                                    <span>
+                                        A2
+                                    </span>
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        D1
+                                    </span>
+                                    <span>
+                                        C2
+                                    </span>
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        F1
+                                    </span>
+                                    <span>
+                                        E2
+                                    </span>
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        H1
+                                    </span>
+                                    <span>
+                                        G2
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <!-- QF -->
+
+                            <div class="bracket-column bracket-qf">
+
+                                <div class="bracket-column-title">
+                                    QUARTERFINALS
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        W R16-1
+                                    </span>
+
+                                    <span>
+                                        W R16-2
+                                    </span>
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        W R16-3
+                                    </span>
+
+                                    <span>
+                                        W R16-4
+                                    </span>
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        W R16-5
+                                    </span>
+
+                                    <span>
+                                        W R16-6
+                                    </span>
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        W R16-7
+                                    </span>
+
+                                    <span>
+                                        W R16-8
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <!-- SF -->
+
+                            <div class="bracket-column bracket-sf">
+
+                                <div class="bracket-column-title">
+                                    SEMIFINALS
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        W QF-1
+                                    </span>
+
+                                    <span>
+                                        W QF-2
+                                    </span>
+                                </div>
+
+                                <div class="match">
+                                    <span>
+                                        W QF-3
+                                    </span>
+
+                                    <span>
+                                        W QF-4
+                                    </span>
+                                </div>
+
+                            </div>
+
+
+                            <!-- GF -->
+
+                            <div class="bracket-column bracket-gf">
+
+                                <div class="bracket-column-title">
+                                    GRAND FINAL
+                                </div>
+
+                                <div class="match final-match">
+
+                                    <span>
+                                        W SF-1
+                                    </span>
+
+                                    <span>
+                                        W SF-2
+                                    </span>
+
+                                    <small>
+                                        BO5
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="bracket-note">
+                        Group winners and runners-up are represented
+                        as A1 / A2 through H1 / H2 until official
+                        group results are confirmed.
+                    </div>
+
+                </div>
+
+
+                <!-- MLBB Bracket -->
+
+                <div
+                    class="bracket-wrapper"
+                    data-bracket-panel="mlbb"
+                >
+
+                    <div class="bracket-title">
+
+                        <span>
+                            MLBB // KNOCKOUT STAGE
+                        </span>
+
+                        <strong>
+                            16 → 8 → 4 → 2 → 1
+                        </strong>
+
+                    </div>
+
+
+                    <div class="bracket-scroll">
+
+                        <div class="bracket">
+
+                            <div class="bracket-column">
+
+                                <div class="bracket-column-title">
+                                    ROUND OF 16
+                                </div>
+
+
+                                <div class="match">
+                                    <span>A1</span>
+                                    <span>B2</span>
+                                </div>
+
+                                <div class="match">
+                                    <span>C1</span>
+                                    <span>D2</span>
+                                </div>
+
+                                <div class="match">
+                                    <span>E1</span>
+                                    <span>F2</span>
+                                </div>
+
+                                <div class="match">
+                                    <span>G1</span>
+                                    <span>H2</span>
+                                </div>
+
+                                <div class="match">
+                                    <span>B1</span>
+                                    <span>A2</span>
+                                </div>
+
+                                <div class="match">
+                                    <span>D1</span>
+                                    <span>C2</span>
+                                </div>
+
+                                <div class="match">
+                                    <span>F1</span>
+                                    <span>E2</span>
+                                </div>
+
+                                <div class="match">
+                                    <span>H1</span>
+                                    <span>G2</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="bracket-column bracket-qf">
+
+                                <div class="bracket-column-title">
+                                    QUARTERFINALS
+                                </div>
+
+                                <div class="match">
+                                    <span>W R16-1</span>
+                                    <span>W R16-2</span>
+                                </div>
+
+                                <div class="match">
+                                    <span>W R16-3</span>
+                                    <span>W R16-4</span>
+                                </div>
+
+                                <div class="match">
+                                    <span>W R16-5</span>
+                                    <span>W R16-6</span>
+                                </div>
+
+                                <div class="match">
+                                    <span>W R16-7</span>
+                                    <span>W R16-8</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="bracket-column bracket-sf">
+
+                                <div class="bracket-column-title">
+                                    SEMIFINALS
+                                </div>
+
+                                <div class="match">
+                                    <span>W QF-1</span>
+                                    <span>W QF-2</span>
+                                </div>
+
+                                <div class="match">
+                                    <span>W QF-3</span>
+                                    <span>W QF-4</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="bracket-column bracket-gf">
+
+                                <div class="bracket-column-title">
+                                    GRAND FINAL
+                                </div>
+
+                                <div class="match final-match">
+
+                                    <span>W SF-1</span>
+                                    <span>W SF-2</span>
+
+                                    <small>
+                                        BO5
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="bracket-note">
+                        Group winners and runners-up are represented
+                        as A1 / A2 through H1 / H2 until official
+                        group results are confirmed.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SCHEDULE
+        ================================================== -->
+
+        <section
+            class="schedule-section section"
+            id="schedule"
+        >
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        06
+                    </span>
+
+                    <div>
+                        <span class="section-label">
+                            EVENT FLOW
+                        </span>
+
+                        <h2>
+                            KNOW THE
+                            <span>ROADMAP.</span>
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="schedule-grid">
+
+                    <article class="schedule-card">
+
+                        <div class="schedule-date">
+                            <span>
+                                HONOR OF KINGS
+                            </span>
+
+                            <strong>
+                                20 — 21
+                            </strong>
+
+                            <small>
+                                NOVEMBER 2026
+                            </small>
+                        </div>
+
+
+                        <div class="schedule-content">
+
+                            <div class="schedule-row">
+                                <span>
+                                    DAY 01
+                                </span>
+
+                                <strong>
+                                    GROUP STAGE + QF
+                                </strong>
+                            </div>
+
+                            <div class="schedule-row">
+                                <span>
+                                    DAY 02
+                                </span>
+
+                                <strong>
+                                    SF + GF
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="schedule-card">
+
+                        <div class="schedule-date">
+                            <span>
+                                MOBILE LEGENDS: BANG BANG
+                            </span>
+
+                            <strong>
+                                27 — 28
+                            </strong>
+
+                            <small>
+                                NOVEMBER 2026
+                            </small>
+                        </div>
+
+
+                        <div class="schedule-content">
+
+                            <div class="schedule-row">
+                                <span>
+                                    DAY 01
+                                </span>
+
+                                <strong>
+                                    GROUP STAGE + QF
+                                </strong>
+                            </div>
+
+                            <div class="schedule-row">
+                                <span>
+                                    DAY 02
+                                </span>
+
+                                <strong>
+                                    SF + GF
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <button
+                    class="tentative-button"
+                    id="tentativeButton"
+                    type="button"
+                >
 
                     <span>
-                        CHAMPION
+                        VIEW DETAILED TENTATIVE FLOW
+                    </span>
+
+                    <span>
+                        ↗
+                    </span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             REGISTERED TEAMS
+        ================================================== -->
+
+        <section
+            class="registration-status section-dark section"
+            id="registered"
+        >
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        07
+                    </span>
+
+                    <div>
+                        <span class="section-label">
+                            REGISTRATION STATUS
+                        </span>
+
+                        <h2>
+                            WHO'S IN
+                            <span>THE LOBBY?</span>
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="registration-status-grid">
+
+                    <div class="registration-counter-card">
+
+                        <div class="registration-counter-top">
+
+                            <span>
+                                CURRENT REGISTRATION
+                            </span>
+
+                            <strong>
+                                <span id="registeredTotal">
+                                    0
+                                </span>
+                                /
+                                <span id="registeredCapacity">
+                                    64
+                                </span>
+                                TEAMS
+                            </strong>
+
+                        </div>
+
+
+                        <div class="registration-bar">
+
+                            <span
+                                id="registrationBar"
+                                style="width: 0%"
+                            ></span>
+
+                        </div>
+
+
+                        <div class="registration-split">
+
+                            <div>
+                                <span>
+                                    HOK
+                                </span>
+
+                                <strong>
+                                    <span id="hokRegistered">
+                                        0
+                                    </span>
+                                    / 32
+                                </strong>
+                            </div>
+
+
+                            <div>
+                                <span>
+                                    MLBB
+                                </span>
+
+                                <strong>
+                                    <span id="mlbbRegistered">
+                                        0
+                                    </span>
+                                    / 32
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="registration-list-card">
+
+                        <span class="registration-list-label">
+                            OFFICIAL REGISTERED TEAMS
+                        </span>
+
+                        <p>
+                            View the current registered team
+                            list for both titles.
+                        </p>
+
+                        <button
+                            class="btn btn-primary"
+                            id="registeredTeamsButton"
+                            type="button"
+                        >
+                            <span>
+                                View Team List
+                            </span>
+
+                            <span>
+                                ↗
+                            </span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PRIZES
+        ================================================== -->
+
+        <section
+            class="prizes-section section"
+            id="prizes"
+        >
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        08
+                    </span>
+
+                    <div>
+                        <span class="section-label">
+                            PRIZE POOL
+                        </span>
+
+                        <h2>
+                            PLAY FOR
+                            <span>THE PODIUM.</span>
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="prize-total">
+
+                    <span>
+                        TOTAL CASH PRIZE POOL
                     </span>
 
                     <strong>
-                        TBD
+                        RM 2,600
                     </strong>
 
                 </div>
 
+
+                <div class="prize-grid">
+
+                    <article class="prize-card">
+
+                        <span>
+                            CHAMPION
+                        </span>
+
+                        <strong>
+                            RM 1,000
+                        </strong>
+
+                    </article>
+
+
+                    <article class="prize-card">
+
+                        <span>
+                            RUNNER-UP
+                        </span>
+
+                        <strong>
+                            RM 700
+                        </strong>
+
+                    </article>
+
+
+                    <article class="prize-card">
+
+                        <span>
+                            SEMIFINALIST
+                        </span>
+
+                        <strong>
+                            RM 400
+                        </strong>
+
+                        <small>
+                            × 2
+                        </small>
+
+                    </article>
+
+
+                    <article class="prize-card">
+
+                        <span>
+                            FMVP
+                        </span>
+
+                        <strong>
+                            RM 100
+                        </strong>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             RULES
+        ================================================== -->
+
+        <section
+            class="rules-section section-dark section"
+            id="rules"
+        >
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        09
+                    </span>
+
+                    <div>
+                        <span class="section-label">
+                            COMPETITION RULES
+                        </span>
+
+                        <h2>
+                            PLAY FAIR.
+                            <span>PLAY HARD.</span>
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="rules-grid">
+
+                    <article class="rule">
+
+                        <span>
+                            01
+                        </span>
+
+                        <h3>
+                            GROUP STAGE
+                        </h3>
+
+                        <p>
+                            32 teams are divided into 8 groups,
+                            with 4 teams in each group.
+                        </p>
+
+                    </article>
+
+
+                    <article class="rule">
+
+                        <span>
+                            02
+                        </span>
+
+                        <h3>
+                            ROUND ROBIN
+                        </h3>
+
+                        <p>
+                            Teams compete against every other
+                            team within their group once.
+                        </p>
+
+                    </article>
+
+
+                    <article class="rule">
+
+                        <span>
+                            03
+                        </span>
+
+                        <h3>
+                            ADVANCEMENT
+                        </h3>
+
+                        <p>
+                            The top two teams from each group
+                            advance to the knockout stage.
+                        </p>
+
+                    </article>
+
+
+                    <article class="rule">
+
+                        <span>
+                            04
+                        </span>
+
+                        <h3>
+                            KNOCKOUT
+                        </h3>
+
+                        <p>
+                            The knockout stage uses a
+                            single-elimination structure.
+                        </p>
+
+                    </article>
+
+
+                    <article class="rule">
+
+                        <span>
+                            05
+                        </span>
+
+                        <h3>
+                            SERIES FORMAT
+                        </h3>
+
+                        <p>
+                            Quarterfinals and Semifinals are BO3.
+                            Grand Final is BO5.
+                        </p>
+
+                    </article>
+
+
+                    <article class="rule">
+
+                        <span>
+                            06
+                        </span>
+
+                        <h3>
+                            FAIR PLAY
+                        </h3>
+
+                        <p>
+                            All teams must follow the official
+                            tournament rules and organiser decisions.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             REGISTER
+        ================================================== -->
+
+        <section
+            class="register-section section"
+            id="register"
+        >
+
+            <div class="container">
+
+                <div class="register-content">
+
+                    <span class="section-label">
+                        REGISTRATION
+                    </span>
+
+                    <h2>
+                        READY TO
+                        <span>ENTER THE ARENA?</span>
+                    </h2>
+
+                    <p>
+                        Assemble your squad, choose your title
+                        and prepare for the KH Esports Championship 2026.
+                    </p>
+
+
+                    <div class="register-actions">
+
+                        <a
+                            href="#"
+                            class="btn btn-primary register-link"
+                        >
+                            Register Your Team
+                            <span>↗</span>
+                        </a>
+
+                        <a
+                            href="#format"
+                            class="btn btn-secondary"
+                        >
+                            View Format
+                        </a>
+
+                    </div>
+
+
+                    <div class="register-meta">
+
+                        <span>
+                            32 TEAM SLOTS / TITLE
+                        </span>
+
+                        <span>
+                            OPEN TO ELIGIBLE PARTICIPANTS
+                        </span>
+
+                        <span>
+                            TECHVERSE CLUB · SMJK KEAT HWA
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-main">
+
+                <div class="footer-brand">
+
+                    <div class="footer-logo">
+                        KH
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            KH ESPORTS
+                            CHAMPIONSHIP 2026
+                        </strong>
+
+                        <span>
+                            TECHVERSE CLUB · SMJK KEAT HWA
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="footer-tagline">
+                    COMPETE.
+                    CONNECT.
+                    CONQUER.
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2026 KH ESPORTS CHAMPIONSHIP
+                </span>
+
+                <span>
+                    KEDAH · MALAYSIA
+                </span>
+
             </div>
 
         </div>
 
-    </div>
+    </footer>
+
 
     <!-- =================================================
-         MOBILE LEGENDS BRACKET
+         TENTATIVE FLOW MODAL
     ================================================== -->
 
     <div
-        class="bracket-panel"
-        id="bracket-mlbb"
-        data-panel="mlbb"
-        hidden
+        class="modal"
+        id="tentativeModal"
+        aria-hidden="true"
     >
 
-        <div class="bracket-header reveal">
+        <div class="modal-backdrop"></div>
 
-            <div>
+
+        <div
+            class="modal-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="tentativeTitle"
+        >
+
+            <button
+                class="modal-close"
+                type="button"
+                data-close-modal
+                aria-label="Close tentative flow"
+            >
+                ×
+            </button>
+
+
+            <div class="modal-header">
 
                 <span>
-                    MOBILE LEGENDS
+                    DETAILED TENTATIVE FLOW
                 </span>
 
-                <strong>
-                    KNOCKOUT STAGE
-                </strong>
+                <h2 id="tentativeTitle">
+                    EVENT
+                    <span>ROADMAP.</span>
+                </h2>
 
             </div>
 
-            <small>
-                32 TEAMS → 8 GROUP WINNERS
-            </small>
 
-        </div>
+            <div class="tentative-tabs">
 
-        <div class="bracket-board">
+                <button
+                    class="tentative-tab active"
+                    type="button"
+                    data-flow-tab="both"
+                >
+                    BOTH TITLES
+                </button>
 
-            <!-- QUARTERFINALS -->
+                <button
+                    class="tentative-tab"
+                    type="button"
+                    data-flow-tab="day1"
+                >
+                    DAY 01
+                </button>
 
-            <div class="bracket-column reveal">
+                <button
+                    class="tentative-tab"
+                    type="button"
+                    data-flow-tab="day2"
+                >
+                    DAY 02
+                </button>
 
-                <div class="bracket-column-title">
-                    QUARTERFINALS
-                    <span>BO3</span>
+            </div>
+
+
+            <div class="tentative-content">
+
+                <!-- Both -->
+
+                <div
+                    class="flow-panel active"
+                    data-flow-panel="both"
+                >
+
+                    <div class="flow-title">
+                        <span>
+                            BOTH MLBB & HOK
+                        </span>
+
+                        <strong>
+                            TWO-DAY COMPETITION
+                        </strong>
+                    </div>
+
+
+                    <div class="flow-game-row">
+
+                        <div>
+                            <span>
+                                HONOR OF KINGS
+                            </span>
+
+                            <strong>
+                                20 — 21 NOV 2026
+                            </strong>
+                        </div>
+
+
+                        <div>
+                            <span>
+                                MOBILE LEGENDS: BANG BANG
+                            </span>
+
+                            <strong>
+                                27 — 28 NOV 2026
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="flow-summary">
+
+                        <div>
+                            <span>
+                                DAY 01
+                            </span>
+
+                            <strong>
+                                GROUP STAGE + QUARTERFINALS
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>
+                                DAY 02
+                            </span>
+
+                            <strong>
+                                SEMIFINALS + GRAND FINAL
+                            </strong>
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <div class="bracket-match">
 
-                    <span class="match-number">
-                        QF1
-                    </span>
+                <!-- Day 1 -->
 
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
+                <div
+                    class="flow-panel"
+                    data-flow-panel="day1"
+                >
+
+                    <div class="flow-title">
+
+                        <span>
+                            FIRST DAY
+                        </span>
+
+                        <strong>
+                            GROUP STAGE + QF
+                        </strong>
+
                     </div>
 
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
+
+                    <div class="flow-schedule">
+
+                        <div class="flow-row">
+                            <span>R1</span>
+                            <strong>8:00 AM</strong>
+                            <small>GROUP STAGE</small>
+                        </div>
+
+                        <div class="flow-row">
+                            <span>R2</span>
+                            <strong>9:00 AM</strong>
+                            <small>GROUP STAGE</small>
+                        </div>
+
+                        <div class="flow-row">
+                            <span>R3</span>
+                            <strong>10:00 AM</strong>
+                            <small>GROUP STAGE</small>
+                        </div>
+
+                        <div class="flow-row">
+                            <span>R4</span>
+                            <strong>11:00 AM</strong>
+                            <small>GROUP STAGE</small>
+                        </div>
+
+                        <div class="flow-row">
+                            <span>R5</span>
+                            <strong>12:00 PM</strong>
+                            <small>GROUP STAGE</small>
+                        </div>
+
+                        <div class="flow-row">
+                            <span>R6</span>
+                            <strong>1:00 PM</strong>
+                            <small>GROUP STAGE</small>
+                        </div>
+
+                        <div class="flow-row flow-break">
+                            <span>—</span>
+                            <strong>REST</strong>
+                            <small>BREAK</small>
+                        </div>
+
+                        <div class="flow-row flow-highlight">
+                            <span>QF</span>
+                            <strong>3:00 — 6:00 PM</strong>
+                            <small>BO3</small>
+                        </div>
+
                     </div>
 
                 </div>
 
-                <div class="bracket-match">
 
-                    <span class="match-number">
-                        QF2
-                    </span>
+                <!-- Day 2 -->
 
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
+                <div
+                    class="flow-panel"
+                    data-flow-panel="day2"
+                >
+
+                    <div class="flow-title">
+
+                        <span>
+                            SECOND DAY
+                        </span>
+
+                        <strong>
+                            SF + GF
+                        </strong>
+
                     </div>
 
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
-                    </div>
 
-                </div>
+                    <div class="flow-schedule">
 
-                <div class="bracket-match">
+                        <div class="flow-row flow-highlight">
+                            <span>SF</span>
+                            <strong>9:00 AM — 12:00 PM</strong>
+                            <small>BO3</small>
+                        </div>
 
-                    <span class="match-number">
-                        QF3
-                    </span>
+                        <div class="flow-row flow-break">
+                            <span>—</span>
+                            <strong>REST</strong>
+                            <small>BREAK</small>
+                        </div>
 
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
-                    </div>
+                        <div class="flow-row flow-highlight">
+                            <span>GF</span>
+                            <strong>2:00 — 7:00 PM</strong>
+                            <small>BO5</small>
+                        </div>
 
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
-                    </div>
+                        <div class="flow-row">
+                            <span>★</span>
+                            <strong>PRIZE GIVING CEREMONY</strong>
+                            <small>FINALE</small>
+                        </div>
 
-                </div>
-
-                <div class="bracket-match">
-
-                    <span class="match-number">
-                        QF4
-                    </span>
-
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
-                    </div>
-
-                    <div class="team">
-                        <span>TBD</span>
-                        <strong>—</strong>
                     </div>
 
                 </div>
 
             </div>
 
-            <!-- SEMIFINALS -->
 
-            <div class="bracket-column reveal reveal-delay-1">
-
-                <div class="bracket-column-title">
-                    SEMIFINALS
-                    <span>BO3</span>
-                </div>
-
-                <div class="bracket-match bracket-match-large">
-
-                    <span class="match-number">
-                        SF1
-                    </span>
-
-                    <div class="team">
-                        <span>QF1 WINNER</span>
-                        <strong>—</strong>
-                    </div>
-
-                    <div class="team">
-                        <span>QF2 WINNER</span>
-                        <strong>—</strong>
-                    </div>
-
-                </div>
-
-                <div class="bracket-match bracket-match-large">
-
-                    <span class="match-number">
-                        SF2
-                    </span>
-
-                    <div class="team">
-                        <span>QF3 WINNER</span>
-                        <strong>—</strong>
-                    </div>
-
-                    <div class="team">
-                        <span>QF4 WINNER</span>
-                        <strong>—</strong>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- GRAND FINAL -->
-
-            <div class="bracket-column grand-final-column reveal reveal-delay-2">
-
-                <div class="bracket-column-title">
-                    GRAND FINAL
-                    <span>BO5</span>
-                </div>
-
-                <div class="bracket-match grand-final-match">
-
-                    <span class="match-number">
-                        GF
-                    </span>
-
-                    <div class="team">
-                        <span>SF1 WINNER</span>
-                        <strong>—</strong>
-                    </div>
-
-                    <div class="team">
-                        <span>SF2 WINNER</span>
-                        <strong>—</strong>
-                    </div>
-
-                </div>
-
-                <div class="champion-placeholder">
-
-                    <span>
-                        CHAMPION
-                    </span>
-
-                    <strong>
-                        TBD
-                    </strong>
-
-                </div>
-
+            <div class="tentative-disclaimer">
+                * All times shown are tentative and for planning
+                purposes only. The actual schedule may be adjusted
+                according to the situation and operational needs
+                of the tournament.
             </div>
 
         </div>
 
     </div>
 
-</section>
 
-<!-- =====================================================
-     SCHEDULE
-===================================================== -->
+    <!-- =================================================
+         REGISTERED TEAMS MODAL
+    ================================================== -->
 
-<section
-    id="schedule"
-    class="section schedule-section"
->
+    <div
+        class="modal"
+        id="teamsModal"
+        aria-hidden="true"
+    >
 
-    <div class="section-heading reveal">
+        <div class="modal-backdrop"></div>
 
-        <span class="section-index">
-            05
-        </span>
 
-        <div>
-
-            <p class="section-kicker">
-                MARK YOUR CALENDAR
-            </p>
-
-            <h2>
-                EVENT <span>SCHEDULE</span>
-            </h2>
-
-        </div>
-
-    </div>
-
-    <div class="schedule-grid">
-
-        <article class="schedule-card reveal">
-
-            <div class="schedule-date">
-                <span>NOV</span>
-                <strong>20</strong>
-                <small>FRI</small>
-            </div>
-
-            <div class="schedule-info">
-
-                <span class="schedule-game">
-                    HONOR OF KINGS
-                </span>
-
-                <h3>DAY 01</h3>
-
-                <p>
-                    8:00 AM — 6:00 PM
-                </p>
-
-            </div>
-
-        </article>
-
-        <article class="schedule-card reveal reveal-delay-1">
-
-            <div class="schedule-date">
-                <span>NOV</span>
-                <strong>21</strong>
-                <small>SAT</small>
-            </div>
-
-            <div class="schedule-info">
-
-                <span class="schedule-game">
-                    HONOR OF KINGS
-                </span>
-
-                <h3>DAY 02</h3>
-
-                <p>
-                    9:00 AM — 7:30 PM
-                </p>
-
-            </div>
-
-        </article>
-
-        <article class="schedule-card reveal reveal-delay-2">
-
-            <div class="schedule-date">
-                <span>NOV</span>
-                <strong>27</strong>
-                <small>FRI</small>
-            </div>
-
-            <div class="schedule-info">
-
-                <span class="schedule-game">
-                    MOBILE LEGENDS
-                </span>
-
-                <h3>DAY 01</h3>
-
-                <p>
-                    8:00 AM — 6:00 PM
-                </p>
-
-            </div>
-
-        </article>
-
-        <article class="schedule-card reveal reveal-delay-3">
-
-            <div class="schedule-date">
-                <span>NOV</span>
-                <strong>28</strong>
-                <small>SAT</small>
-            </div>
-
-            <div class="schedule-info">
-
-                <span class="schedule-game">
-                    MOBILE LEGENDS
-                </span>
-
-                <h3>DAY 02</h3>
-
-                <p>
-                    9:00 AM — 7:30 PM
-                </p>
-
-            </div>
-
-        </article>
-
-    </div>
-
-    <div class="venue-banner reveal">
-
-        <span>VENUE</span>
-
-        <strong>
-            SMJK KEAT HWA
-        </strong>
-
-        <span>
-            KEDAH • MALAYSIA
-        </span>
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     PRIZES
-===================================================== -->
-
-<section
-    id="prizes"
-    class="section prizes-section"
->
-
-    <div class="section-heading reveal">
-
-        <span class="section-index">
-            06
-        </span>
-
-        <div>
-
-            <p class="section-kicker">
-                COMPETE FOR GLORY
-            </p>
-
-            <h2>
-                PRIZE <span>POOL</span>
-            </h2>
-
-        </div>
-
-    </div>
-
-    <div class="prize-total reveal">
-
-        <span>
-            TOTAL CASH PRIZE
-        </span>
-
-        <strong>
-            RM2,600
-        </strong>
-
-        <small>
-            ACROSS BOTH TITLES
-        </small>
-
-    </div>
-
-    <div class="prize-grid">
-
-        <div class="prize-card reveal">
-            <span>01</span>
-            <strong>RM500</strong>
-            <p>CHAMPION</p>
-        </div>
-
-        <div class="prize-card reveal reveal-delay-1">
-            <span>02</span>
-            <strong>RM300</strong>
-            <p>RUNNER-UP</p>
-        </div>
-
-        <div class="prize-card reveal reveal-delay-2">
-            <span>03</span>
-            <strong>RM200</strong>
-            <p>SEMIFINALIST ×2</p>
-        </div>
-
-        <div class="prize-card fmvp-card reveal reveal-delay-3">
-            <span>FMVP</span>
-            <strong>RM100</strong>
-            <p>SPECIAL AWARD</p>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     RULES
-===================================================== -->
-
-<section
-    id="rules"
-    class="section rules-section"
->
-
-    <div class="section-heading reveal">
-
-        <span class="section-index">
-            07
-        </span>
-
-        <div>
-
-            <p class="section-kicker">
-                PLAY FAIR
-            </p>
-
-            <h2>
-                KEY <span>RULES</span>
-            </h2>
-
-        </div>
-
-    </div>
-
-    <div class="rules-grid">
-
-        <div class="rule reveal">
-
-            <span>01</span>
-
-            <div>
-
-                <h3>
-                    GLOBAL BAN & PICK
-                </h3>
-
-                <p>
-                    Each team may only select the same Hero
-                    once throughout a BO3 or BO5 series.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="rule reveal reveal-delay-1">
-
-            <span>02</span>
-
-            <div>
-
-                <h3>
-                    TIE-BREAK
-                </h3>
-
-                <p>
-                    Head-to-Head will be used first. If it cannot
-                    determine the ranking, a tie-break match or
-                    draw may be used.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="rule reveal reveal-delay-2">
-
-            <span>03</span>
-
-            <div>
-
-                <h3>
-                    WALKOVER
-                </h3>
-
-                <p>
-                    Teams must be present at least 15 minutes
-                    before their scheduled match.
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="rule reveal reveal-delay-3">
-
-            <span>04</span>
-
-            <div>
-
-                <h3>
-                    FAIR PLAY
-                </h3>
-
-                <p>
-                    Cheating, abusive behaviour, disruption or
-                    other violations may result in disciplinary action.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- FULL RULEBOOK BUTTON -->
-
-    <div class="rules-action reveal">
-
-        <a
-            href="https://docs.google.com/document/d/1CHqOSmuEXEscJ_CEOeg7fHXTDzFF-yI-7PfxptN_4qU/edit?usp=drivesdk"
-            class="rules-book-button"
-            target="_blank"
-            rel="noopener noreferrer"
+        <div
+            class="modal-panel teams-modal-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="teamsTitle"
         >
-            VIEW FULL RULEBOOK ↗
-        </a>
 
-    </div>
+            <button
+                class="modal-close"
+                type="button"
+                data-close-modal
+                aria-label="Close registered teams"
+            >
+                ×
+            </button>
 
-</section>
 
-<!-- =====================================================
-     REGISTRATION
-===================================================== -->
+            <div class="modal-header">
 
-<section
-    id="register"
-    class="register-section"
->
+                <span>
+                    REGISTRATION DATABASE
+                </span>
 
-    <div class="register-grid"></div>
+                <h2 id="teamsTitle">
+                    REGISTERED
+                    <span>TEAMS.</span>
+                </h2>
 
-    <div class="register-content">
-
-        <p class="section-kicker reveal">
-            READY TO COMPETE?
-        </p>
-
-        <h2 class="reveal reveal-delay-1">
-            ENTER THE<br>
-            <span>ARENA.</span>
-        </h2>
-
-        <p class="reveal reveal-delay-2">
-            Open to students currently registered
-            at educational institutions in Malaysia.
-        </p>
-
-        <a
-            href="https://forms.gle/n1F13zaxE4oSdtKV6"
-            class="primary-button reveal reveal-delay-3"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            REGISTRATION FORM
-            <span>↗</span>
-        </a>
-
-    </div>
-
-</section>
-
-</main>
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer class="footer">
-
-    <div class="footer-main">
-
-        <div>
-
-            <div class="footer-logo">
-                KH <span>ESPORTS</span>
             </div>
 
-            <p>
-                Keat Hwa Esports Championship 2026
-            </p>
 
-        </div>
+            <div class="team-modal-tabs">
 
-        <div class="footer-info">
+                <button
+                    class="team-modal-tab active"
+                    type="button"
+                    data-team-tab="hok"
+                >
+                    HONOR OF KINGS
+                </button>
 
-            <span>
-                ORGANISED BY
-            </span>
+                <button
+                    class="team-modal-tab"
+                    type="button"
+                    data-team-tab="mlbb"
+                >
+                    MOBILE LEGENDS: BANG BANG
+                </button>
 
-            <strong>
-                TECHVERSE CLUB<br>
-                SMJK KEAT HWA
-            </strong>
+            </div>
 
-        </div>
 
-        <div class="footer-info">
+            <div
+                class="team-list"
+                id="teamList"
+            ></div>
 
-            <span>
-                VENUE
-            </span>
 
-            <strong>
-                SMJK KEAT HWA<br>
-                KEDAH, MALAYSIA
-            </strong>
+            <div class="team-list-note">
+                Official registered team names will be displayed
+                here once registration data is confirmed by the
+                organiser.
+            </div>
 
         </div>
 
     </div>
 
-    <div class="footer-bottom">
 
-        <span>
-            © 2026 KH ESPORTS CHAMPIONSHIP
-        </span>
-
-        <span>
-            TECHVERSE CLUB
-        </span>
-
-    </div>
-
-</footer>
-
-<!-- =====================================================
-     BACK TO TOP BUTTON
-===================================================== -->
-
-<button
-    class="back-to-top"
-    id="backToTop"
-    aria-label="Back to top"
-    type="button"
->
-    <span>↑</span>
-</button>
-
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
-<script>
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const navbar =
-        document.getElementById("navbar");
-
-    const menuToggle =
-        document.getElementById("menuToggle");
-
-    const mobileMenu =
-        document.getElementById("mobileMenu");
-
-    const menuBackdrop =
-        document.getElementById("menuBackdrop");
-
-    const scrollProgress =
-        document.getElementById("scrollProgress");
-
-    const backToTop =
-        document.getElementById("backToTop");
-
-    const desktopLinks =
-        Array.from(
-            document.querySelectorAll(".nav-links a")
-        );
-
-    const mobileLinks =
-        Array.from(
-            document.querySelectorAll(".mobile-links a")
-        );
-
-    const sections =
-        Array.from(
-            document.querySelectorAll("main section[id]")
-        );
-
-    /* =====================================================
-       NAVBAR SCROLL
-    ===================================================== */
-
-    function updateNavbar() {
-
-        if (!navbar) return;
-
-        navbar.classList.toggle(
-            "scrolled",
-            window.scrollY > 30
-        );
-
-    }
-
-    /* =====================================================
-       SCROLL PROGRESS
-    ===================================================== */
-
-    function updateScrollProgress() {
-
-        if (!scrollProgress) return;
-
-        const scrollTop =
-            window.scrollY;
-
-        const documentHeight =
-            document.documentElement.scrollHeight;
-
-        const viewportHeight =
-            window.innerHeight;
-
-        const scrollableHeight =
-            documentHeight -
-            viewportHeight;
-
-        if (scrollableHeight <= 0) {
-
-            scrollProgress.style.width = "100%";
-
-            return;
-
-        }
-
-        const progress =
-            (scrollTop / scrollableHeight) * 100;
-
-        scrollProgress.style.width =
-            Math.min(
-                100,
-                Math.max(0, progress)
-            ) + "%";
-
-    }
-
-    /* =====================================================
-       BACK TO TOP
-    ===================================================== */
-
-    function updateBackToTop() {
-
-        if (!backToTop) return;
-
-        backToTop.classList.toggle(
-            "visible",
-            window.scrollY > 600
-        );
-
-    }
-
-    if (backToTop) {
-
-        backToTop.addEventListener(
-            "click",
-            () => {
-
-                window.scrollTo({
-
-                    top: 0,
-
-                    behavior: "smooth"
-
-                });
-
-            }
-        );
-
-    }
-
-    /* =====================================================
-       ACTIVE NAVIGATION
-    ===================================================== */
-
-    function setActiveSection(sectionId) {
-
-        desktopLinks.forEach(link => {
-
-            link.classList.toggle(
-                "active",
-                link.getAttribute("href") ===
-                "#" + sectionId
-            );
-
-        });
-
-        mobileLinks.forEach(link => {
-
-            link.classList.toggle(
-                "active",
-                link.getAttribute("href") ===
-                "#" + sectionId
-            );
-
-        });
-
-    }
-
-    function getCurrentSection() {
-
-        if (!sections.length) {
-            return "home";
-        }
-
-        const navbarHeight =
-            navbar ? navbar.offsetHeight : 0;
-
-        const activationPoint =
-            window.scrollY +
-            navbarHeight +
-            80;
-
-        let current =
-            sections[0].id;
-
-        for (const section of sections) {
-
-            const sectionTop =
-                section.getBoundingClientRect().top +
-                window.scrollY;
-
-            if (activationPoint >= sectionTop) {
-
-                current =
-                    section.id;
-
-            } else {
-
-                break;
-
-            }
-
-        }
-
-        return current;
-
-    }
-
-    function updateActiveNavigation() {
-
-        setActiveSection(
-            getCurrentSection()
-        );
-
-    }
-
-    /* =====================================================
-       MOBILE MENU
-    ===================================================== */
-
-    function openMenu() {
-
-        if (
-            !mobileMenu ||
-            !menuBackdrop ||
-            !menuToggle
-        ) {
-            return;
-        }
-
-        mobileMenu.classList.add("open");
-
-        menuBackdrop.classList.add("open");
-
-        menuToggle.classList.add("open");
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            "true"
-        );
-
-        menuToggle.setAttribute(
-            "aria-label",
-            "Close navigation menu"
-        );
-
-        document.body.classList.add(
-            "menu-open"
-        );
-
-    }
-
-    function closeMenu() {
-
-        if (
-            !mobileMenu ||
-            !menuBackdrop ||
-            !menuToggle
-        ) {
-            return;
-        }
-
-        mobileMenu.classList.remove("open");
-
-        menuBackdrop.classList.remove("open");
-
-        menuToggle.classList.remove("open");
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-        menuToggle.setAttribute(
-            "aria-label",
-            "Open navigation menu"
-        );
-
-        document.body.classList.remove(
-            "menu-open"
-        );
-
-    }
-
-    if (menuToggle) {
-
-        menuToggle.addEventListener(
-            "click",
-            () => {
-
-                if (
-                    mobileMenu.classList.contains("open")
-                ) {
-
-                    closeMenu();
-
-                } else {
-
-                    openMenu();
-
-                }
-
-            }
-        );
-
-    }
-
-    if (menuBackdrop) {
-
-        menuBackdrop.addEventListener(
-            "click",
-            closeMenu
-        );
-
-    }
-
-    /* =====================================================
-       NAVIGATION CLICK
-    ===================================================== */
-
-    function handleNavigationClick(event) {
-
-        const link =
-            event.currentTarget;
-
-        const href =
-            link.getAttribute("href");
-
-        if (
-            !href ||
-            !href.startsWith("#") ||
-            href === "#"
-        ) {
-            return;
-        }
-
-        const target =
-            document.getElementById(
-                href.substring(1)
-            );
-
-        if (!target) {
-            return;
-        }
-
-        event.preventDefault();
-
-        closeMenu();
-
-        const navbarHeight =
-            navbar ? navbar.offsetHeight : 0;
-
-        const targetTop =
-            target.getBoundingClientRect().top +
-            window.scrollY -
-            navbarHeight;
-
-        window.scrollTo({
-
-            top:
-                Math.max(
-                    0,
-                    targetTop
-                ),
-
-            behavior:
-                "smooth"
-
-        });
-
-        if (
-            window.history &&
-            window.history.pushState
-        ) {
-
-            window.history.pushState(
-                null,
-                "",
-                href
-            );
-
-        }
-
-    }
-
-    desktopLinks.forEach(link => {
-
-        link.addEventListener(
-            "click",
-            handleNavigationClick
-        );
-
-    });
-
-    mobileLinks.forEach(link => {
-
-        link.addEventListener(
-            "click",
-            handleNavigationClick
-        );
-
-    });
-
-    /* =====================================================
-       ESCAPE
-    ===================================================== */
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key === "Escape"
-            ) {
-
-                closeMenu();
-
-            }
-
-        }
-    );
-
-    /* =====================================================
-       BRACKET TITLE SWITCHER
-    ===================================================== */
-
-    const bracketTabs =
-        Array.from(
-            document.querySelectorAll(".bracket-tab")
-        );
-
-    const bracketPanels =
-        Array.from(
-            document.querySelectorAll(".bracket-panel")
-        );
-
-    function activateBracket(title) {
-
-        bracketTabs.forEach(tab => {
-
-            tab.classList.toggle(
-                "active",
-                tab.dataset.bracket === title
-            );
-
-        });
-
-        bracketPanels.forEach(panel => {
-
-            const isActive =
-                panel.dataset.panel === title;
-
-            panel.classList.toggle(
-                "active",
-                isActive
-            );
-
-            panel.hidden =
-                !isActive;
-
-        });
-
-    }
-
-    bracketTabs.forEach(tab => {
-
-        tab.addEventListener(
-            "click",
-            () => {
-
-                const title =
-                    tab.dataset.bracket;
-
-                activateBracket(title);
-
-            }
-        );
-
-    });
-
-    /* =====================================================
-       RESIZE
-    ===================================================== */
-
-    window.addEventListener(
-        "resize",
-        () => {
-
-            if (
-                window.innerWidth > 1100
-            ) {
-
-                closeMenu();
-
-            }
-
-            updateActiveNavigation();
-
-            updateScrollProgress();
-
-        }
-    );
-
-    /* =====================================================
-       SCROLL
-    ===================================================== */
-
-    let scrollTicking =
-        false;
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            updateNavbar();
-
-            updateBackToTop();
-
-            updateScrollProgress();
-
-            if (!scrollTicking) {
-
-                window.requestAnimationFrame(
-                    () => {
-
-                        updateActiveNavigation();
-
-                        scrollTicking =
-                            false;
-
-                    }
-                );
-
-                scrollTicking =
-                    true;
-
-            }
-
-        },
-        { passive: true }
-    );
-
-    /* =====================================================
-       BROWSER BACK / FORWARD
-    ===================================================== */
-
-    window.addEventListener(
-        "popstate",
-        () => {
-
-            updateActiveNavigation();
-
-        }
-    );
-
-    /* =====================================================
-       REPEATING SCROLL ANIMATION
-    ===================================================== */
-
-    const revealElements =
-        document.querySelectorAll(
-            ".reveal"
-        );
-
-    if (
-        "IntersectionObserver" in window
-    ) {
-
-        const revealObserver =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(entry => {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.classList.add(
-                                "reveal-visible"
-                            );
-
-                        } else {
-
-                            entry.target.classList.remove(
-                                "reveal-visible"
-                            );
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: 0.12,
-                    rootMargin:
-                        "0px 0px -8% 0px"
-                }
-            );
-
-        revealElements.forEach(
-            element => {
-
-                revealObserver.observe(
-                    element
-                );
-
-            }
-        );
-
-    } else {
-
-        revealElements.forEach(
-            element => {
-
-                element.classList.add(
-                    "reveal-visible"
-                );
-
-            }
-        );
-
-    }
-
-    /* =====================================================
-       INITIAL STATE
-    ===================================================== */
-
-    activateBracket("hok");
-
-    updateNavbar();
-
-    updateScrollProgress();
-
-    updateBackToTop();
-
-    updateActiveNavigation();
-
-    window.setTimeout(
-        updateActiveNavigation,
-        100
-    );
-
-    window.setTimeout(
-        updateActiveNavigation,
-        500
-    );
-
-});
-
-</script>
+    <!-- =================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script
+        src="script.js"
+        defer
+    ></script>
 
 </body>
 </html>
