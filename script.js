@@ -1,9 +1,10 @@
-/* =====================================================
+/* =========================================================
    KH ESPORTS CHAMPIONSHIP 2026
    MAIN JAVASCRIPT
-===================================================== */
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
+
 
     /* =====================================================
        ELEMENTS
@@ -27,20 +28,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const backToTop =
         document.getElementById("backToTop");
 
-    const tentativeModal =
-        document.getElementById("tentativeModal");
-
-    const teamsModal =
-        document.getElementById("teamsModal");
-
     const desktopLinks =
         Array.from(
-            document.querySelectorAll(".nav-links a")
+            document.querySelectorAll(
+                ".nav-links a"
+            )
         );
 
     const mobileLinks =
         Array.from(
-            document.querySelectorAll(".mobile-links a")
+            document.querySelectorAll(
+                ".mobile-links a"
+            )
         );
 
     const sections =
@@ -52,42 +51,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       REGISTERED TEAM DATA
-       
-       IMPORTANT:
-       Replace the arrays below with the actual
-       registered team names when registration data
-       becomes available.
-    ====================================================== */
-
-    const registeredTeams = {
-
-        hok: [
-
-            // Example:
-            // "Team Name 01",
-            // "Team Name 02"
-
-        ],
-
-        mlbb: [
-
-            // Example:
-            // "Team Name 01",
-            // "Team Name 02"
-
-        ]
-
-    };
-
-
-    /* =====================================================
        NAVBAR
-    ====================================================== */
+    ===================================================== */
 
     function updateNavbar() {
 
-        if (!navbar) return;
+        if (!navbar) {
+            return;
+        }
 
         navbar.classList.toggle(
             "scrolled",
@@ -99,11 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        SCROLL PROGRESS
-    ====================================================== */
+    ===================================================== */
 
     function updateScrollProgress() {
 
-        if (!scrollProgress) return;
+        if (!scrollProgress) {
+            return;
+        }
 
         const scrollTop =
             window.scrollY;
@@ -127,26 +100,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const progress =
-            (
-                scrollTop /
-                scrollableHeight
-            ) * 100;
+            (scrollTop / scrollableHeight) *
+            100;
 
-        scrollProgress.style.width =
+        const safeProgress =
             Math.min(
                 100,
-                Math.max(0, progress)
-            ) + "%";
+                Math.max(
+                    0,
+                    progress
+                )
+            );
+
+        scrollProgress.style.width =
+            safeProgress + "%";
+
     }
 
 
     /* =====================================================
        BACK TO TOP
-    ====================================================== */
+    ===================================================== */
 
     function updateBackToTop() {
 
-        if (!backToTop) return;
+        if (!backToTop) {
+            return;
+        }
 
         backToTop.classList.toggle(
             "visible",
@@ -178,36 +158,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        ACTIVE NAVIGATION
-    ====================================================== */
+    ===================================================== */
 
     function setActiveSection(sectionId) {
 
-        desktopLinks.forEach(link => {
+        desktopLinks.forEach(
+            link => {
 
-            link.classList.toggle(
+                const href =
+                    link.getAttribute(
+                        "href"
+                    );
 
-                "active",
+                link.classList.toggle(
+                    "active",
+                    href ===
+                    "#" + sectionId
+                );
 
-                link.getAttribute("href") ===
-                "#" + sectionId
-
-            );
-
-        });
+            }
+        );
 
 
-        mobileLinks.forEach(link => {
+        mobileLinks.forEach(
+            link => {
 
-            link.classList.toggle(
+                const href =
+                    link.getAttribute(
+                        "href"
+                    );
 
-                "active",
+                link.classList.toggle(
+                    "active",
+                    href ===
+                    "#" + sectionId
+                );
 
-                link.getAttribute("href") ===
-                "#" + sectionId
-
-            );
-
-        });
+            }
+        );
 
     }
 
@@ -215,9 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function getCurrentSection() {
 
         if (!sections.length) {
-
             return "home";
-
         }
 
         const navbarHeight =
@@ -228,12 +214,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const activationPoint =
             window.scrollY +
             navbarHeight +
-            80;
+            100;
 
         let current =
             sections[0].id;
 
-        for (const section of sections) {
+        for (
+            const section
+            of sections
+        ) {
 
             const sectionTop =
                 section.getBoundingClientRect().top +
@@ -271,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        MOBILE MENU
-    ====================================================== */
+    ===================================================== */
 
     function openMenu() {
 
@@ -357,12 +346,13 @@ document.addEventListener("DOMContentLoaded", () => {
             "click",
             () => {
 
-                if (
+                const isOpen =
                     mobileMenu &&
                     mobileMenu.classList.contains(
                         "open"
-                    )
-                ) {
+                    );
+
+                if (isOpen) {
 
                     closeMenu();
 
@@ -389,8 +379,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       NAVIGATION CLICK
-    ====================================================== */
+       SMOOTH NAVIGATION
+    ===================================================== */
 
     function handleNavigationClick(event) {
 
@@ -462,29 +452,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    desktopLinks.forEach(link => {
+    desktopLinks.forEach(
+        link => {
 
-        link.addEventListener(
-            "click",
-            handleNavigationClick
-        );
+            link.addEventListener(
+                "click",
+                handleNavigationClick
+            );
 
-    });
+        }
+    );
 
 
-    mobileLinks.forEach(link => {
+    mobileLinks.forEach(
+        link => {
 
-        link.addEventListener(
-            "click",
-            handleNavigationClick
-        );
+            link.addEventListener(
+                "click",
+                handleNavigationClick
+            );
 
-    });
+        }
+    );
 
 
     /* =====================================================
-       ESCAPE
-    ====================================================== */
+       ESCAPE KEY
+    ===================================================== */
 
     document.addEventListener(
         "keydown",
@@ -497,648 +491,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 closeMenu();
 
-                closeAllModals();
-
             }
 
         }
     );
-
-
-    /* =====================================================
-       MODAL SYSTEM
-    ====================================================== */
-
-    function openModal(modal) {
-
-        if (!modal) return;
-
-        modal.classList.add(
-            "open"
-        );
-
-        modal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.classList.add(
-            "menu-open"
-        );
-
-    }
-
-
-    function closeModal(modal) {
-
-        if (!modal) return;
-
-        modal.classList.remove(
-            "open"
-        );
-
-        modal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        if (
-            !document.querySelector(
-                ".modal.open"
-            )
-        ) {
-
-            document.body.classList.remove(
-                "menu-open"
-            );
-
-        }
-
-    }
-
-
-    function closeAllModals() {
-
-        document
-            .querySelectorAll(
-                ".modal.open"
-            )
-            .forEach(modal => {
-
-                closeModal(modal);
-
-            });
-
-    }
-
-
-    document
-        .querySelectorAll(
-            "[data-close-modal]"
-        )
-        .forEach(element => {
-
-            element.addEventListener(
-                "click",
-                closeAllModals
-            );
-
-        });
-
-
-    /* =====================================================
-       TENTATIVE FLOW MODAL
-    ====================================================== */
-
-    const openTentative =
-        document.getElementById(
-            "openTentative"
-        );
-
-    if (openTentative) {
-
-        openTentative.addEventListener(
-            "click",
-            () => {
-
-                openModal(
-                    tentativeModal
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       FLOW TABS
-    ====================================================== */
-
-    const flowTabs =
-        document.querySelectorAll(
-            "[data-flow-tab]"
-        );
-
-    const flowContents =
-        document.querySelectorAll(
-            "[data-flow-content]"
-        );
-
-
-    flowTabs.forEach(tab => {
-
-        tab.addEventListener(
-            "click",
-            () => {
-
-                const target =
-                    tab.getAttribute(
-                        "data-flow-tab"
-                    );
-
-
-                flowTabs.forEach(
-                    item => {
-
-                        item.classList.toggle(
-                            "active",
-                            item === tab
-                        );
-
-                    }
-                );
-
-
-                flowContents.forEach(
-                    content => {
-
-                        content.classList.toggle(
-
-                            "active",
-
-                            content.getAttribute(
-                                "data-flow-content"
-                            ) === target
-
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-    });
-
-
-    /* =====================================================
-       COUNTDOWN SYSTEM
-       
-       HOK:
-       20 November 2026
-       
-       MLBB:
-       27 November 2026
-       
-       Time is set to 08:00 local time.
-    ====================================================== */
-
-    const countdownTargets = {
-
-        hok:
-            new Date(
-                "2026-11-20T08:00:00+08:00"
-            ).getTime(),
-
-        mlbb:
-            new Date(
-                "2026-11-27T08:00:00+08:00"
-            ).getTime()
-
-    };
-
-
-    function updateCountdown(
-        type,
-        ids
-    ) {
-
-        const target =
-            countdownTargets[type];
-
-        const now =
-            Date.now();
-
-        let difference =
-            target - now;
-
-
-        if (difference <= 0) {
-
-            ids.days.textContent =
-                "00";
-
-            ids.hours.textContent =
-                "00";
-
-            ids.minutes.textContent =
-                "00";
-
-            ids.seconds.textContent =
-                "00";
-
-            return;
-
-        }
-
-
-        const totalSeconds =
-            Math.floor(
-                difference / 1000
-            );
-
-
-        const days =
-            Math.floor(
-                totalSeconds /
-                86400
-            );
-
-
-        const hours =
-            Math.floor(
-                (
-                    totalSeconds %
-                    86400
-                ) / 3600
-            );
-
-
-        const minutes =
-            Math.floor(
-                (
-                    totalSeconds %
-                    3600
-                ) / 60
-            );
-
-
-        const seconds =
-            totalSeconds %
-            60;
-
-
-        ids.days.textContent =
-            String(days).padStart(
-                2,
-                "0"
-            );
-
-        ids.hours.textContent =
-            String(hours).padStart(
-                2,
-                "0"
-            );
-
-        ids.minutes.textContent =
-            String(minutes).padStart(
-                2,
-                "0"
-            );
-
-        ids.seconds.textContent =
-            String(seconds).padStart(
-                2,
-                "0"
-            );
-
-    }
-
-
-    function updateAllCountdowns() {
-
-        updateCountdown(
-            "hok",
-            {
-                days:
-                    document.getElementById(
-                        "hokDays"
-                    ),
-
-                hours:
-                    document.getElementById(
-                        "hokHours"
-                    ),
-
-                minutes:
-                    document.getElementById(
-                        "hokMinutes"
-                    ),
-
-                seconds:
-                    document.getElementById(
-                        "hokSeconds"
-                    )
-            }
-        );
-
-
-        updateCountdown(
-            "mlbb",
-            {
-                days:
-                    document.getElementById(
-                        "mlbbDays"
-                    ),
-
-                hours:
-                    document.getElementById(
-                        "mlbbHours"
-                    ),
-
-                minutes:
-                    document.getElementById(
-                        "mlbbMinutes"
-                    ),
-
-                seconds:
-                    document.getElementById(
-                        "mlbbSeconds"
-                    )
-            }
-        );
-
-    }
-
-
-    updateAllCountdowns();
-
-    setInterval(
-        updateAllCountdowns,
-        1000
-    );
-
-
-    /* =====================================================
-       REGISTERED TEAM COUNTS
-    ====================================================== */
-
-    function updateTeamCounts() {
-
-        const hokCount =
-            registeredTeams.hok.length;
-
-        const mlbbCount =
-            registeredTeams.mlbb.length;
-
-
-        const hokCountElement =
-            document.getElementById(
-                "hokTeamCount"
-            );
-
-        const mlbbCountElement =
-            document.getElementById(
-                "mlbbTeamCount"
-            );
-
-
-        if (hokCountElement) {
-
-            hokCountElement.textContent =
-                hokCount;
-
-        }
-
-
-        if (mlbbCountElement) {
-
-            mlbbCountElement.textContent =
-                mlbbCount;
-
-        }
-
-
-        const hokProgress =
-            document.getElementById(
-                "hokProgress"
-            );
-
-        const mlbbProgress =
-            document.getElementById(
-                "mlbbProgress"
-            );
-
-
-        if (hokProgress) {
-
-            hokProgress.style.width =
-                (
-                    Math.min(
-                        hokCount,
-                        32
-                    ) / 32 * 100
-                ) + "%";
-
-        }
-
-
-        if (mlbbProgress) {
-
-            mlbbProgress.style.width =
-                (
-                    Math.min(
-                        mlbbCount,
-                        32
-                    ) / 32 * 100
-                ) + "%";
-
-        }
-
-    }
-
-
-    updateTeamCounts();
-
-
-    /* =====================================================
-       REGISTERED TEAM MODAL
-    ====================================================== */
-
-    const teamModalGame =
-        document.getElementById(
-            "teamModalGame"
-        );
-
-    const teamModalCount =
-        document.getElementById(
-            "teamModalCount"
-        );
-
-    const registeredTeamList =
-        document.getElementById(
-            "registeredTeamList"
-        );
-
-
-    function renderRegisteredTeams(
-        type
-    ) {
-
-        if (
-            !registeredTeamList ||
-            !teamModalGame ||
-            !teamModalCount
-        ) {
-            return;
-        }
-
-
-        const teams =
-            registeredTeams[type] || [];
-
-
-        const gameName =
-            type === "hok"
-                ? "HONOR OF KINGS"
-                : "MOBILE LEGENDS";
-
-
-        teamModalGame.textContent =
-            gameName;
-
-
-        teamModalCount.textContent =
-            `${teams.length} / 32`;
-
-
-        registeredTeamList.innerHTML =
-            "";
-
-
-        if (!teams.length) {
-
-            const empty =
-                document.createElement(
-                    "div"
-                );
-
-            empty.className =
-                "team-list-empty";
-
-
-            const strong =
-                document.createElement(
-                    "strong"
-                );
-
-            strong.textContent =
-                "NO TEAMS DISPLAYED YET";
-
-
-            const span =
-                document.createElement(
-                    "span"
-                );
-
-            span.textContent =
-                "Registered team information will appear here.";
-
-
-            empty.appendChild(
-                strong
-            );
-
-            empty.appendChild(
-                span
-            );
-
-
-            registeredTeamList.appendChild(
-                empty
-            );
-
-            return;
-        }
-
-
-        teams.forEach(
-            (team, index) => {
-
-                const item =
-                    document.createElement(
-                        "div"
-                    );
-
-                item.className =
-                    "team-list-item";
-
-
-                const number =
-                    document.createElement(
-                        "span"
-                    );
-
-                number.textContent =
-                    String(
-                        index + 1
-                    ).padStart(
-                        2,
-                        "0"
-                    );
-
-
-                const name =
-                    document.createElement(
-                        "strong"
-                    );
-
-                name.textContent =
-                    team;
-
-
-                item.appendChild(
-                    number
-                );
-
-                item.appendChild(
-                    name
-                );
-
-
-                registeredTeamList.appendChild(
-                    item
-                );
-
-            }
-        );
-
-    }
-
-
-    document
-        .querySelectorAll(
-            "[data-team-modal]"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    const type =
-                        button.getAttribute(
-                            "data-team-modal"
-                        );
-
-
-                    renderRegisteredTeams(
-                        type
-                    );
-
-
-                    openModal(
-                        teamsModal
-                    );
-
-                }
-            );
-
-        });
 
 
     /* =====================================================
        RESIZE
-    ====================================================== */
+    ===================================================== */
 
     window.addEventListener(
         "resize",
         () => {
 
             if (
-                window.innerWidth >
-                1100
+                window.innerWidth > 1100
             ) {
 
                 closeMenu();
@@ -1154,8 +522,95 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       SCROLL
-    ====================================================== */
+       REVEAL ANIMATION
+       
+       IMPORTANT:
+       Elements are NOT permanently marked as revealed.
+       
+       When they leave the viewport:
+       reveal-visible is removed.
+       
+       When they enter again:
+       reveal-visible is added again.
+       
+       Therefore animations repeat every time.
+    ===================================================== */
+
+    const revealElements =
+        document.querySelectorAll(
+            ".reveal"
+        );
+
+
+    if (
+        "IntersectionObserver"
+        in window
+    ) {
+
+        const revealObserver =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(
+                        entry => {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "reveal-visible"
+                                );
+
+                            } else {
+
+                                entry.target.classList.remove(
+                                    "reveal-visible"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold: 0.12,
+
+                    rootMargin:
+                        "0px 0px -8% 0px"
+                }
+            );
+
+
+        revealElements.forEach(
+            element => {
+
+                revealObserver.observe(
+                    element
+                );
+
+            }
+        );
+
+    } else {
+
+        revealElements.forEach(
+            element => {
+
+                element.classList.add(
+                    "reveal-visible"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       SCROLL HANDLER
+    ===================================================== */
 
     let scrollTicking =
         false;
@@ -1199,7 +654,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        BROWSER BACK / FORWARD
-    ====================================================== */
+    ===================================================== */
 
     window.addEventListener(
         "popstate",
@@ -1212,91 +667,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       REVEAL ANIMATIONS
-       
-       Animation repeats whenever an element leaves
-       and re-enters the viewport.
-    ====================================================== */
-
-    const revealElements =
-        document.querySelectorAll(
-            ".reveal"
-        );
-
-
-    if (
-        "IntersectionObserver"
-        in window
-    ) {
-
-        const revealObserver =
-            new IntersectionObserver(
-
-                entries => {
-
-                    entries.forEach(
-                        entry => {
-
-                            if (
-                                entry.isIntersecting
-                            ) {
-
-                                entry.target.classList.add(
-                                    "reveal-visible"
-                                );
-
-                            } else {
-
-                                entry.target.classList.remove(
-                                    "reveal-visible"
-                                );
-
-                            }
-
-                        }
-                    );
-
-                },
-
-                {
-                    threshold:
-                        0.12,
-
-                    rootMargin:
-                        "0px 0px -8% 0px"
-                }
-
-            );
-
-
-        revealElements.forEach(
-            element => {
-
-                revealObserver.observe(
-                    element
-                );
-
-            }
-        );
-
-    } else {
-
-        revealElements.forEach(
-            element => {
-
-                element.classList.add(
-                    "reveal-visible"
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
        INITIAL STATE
-    ====================================================== */
+    ===================================================== */
 
     updateNavbar();
 
@@ -1305,6 +677,13 @@ document.addEventListener("DOMContentLoaded", () => {
     updateBackToTop();
 
     updateActiveNavigation();
+
+
+    /* =====================================================
+       EXTRA INITIAL REFRESH
+       
+       Helps when browser layout is still settling.
+    ===================================================== */
 
     window.setTimeout(
         updateActiveNavigation,
