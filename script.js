@@ -1,6 +1,6 @@
 /* =========================================================
    KH ESPORTS CHAMPIONSHIP 2026
-   JAVASCRIPT
+   JAVASCRIPT 
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
