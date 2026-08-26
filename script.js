@@ -1,16 +1,13 @@
 /* =====================================================
    KH ESPORTS CHAMPIONSHIP 2026
-   MASTER INTERACTION SYSTEM — V2
+   MAIN JAVASCRIPT
 ===================================================== */
 
-(() => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    "use strict";
-
-
-    /* =================================================
+    /* =====================================================
        ELEMENTS
-    ================================================= */
+    ===================================================== */
 
     const navbar =
         document.getElementById("navbar");
@@ -24,18 +21,26 @@
     const menuBackdrop =
         document.getElementById("menuBackdrop");
 
+    const scrollProgress =
+        document.getElementById("scrollProgress");
+
+    const backToTop =
+        document.getElementById("backToTop");
+
+    const tentativeModal =
+        document.getElementById("tentativeModal");
+
+    const teamsModal =
+        document.getElementById("teamsModal");
+
     const desktopLinks =
         Array.from(
-            document.querySelectorAll(
-                ".nav-links a"
-            )
+            document.querySelectorAll(".nav-links a")
         );
 
     const mobileLinks =
         Array.from(
-            document.querySelectorAll(
-                ".mobile-links a"
-            )
+            document.querySelectorAll(".mobile-links a")
         );
 
     const sections =
@@ -46,241 +51,227 @@
         );
 
 
-    const prefersReducedMotion =
-        window.matchMedia(
-            "(prefers-reduced-motion: reduce)"
-        ).matches;
+    /* =====================================================
+       REGISTERED TEAM DATA
+       
+       IMPORTANT:
+       Replace the arrays below with the actual
+       registered team names when registration data
+       becomes available.
+    ====================================================== */
+
+    const registeredTeams = {
+
+        hok: [
+
+            // Example:
+            // "Team Name 01",
+            // "Team Name 02"
+
+        ],
+
+        mlbb: [
+
+            // Example:
+            // "Team Name 01",
+            // "Team Name 02"
+
+        ]
+
+    };
 
 
-    /* =================================================
-       SCROLL PROGRESS
-    ================================================= */
-
-    const progressBar =
-        document.createElement("div");
-
-    progressBar.id =
-        "scrollProgress";
-
-    progressBar.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    progressBar.style.cssText = `
-        position:fixed;
-        top:0;
-        left:0;
-        width:0%;
-        height:2px;
-        z-index:3000;
-        pointer-events:none;
-        background:
-            linear-gradient(
-                90deg,
-                #a855f7,
-                #c084fc,
-                #22d3ee
-            );
-        box-shadow:
-            0 0 10px rgba(168,85,247,.55),
-            0 0 18px rgba(34,211,238,.25);
-        transition:width .08s linear;
-    `;
-
-    document.body.appendChild(
-        progressBar
-    );
-
-
-    /* =================================================
-       BACK TO TOP
-    ================================================= */
-
-    const backToTop =
-        document.createElement("button");
-
-    backToTop.id =
-        "backToTop";
-
-    backToTop.type =
-        "button";
-
-    backToTop.setAttribute(
-        "aria-label",
-        "Back to top"
-    );
-
-    backToTop.innerHTML = `
-        <span>—</span>
-        <strong>↑</strong>
-    `;
-
-    backToTop.style.cssText = `
-        position:fixed;
-        right:28px;
-        bottom:28px;
-        width:46px;
-        height:46px;
-        z-index:1200;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        gap:0;
-        color:#f4f5f7;
-        border:1px solid rgba(168,85,247,.35);
-        background:rgba(7,8,13,.82);
-        cursor:pointer;
-        opacity:0;
-        visibility:hidden;
-        transform:translateY(14px);
-        backdrop-filter:blur(14px);
-        -webkit-backdrop-filter:blur(14px);
-        transition:
-            opacity .3s ease,
-            visibility .3s ease,
-            transform .3s ease,
-            border-color .25s ease,
-            background .25s ease;
-    `;
-
-    document.body.appendChild(
-        backToTop
-    );
-
-
-    const backToTopStyle =
-        document.createElement("style");
-
-    backToTopStyle.textContent = `
-        #backToTop.visible {
-            opacity:1 !important;
-            visibility:visible !important;
-            transform:translateY(0) !important;
-        }
-
-        #backToTop:hover {
-            border-color:rgba(168,85,247,.8);
-            background:rgba(168,85,247,.12);
-            transform:translateY(-3px);
-        }
-
-        #backToTop span {
-            font-size:9px;
-            color:#c084fc;
-            line-height:.5;
-        }
-
-        #backToTop strong {
-            font-size:17px;
-            font-weight:500;
-            line-height:1;
-        }
-
-        @media (max-width:760px) {
-            #backToTop {
-                right:17px;
-                bottom:18px;
-                width:42px;
-                height:42px;
-            }
-        }
-    `;
-
-    document.head.appendChild(
-        backToTopStyle
-    );
-
-
-    backToTop.addEventListener(
-        "click",
-        () => {
-
-            window.scrollTo({
-                top:0,
-                behavior:
-                    prefersReducedMotion
-                        ? "auto"
-                        : "smooth"
-            });
-
-        }
-    );
-
-
-    /* =================================================
+    /* =====================================================
        NAVBAR
-    ================================================= */
+    ====================================================== */
 
     function updateNavbar() {
 
-        if (!navbar) {
-            return;
-        }
+        if (!navbar) return;
 
         navbar.classList.toggle(
             "scrolled",
-            window.scrollY > 24
+            window.scrollY > 30
         );
 
     }
 
 
-    /* =================================================
+    /* =====================================================
        SCROLL PROGRESS
-    ================================================= */
+    ====================================================== */
 
-    function updateProgress() {
+    function updateScrollProgress() {
 
-        const scrollHeight =
-            document.documentElement.scrollHeight -
+        if (!scrollProgress) return;
+
+        const scrollTop =
+            window.scrollY;
+
+        const documentHeight =
+            document.documentElement.scrollHeight;
+
+        const viewportHeight =
             window.innerHeight;
 
-        if (scrollHeight <= 0) {
+        const scrollableHeight =
+            documentHeight -
+            viewportHeight;
 
-            progressBar.style.width =
-                "0%";
+        if (scrollableHeight <= 0) {
+
+            scrollProgress.style.width =
+                "100%";
 
             return;
-
         }
 
         const progress =
             (
-                window.scrollY /
-                scrollHeight
+                scrollTop /
+                scrollableHeight
             ) * 100;
 
-        progressBar.style.width =
-            `${Math.min(
+        scrollProgress.style.width =
+            Math.min(
                 100,
-                Math.max(
-                    0,
-                    progress
-                )
-            )}%`;
-
+                Math.max(0, progress)
+            ) + "%";
     }
 
 
-    /* =================================================
-       BACK TO TOP VISIBILITY
-    ================================================= */
+    /* =====================================================
+       BACK TO TOP
+    ====================================================== */
 
     function updateBackToTop() {
 
+        if (!backToTop) return;
+
         backToTop.classList.toggle(
             "visible",
-            window.scrollY > 500
+            window.scrollY > 600
         );
 
     }
 
 
-    /* =================================================
+    if (backToTop) {
+
+        backToTop.addEventListener(
+            "click",
+            () => {
+
+                window.scrollTo({
+
+                    top: 0,
+
+                    behavior: "smooth"
+
+                });
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       ACTIVE NAVIGATION
+    ====================================================== */
+
+    function setActiveSection(sectionId) {
+
+        desktopLinks.forEach(link => {
+
+            link.classList.toggle(
+
+                "active",
+
+                link.getAttribute("href") ===
+                "#" + sectionId
+
+            );
+
+        });
+
+
+        mobileLinks.forEach(link => {
+
+            link.classList.toggle(
+
+                "active",
+
+                link.getAttribute("href") ===
+                "#" + sectionId
+
+            );
+
+        });
+
+    }
+
+
+    function getCurrentSection() {
+
+        if (!sections.length) {
+
+            return "home";
+
+        }
+
+        const navbarHeight =
+            navbar
+                ? navbar.offsetHeight
+                : 0;
+
+        const activationPoint =
+            window.scrollY +
+            navbarHeight +
+            80;
+
+        let current =
+            sections[0].id;
+
+        for (const section of sections) {
+
+            const sectionTop =
+                section.getBoundingClientRect().top +
+                window.scrollY;
+
+            if (
+                activationPoint >=
+                sectionTop
+            ) {
+
+                current =
+                    section.id;
+
+            } else {
+
+                break;
+
+            }
+
+        }
+
+        return current;
+
+    }
+
+
+    function updateActiveNavigation() {
+
+        setActiveSection(
+            getCurrentSection()
+        );
+
+    }
+
+
+    /* =====================================================
        MOBILE MENU
-    ================================================= */
+    ====================================================== */
 
     function openMenu() {
 
@@ -304,10 +295,6 @@
             "open"
         );
 
-        document.body.classList.add(
-            "menu-open"
-        );
-
         menuToggle.setAttribute(
             "aria-expanded",
             "true"
@@ -318,14 +305,8 @@
             "Close navigation menu"
         );
 
-        mobileMenu.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        menuBackdrop.setAttribute(
-            "aria-hidden",
-            "false"
+        document.body.classList.add(
+            "menu-open"
         );
 
     }
@@ -353,10 +334,6 @@
             "open"
         );
 
-        document.body.classList.remove(
-            "menu-open"
-        );
-
         menuToggle.setAttribute(
             "aria-expanded",
             "false"
@@ -367,14 +344,8 @@
             "Open navigation menu"
         );
 
-        mobileMenu.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        menuBackdrop.setAttribute(
-            "aria-hidden",
-            "true"
+        document.body.classList.remove(
+            "menu-open"
         );
 
     }
@@ -417,55 +388,11 @@
     }
 
 
-    /* =================================================
-       SMOOTH NAVIGATION
-    ================================================= */
+    /* =====================================================
+       NAVIGATION CLICK
+    ====================================================== */
 
-    function getHeaderOffset() {
-
-        return navbar
-            ? navbar.offsetHeight + 12
-            : 0;
-
-    }
-
-
-    function scrollToTarget(
-        targetId
-    ) {
-
-        const target =
-            document.getElementById(
-                targetId
-            );
-
-        if (!target) {
-            return;
-        }
-
-        const position =
-            target.getBoundingClientRect().top +
-            window.scrollY -
-            getHeaderOffset();
-
-        window.scrollTo({
-            top:
-                Math.max(
-                    0,
-                    position
-                ),
-            behavior:
-                prefersReducedMotion
-                    ? "auto"
-                    : "smooth"
-        });
-
-    }
-
-
-    function handleNavigationClick(
-        event
-    ) {
+    function handleNavigationClick(event) {
 
         const link =
             event.currentTarget;
@@ -480,938 +407,111 @@
             !href.startsWith("#") ||
             href === "#"
         ) {
-
             return;
-
         }
-
-        const targetId =
-            href.substring(1);
 
         const target =
             document.getElementById(
-                targetId
+                href.substring(1)
             );
 
         if (!target) {
-
             return;
-
         }
 
         event.preventDefault();
 
         closeMenu();
 
-        scrollToTarget(
-            targetId
-        );
+        const navbarHeight =
+            navbar
+                ? navbar.offsetHeight
+                : 0;
 
-    }
+        const targetTop =
+            target.getBoundingClientRect().top +
+            window.scrollY -
+            navbarHeight;
 
+        window.scrollTo({
 
-    [
-        ...desktopLinks,
-        ...mobileLinks
-    ].forEach(
-        link => {
+            top:
+                Math.max(
+                    0,
+                    targetTop
+                ),
 
-            link.addEventListener(
-                "click",
-                handleNavigationClick
-            );
+            behavior:
+                "smooth"
 
-        }
-    );
+        });
 
-
-    /* =================================================
-       ACTIVE SECTION
-    ================================================= */
-
-    function setActiveSection(
-        sectionId
-    ) {
-
-        [
-            ...desktopLinks,
-            ...mobileLinks
-        ].forEach(
-            link => {
-
-                link.classList.toggle(
-                    "active",
-                    link.getAttribute(
-                        "href"
-                    ) ===
-                    `#${sectionId}`
-                );
-
-            }
-        );
-
-    }
-
-
-    function updateActiveSection() {
-
-        if (!sections.length) {
-            return;
-        }
-
-        const marker =
-            window.scrollY +
-            (
-                navbar
-                    ? navbar.offsetHeight
-                    : 0
-            ) +
-            Math.min(
-                window.innerHeight * 0.28,
-                220
-            );
-
-
-        let current =
-            sections[0].id;
-
-
-        for (
-            let i = 0;
-            i < sections.length;
-            i++
+        if (
+            window.history &&
+            window.history.pushState
         ) {
+
+            window.history.pushState(
+                null,
+                "",
+                href
+            );
+
+        }
+
+    }
+
+
+    desktopLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            handleNavigationClick
+        );
+
+    });
+
+
+    mobileLinks.forEach(link => {
+
+        link.addEventListener(
+            "click",
+            handleNavigationClick
+        );
+
+    });
+
+
+    /* =====================================================
+       ESCAPE
+    ====================================================== */
+
+    document.addEventListener(
+        "keydown",
+        event => {
 
             if (
-                marker >=
-                sections[i].offsetTop
+                event.key ===
+                "Escape"
             ) {
 
-                current =
-                    sections[i].id;
+                closeMenu();
 
-            } else {
-
-                break;
+                closeAllModals();
 
             }
-
-        }
-
-
-        setActiveSection(
-            current
-        );
-
-    }
-
-
-    /* =================================================
-       SCROLL REVEAL
-    ================================================= */
-
-    function prepareRevealElements() {
-
-        const headings =
-            document.querySelectorAll(
-                ".section-heading"
-            );
-
-
-        headings.forEach(
-            element => {
-
-                element.classList.add(
-                    "kh-reveal"
-                );
-
-            }
-        );
-
-
-        const contentBlocks =
-            document.querySelectorAll(
-                `
-                .about-main,
-                .format-intro,
-                .format-flow,
-                .format-features,
-                .schedule-grid,
-                .registration-status-grid,
-                .prize-total,
-                .prize-grid,
-                .rules-grid,
-                .register-content,
-                .footer-main
-                `
-            );
-
-
-        contentBlocks.forEach(
-            element => {
-
-                element.classList.add(
-                    "kh-reveal"
-                );
-
-            }
-        );
-
-
-        const cards =
-            document.querySelectorAll(
-                `
-                .stat-card,
-                .title-card,
-                .format-step,
-                .feature-card,
-                .schedule-card,
-                .prize-card,
-                .rule,
-                .countdown-card
-                `
-            );
-
-
-        cards.forEach(
-            element => {
-
-                element.classList.add(
-                    "kh-card-reveal"
-                );
-
-            }
-        );
-
-
-        return [
-            ...document.querySelectorAll(
-                ".kh-reveal, .kh-card-reveal"
-            )
-        ];
-
-    }
-
-
-    const revealStyle =
-        document.createElement("style");
-
-    revealStyle.textContent = `
-
-        .kh-reveal {
-            opacity:0;
-            transform:translateY(28px);
-            transition:
-                opacity .75s cubic-bezier(.22,1,.36,1),
-                transform .75s cubic-bezier(.22,1,.36,1);
-        }
-
-        .kh-reveal.kh-visible {
-            opacity:1;
-            transform:translateY(0);
-        }
-
-        .kh-card-reveal {
-            opacity:0;
-            transform:
-                translateY(24px)
-                scale(.985);
-            transition:
-                opacity .7s cubic-bezier(.22,1,.36,1),
-                transform .7s cubic-bezier(.22,1,.36,1);
-        }
-
-        .kh-card-reveal.kh-visible {
-            opacity:1;
-            transform:
-                translateY(0)
-                scale(1);
-        }
-
-        @media (prefers-reduced-motion:reduce) {
-            .kh-reveal,
-            .kh-card-reveal {
-                opacity:1;
-                transform:none;
-                transition:none;
-            }
-        }
-
-    `;
-
-    document.head.appendChild(
-        revealStyle
-    );
-
-
-    function setupRevealObserver() {
-
-        const elements =
-            prepareRevealElements();
-
-
-        if (!elements.length) {
-            return;
-        }
-
-
-        if (
-            prefersReducedMotion ||
-            !("IntersectionObserver" in window)
-        ) {
-
-            elements.forEach(
-                element => {
-
-                    element.classList.add(
-                        "kh-visible"
-                    );
-
-                }
-            );
-
-            return;
-
-        }
-
-
-        const observer =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(
-                        entry => {
-
-                            if (
-                                !entry.isIntersecting
-                            ) {
-
-                                return;
-
-                            }
-
-                            entry.target.classList.add(
-                                "kh-visible"
-                            );
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-                    );
-
-                },
-                {
-                    threshold:
-                        0.12,
-
-                    rootMargin:
-                        "0px 0px -60px 0px"
-                }
-            );
-
-
-        elements.forEach(
-            element => {
-
-                observer.observe(
-                    element
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       CARD STAGGER
-    ================================================= */
-
-    function setupCardStagger() {
-
-        const groups = [
-
-            ".stats-grid",
-            ".title-grid",
-            ".format-features",
-            ".schedule-grid",
-            ".prize-grid",
-            ".rules-grid",
-            ".countdown-grid"
-
-        ];
-
-
-        groups.forEach(
-            selector => {
-
-                const group =
-                    document.querySelector(
-                        selector
-                    );
-
-                if (!group) {
-                    return;
-                }
-
-
-                const cards =
-                    group.querySelectorAll(
-                        ".kh-card-reveal"
-                    );
-
-
-                cards.forEach(
-                    (
-                        card,
-                        index
-                    ) => {
-
-                        card.style.transitionDelay =
-                            `${Math.min(
-                                index * 0.08,
-                                0.36
-                            )}s`;
-
-                    }
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       HERO INITIAL ANIMATION
-    ================================================= */
-
-    const heroAnimationStyle =
-        document.createElement("style");
-
-    heroAnimationStyle.textContent = `
-
-        body.kh-page-ready
-        .hero .eyebrow {
-
-            opacity:0;
-
-            transform:
-                translateY(14px);
-
-            animation:
-                khFadeUp
-                .7s
-                cubic-bezier(.22,1,.36,1)
-                .08s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero h1 strong {
-
-            opacity:0;
-
-            transform:
-                translateY(35px)
-                scale(.985);
-
-            animation:
-                khHeroTitle
-                1s
-                cubic-bezier(.22,1,.36,1)
-                .18s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero h1 em {
-
-            opacity:0;
-
-            transform:
-                translateY(22px);
-
-            animation:
-                khFadeUp
-                .85s
-                cubic-bezier(.22,1,.36,1)
-                .3s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero h1 small {
-
-            opacity:0;
-
-            transform:
-                translateY(15px);
-
-            animation:
-                khFadeUp
-                .7s
-                cubic-bezier(.22,1,.36,1)
-                .4s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero .hero-tagline {
-
-            opacity:0;
-
-            transform:
-                translateY(12px);
-
-            animation:
-                khFadeUp
-                .7s
-                cubic-bezier(.22,1,.36,1)
-                .52s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero .hero-description {
-
-            opacity:0;
-
-            transform:
-                translateY(12px);
-
-            animation:
-                khFadeUp
-                .7s
-                cubic-bezier(.22,1,.36,1)
-                .62s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero .hero-actions {
-
-            opacity:0;
-
-            transform:
-                translateY(12px);
-
-            animation:
-                khFadeUp
-                .7s
-                cubic-bezier(.22,1,.36,1)
-                .72s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero .hero-events {
-
-            opacity:0;
-
-            transform:
-                translateY(12px);
-
-            animation:
-                khFadeUp
-                .7s
-                cubic-bezier(.22,1,.36,1)
-                .82s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero .hero-bottom {
-
-            opacity:0;
-
-            transform:
-                translateY(10px);
-
-            animation:
-                khFadeUp
-                .65s
-                cubic-bezier(.22,1,.36,1)
-                .92s
-                forwards;
-        }
-
-
-        @keyframes khFadeUp {
-
-            from {
-                opacity:0;
-                transform:
-                    translateY(18px);
-            }
-
-            to {
-                opacity:1;
-                transform:
-                    translateY(0);
-            }
-
-        }
-
-
-        @keyframes khHeroTitle {
-
-            from {
-                opacity:0;
-
-                transform:
-                    translateY(35px)
-                    scale(.985);
-            }
-
-            to {
-                opacity:1;
-
-                transform:
-                    translateY(0)
-                    scale(1);
-            }
-
-        }
-
-
-        @media (prefers-reduced-motion:reduce) {
-
-            body.kh-page-ready
-            .hero .eyebrow,
-
-            body.kh-page-ready
-            .hero h1 strong,
-
-            body.kh-page-ready
-            .hero h1 em,
-
-            body.kh-page-ready
-            .hero h1 small,
-
-            body.kh-page-ready
-            .hero .hero-tagline,
-
-            body.kh-page-ready
-            .hero .hero-description,
-
-            body.kh-page-ready
-            .hero .hero-actions,
-
-            body.kh-page-ready
-            .hero .hero-events,
-
-            body.kh-page-ready
-            .hero .hero-bottom {
-
-                opacity:1;
-                transform:none;
-                animation:none;
-
-            }
-
-        }
-
-    `;
-
-    document.head.appendChild(
-        heroAnimationStyle
-    );
-
-
-    function startPageAnimation() {
-
-        requestAnimationFrame(
-            () => {
-
-                requestAnimationFrame(
-                    () => {
-
-                        document.body.classList.add(
-                            "kh-page-ready"
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       COUNTDOWN SYSTEM
-    ================================================= */
-
-    function pad(
-        number
-    ) {
-
-        return String(
-            Math.max(
-                0,
-                number
-            )
-        ).padStart(
-            2,
-            "0"
-        );
-
-    }
-
-
-    function updateCountdown(
-        element
-    ) {
-
-        const targetString =
-            element.dataset.countdown;
-
-        const target =
-            new Date(
-                targetString
-            ).getTime();
-
-        if (
-            Number.isNaN(target)
-        ) {
-            return;
-        }
-
-
-        const now =
-            Date.now();
-
-        let difference =
-            target - now;
-
-
-        if (difference <= 0) {
-
-            difference = 0;
-
-        }
-
-
-        const totalSeconds =
-            Math.floor(
-                difference / 1000
-            );
-
-
-        const days =
-            Math.floor(
-                totalSeconds / 86400
-            );
-
-
-        const hours =
-            Math.floor(
-                (
-                    totalSeconds % 86400
-                ) / 3600
-            );
-
-
-        const minutes =
-            Math.floor(
-                (
-                    totalSeconds % 3600
-                ) / 60
-            );
-
-
-        const seconds =
-            totalSeconds % 60;
-
-
-        const daysElement =
-            element.querySelector(
-                "[data-days]"
-            );
-
-        const hoursElement =
-            element.querySelector(
-                "[data-hours]"
-            );
-
-        const minutesElement =
-            element.querySelector(
-                "[data-minutes]"
-            );
-
-        const secondsElement =
-            element.querySelector(
-                "[data-seconds]"
-            );
-
-
-        if (daysElement) {
-            daysElement.textContent =
-                pad(days);
-        }
-
-        if (hoursElement) {
-            hoursElement.textContent =
-                pad(hours);
-        }
-
-        if (minutesElement) {
-            minutesElement.textContent =
-                pad(minutes);
-        }
-
-        if (secondsElement) {
-            secondsElement.textContent =
-                pad(seconds);
-        }
-
-
-        if (
-            difference === 0
-        ) {
-
-            element.classList.add(
-                "countdown-live"
-            );
-
-        }
-
-    }
-
-
-    const countdowns =
-        Array.from(
-            document.querySelectorAll(
-                "[data-countdown]"
-            )
-        );
-
-
-    function updateAllCountdowns() {
-
-        countdowns.forEach(
-            updateCountdown
-        );
-
-    }
-
-
-    updateAllCountdowns();
-
-
-    setInterval(
-        updateAllCountdowns,
-        1000
-    );
-
-
-    /* =================================================
-       BRACKET TABS
-    ================================================= */
-
-    const bracketTabs =
-        Array.from(
-            document.querySelectorAll(
-                ".bracket-tab"
-            )
-        );
-
-
-    const bracketPanels =
-        Array.from(
-            document.querySelectorAll(
-                "[data-bracket-panel]"
-            )
-        );
-
-
-    bracketTabs.forEach(
-        tab => {
-
-            tab.addEventListener(
-                "click",
-                () => {
-
-                    const target =
-                        tab.dataset.bracket;
-
-
-                    bracketTabs.forEach(
-                        item => {
-
-                            item.classList.toggle(
-                                "active",
-                                item === tab
-                            );
-
-                        }
-                    );
-
-
-                    bracketPanels.forEach(
-                        panel => {
-
-                            panel.classList.toggle(
-                                "active",
-                                panel.dataset.bracketPanel ===
-                                target
-                            );
-
-                        }
-                    );
-
-                }
-            );
 
         }
     );
 
 
-    /* =================================================
+    /* =====================================================
        MODAL SYSTEM
-    ================================================= */
+    ====================================================== */
 
-    const tentativeModal =
-        document.getElementById(
-            "tentativeModal"
-        );
+    function openModal(modal) {
 
-    const tentativeButton =
-        document.getElementById(
-            "tentativeButton"
-        );
-
-
-    const teamsModal =
-        document.getElementById(
-            "teamsModal"
-        );
-
-    const registeredTeamsButton =
-        document.getElementById(
-            "registeredTeamsButton"
-        );
-
-
-    function openModal(
-        modal
-    ) {
-
-        if (!modal) {
-            return;
-        }
+        if (!modal) return;
 
         modal.classList.add(
             "open"
@@ -1423,19 +523,15 @@
         );
 
         document.body.classList.add(
-            "modal-open"
+            "menu-open"
         );
 
     }
 
 
-    function closeModal(
-        modal
-    ) {
+    function closeModal(modal) {
 
-        if (!modal) {
-            return;
-        }
+        if (!modal) return;
 
         modal.classList.remove(
             "open"
@@ -1453,7 +549,7 @@
         ) {
 
             document.body.classList.remove(
-                "modal-open"
+                "menu-open"
             );
 
         }
@@ -1461,9 +557,47 @@
     }
 
 
-    if (tentativeButton) {
+    function closeAllModals() {
 
-        tentativeButton.addEventListener(
+        document
+            .querySelectorAll(
+                ".modal.open"
+            )
+            .forEach(modal => {
+
+                closeModal(modal);
+
+            });
+
+    }
+
+
+    document
+        .querySelectorAll(
+            "[data-close-modal]"
+        )
+        .forEach(element => {
+
+            element.addEventListener(
+                "click",
+                closeAllModals
+            );
+
+        });
+
+
+    /* =====================================================
+       TENTATIVE FLOW MODAL
+    ====================================================== */
+
+    const openTentative =
+        document.getElementById(
+            "openTentative"
+        );
+
+    if (openTentative) {
+
+        openTentative.addEventListener(
             "click",
             () => {
 
@@ -1477,226 +611,389 @@
     }
 
 
-    if (registeredTeamsButton) {
+    /* =====================================================
+       FLOW TABS
+    ====================================================== */
 
-        registeredTeamsButton.addEventListener(
+    const flowTabs =
+        document.querySelectorAll(
+            "[data-flow-tab]"
+        );
+
+    const flowContents =
+        document.querySelectorAll(
+            "[data-flow-content]"
+        );
+
+
+    flowTabs.forEach(tab => {
+
+        tab.addEventListener(
             "click",
             () => {
 
-                renderTeams(
-                    "hok"
+                const target =
+                    tab.getAttribute(
+                        "data-flow-tab"
+                    );
+
+
+                flowTabs.forEach(
+                    item => {
+
+                        item.classList.toggle(
+                            "active",
+                            item === tab
+                        );
+
+                    }
                 );
 
-                openModal(
-                    teamsModal
+
+                flowContents.forEach(
+                    content => {
+
+                        content.classList.toggle(
+
+                            "active",
+
+                            content.getAttribute(
+                                "data-flow-content"
+                            ) === target
+
+                        );
+
+                    }
                 );
 
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       COUNTDOWN SYSTEM
+       
+       HOK:
+       20 November 2026
+       
+       MLBB:
+       27 November 2026
+       
+       Time is set to 08:00 local time.
+    ====================================================== */
+
+    const countdownTargets = {
+
+        hok:
+            new Date(
+                "2026-11-20T08:00:00+08:00"
+            ).getTime(),
+
+        mlbb:
+            new Date(
+                "2026-11-27T08:00:00+08:00"
+            ).getTime()
+
+    };
+
+
+    function updateCountdown(
+        type,
+        ids
+    ) {
+
+        const target =
+            countdownTargets[type];
+
+        const now =
+            Date.now();
+
+        let difference =
+            target - now;
+
+
+        if (difference <= 0) {
+
+            ids.days.textContent =
+                "00";
+
+            ids.hours.textContent =
+                "00";
+
+            ids.minutes.textContent =
+                "00";
+
+            ids.seconds.textContent =
+                "00";
+
+            return;
+
+        }
+
+
+        const totalSeconds =
+            Math.floor(
+                difference / 1000
+            );
+
+
+        const days =
+            Math.floor(
+                totalSeconds /
+                86400
+            );
+
+
+        const hours =
+            Math.floor(
+                (
+                    totalSeconds %
+                    86400
+                ) / 3600
+            );
+
+
+        const minutes =
+            Math.floor(
+                (
+                    totalSeconds %
+                    3600
+                ) / 60
+            );
+
+
+        const seconds =
+            totalSeconds %
+            60;
+
+
+        ids.days.textContent =
+            String(days).padStart(
+                2,
+                "0"
+            );
+
+        ids.hours.textContent =
+            String(hours).padStart(
+                2,
+                "0"
+            );
+
+        ids.minutes.textContent =
+            String(minutes).padStart(
+                2,
+                "0"
+            );
+
+        ids.seconds.textContent =
+            String(seconds).padStart(
+                2,
+                "0"
+            );
+
+    }
+
+
+    function updateAllCountdowns() {
+
+        updateCountdown(
+            "hok",
+            {
+                days:
+                    document.getElementById(
+                        "hokDays"
+                    ),
+
+                hours:
+                    document.getElementById(
+                        "hokHours"
+                    ),
+
+                minutes:
+                    document.getElementById(
+                        "hokMinutes"
+                    ),
+
+                seconds:
+                    document.getElementById(
+                        "hokSeconds"
+                    )
+            }
+        );
+
+
+        updateCountdown(
+            "mlbb",
+            {
+                days:
+                    document.getElementById(
+                        "mlbbDays"
+                    ),
+
+                hours:
+                    document.getElementById(
+                        "mlbbHours"
+                    ),
+
+                minutes:
+                    document.getElementById(
+                        "mlbbMinutes"
+                    ),
+
+                seconds:
+                    document.getElementById(
+                        "mlbbSeconds"
+                    )
             }
         );
 
     }
 
 
-    document.querySelectorAll(
-        "[data-close-modal]"
-    ).forEach(
-        button => {
+    updateAllCountdowns();
 
-            button.addEventListener(
-                "click",
-                () => {
+    setInterval(
+        updateAllCountdowns,
+        1000
+    );
 
-                    closeModal(
-                        button.closest(
-                            ".modal"
-                        )
-                    );
 
-                }
+    /* =====================================================
+       REGISTERED TEAM COUNTS
+    ====================================================== */
+
+    function updateTeamCounts() {
+
+        const hokCount =
+            registeredTeams.hok.length;
+
+        const mlbbCount =
+            registeredTeams.mlbb.length;
+
+
+        const hokCountElement =
+            document.getElementById(
+                "hokTeamCount"
             );
 
-        }
-    );
-
-
-    document.querySelectorAll(
-        ".modal-backdrop"
-    ).forEach(
-        backdrop => {
-
-            backdrop.addEventListener(
-                "click",
-                () => {
-
-                    closeModal(
-                        backdrop.closest(
-                            ".modal"
-                        )
-                    );
-
-                }
+        const mlbbCountElement =
+            document.getElementById(
+                "mlbbTeamCount"
             );
 
-        }
-    );
 
+        if (hokCountElement) {
 
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key ===
-                "Escape"
-            ) {
-
-                document.querySelectorAll(
-                    ".modal.open"
-                ).forEach(
-                    modal => {
-
-                        closeModal(
-                            modal
-                        );
-
-                    }
-                );
-
-                closeMenu();
-
-            }
+            hokCountElement.textContent =
+                hokCount;
 
         }
-    );
 
 
-    /* =================================================
-       TENTATIVE FLOW TABS
-    ================================================= */
+        if (mlbbCountElement) {
 
-    const flowTabs =
-        Array.from(
-            document.querySelectorAll(
-                "[data-flow-tab]"
-            )
-        );
+            mlbbCountElement.textContent =
+                mlbbCount;
+
+        }
 
 
-    const flowPanels =
-        Array.from(
-            document.querySelectorAll(
-                "[data-flow-panel]"
-            )
-        );
-
-
-    flowTabs.forEach(
-        tab => {
-
-            tab.addEventListener(
-                "click",
-                () => {
-
-                    const target =
-                        tab.dataset.flowTab;
-
-
-                    flowTabs.forEach(
-                        item => {
-
-                            item.classList.toggle(
-                                "active",
-                                item === tab
-                            );
-
-                        }
-                    );
-
-
-                    flowPanels.forEach(
-                        panel => {
-
-                            panel.classList.toggle(
-                                "active",
-                                panel.dataset.flowPanel ===
-                                target
-                            );
-
-                        }
-                    );
-
-                }
+        const hokProgress =
+            document.getElementById(
+                "hokProgress"
             );
 
+        const mlbbProgress =
+            document.getElementById(
+                "mlbbProgress"
+            );
+
+
+        if (hokProgress) {
+
+            hokProgress.style.width =
+                (
+                    Math.min(
+                        hokCount,
+                        32
+                    ) / 32 * 100
+                ) + "%";
+
         }
-    );
 
 
-    /* =================================================
-       REGISTERED TEAM DATABASE
-       
-       IMPORTANT:
-       Do not invent real registered teams.
-       Add confirmed names into these arrays.
-    ================================================= */
+        if (mlbbProgress) {
 
-    const registeredTeams = {
+            mlbbProgress.style.width =
+                (
+                    Math.min(
+                        mlbbCount,
+                        32
+                    ) / 32 * 100
+                ) + "%";
 
-        hok: [
+        }
 
-            /*
-             * Example:
-             *
-             * "Team Name"
-             *
-             * Only add officially confirmed teams.
-             */
-
-        ],
-
-        mlbb: [
-
-            /*
-             * Example:
-             *
-             * "Team Name"
-             *
-             * Only add officially confirmed teams.
-             */
-
-        ]
-
-    };
+    }
 
 
-    const teamTabs =
-        Array.from(
-            document.querySelectorAll(
-                "[data-team-tab]"
-            )
-        );
+    updateTeamCounts();
 
 
-    const teamList =
+    /* =====================================================
+       REGISTERED TEAM MODAL
+    ====================================================== */
+
+    const teamModalGame =
         document.getElementById(
-            "teamList"
+            "teamModalGame"
+        );
+
+    const teamModalCount =
+        document.getElementById(
+            "teamModalCount"
+        );
+
+    const registeredTeamList =
+        document.getElementById(
+            "registeredTeamList"
         );
 
 
-    function renderTeams(
-        game
+    function renderRegisteredTeams(
+        type
     ) {
 
-        if (!teamList) {
+        if (
+            !registeredTeamList ||
+            !teamModalGame ||
+            !teamModalCount
+        ) {
             return;
         }
 
 
         const teams =
-            registeredTeams[game] || [];
+            registeredTeams[type] || [];
 
 
-        teamList.innerHTML =
+        const gameName =
+            type === "hok"
+                ? "HONOR OF KINGS"
+                : "MOBILE LEGENDS";
+
+
+        teamModalGame.textContent =
+            gameName;
+
+
+        teamModalCount.textContent =
+            `${teams.length} / 32`;
+
+
+        registeredTeamList.innerHTML =
             "";
 
 
@@ -1708,25 +1005,46 @@
                 );
 
             empty.className =
-                "team-empty";
+                "team-list-empty";
 
-            empty.textContent =
-                "No officially confirmed registered teams have been published yet.";
 
-            teamList.appendChild(
+            const strong =
+                document.createElement(
+                    "strong"
+                );
+
+            strong.textContent =
+                "NO TEAMS DISPLAYED YET";
+
+
+            const span =
+                document.createElement(
+                    "span"
+                );
+
+            span.textContent =
+                "Registered team information will appear here.";
+
+
+            empty.appendChild(
+                strong
+            );
+
+            empty.appendChild(
+                span
+            );
+
+
+            registeredTeamList.appendChild(
                 empty
             );
 
             return;
-
         }
 
 
         teams.forEach(
-            (
-                team,
-                index
-            ) => {
+            (team, index) => {
 
                 const item =
                     document.createElement(
@@ -1734,16 +1052,13 @@
                     );
 
                 item.className =
-                    "team-item";
+                    "team-list-item";
 
 
                 const number =
                     document.createElement(
                         "span"
                     );
-
-                number.className =
-                    "team-item-number";
 
                 number.textContent =
                     String(
@@ -1756,11 +1071,8 @@
 
                 const name =
                     document.createElement(
-                        "span"
+                        "strong"
                     );
-
-                name.className =
-                    "team-item-name";
 
                 name.textContent =
                     team;
@@ -1775,7 +1087,7 @@
                 );
 
 
-                teamList.appendChild(
+                registeredTeamList.appendChild(
                     item
                 );
 
@@ -1785,145 +1097,40 @@
     }
 
 
-    teamTabs.forEach(
-        tab => {
+    document
+        .querySelectorAll(
+            "[data-team-modal]"
+        )
+        .forEach(button => {
 
-            tab.addEventListener(
+            button.addEventListener(
                 "click",
                 () => {
 
-                    const game =
-                        tab.dataset.teamTab;
+                    const type =
+                        button.getAttribute(
+                            "data-team-modal"
+                        );
 
 
-                    teamTabs.forEach(
-                        item => {
-
-                            item.classList.toggle(
-                                "active",
-                                item === tab
-                            );
-
-                        }
+                    renderRegisteredTeams(
+                        type
                     );
 
 
-                    renderTeams(
-                        game
+                    openModal(
+                        teamsModal
                     );
 
                 }
             );
 
-        }
-    );
+        });
 
 
-    /* =================================================
-       REGISTRATION COUNTER
-    ================================================= */
-
-    function updateRegistrationCounter() {
-
-        const hokCount =
-            registeredTeams.hok.length;
-
-        const mlbbCount =
-            registeredTeams.mlbb.length;
-
-        const total =
-            hokCount +
-            mlbbCount;
-
-
-        const capacity =
-            64;
-
-
-        const percentage =
-            Math.min(
-                100,
-                (
-                    total /
-                    capacity
-                ) * 100
-            );
-
-
-        const totalElement =
-            document.getElementById(
-                "registeredTotal"
-            );
-
-        const capacityElement =
-            document.getElementById(
-                "registeredCapacity"
-            );
-
-        const hokElement =
-            document.getElementById(
-                "hokRegistered"
-            );
-
-        const mlbbElement =
-            document.getElementById(
-                "mlbbRegistered"
-            );
-
-        const bar =
-            document.getElementById(
-                "registrationBar"
-            );
-
-
-        if (totalElement) {
-
-            totalElement.textContent =
-                total;
-
-        }
-
-
-        if (capacityElement) {
-
-            capacityElement.textContent =
-                capacity;
-
-        }
-
-
-        if (hokElement) {
-
-            hokElement.textContent =
-                hokCount;
-
-        }
-
-
-        if (mlbbElement) {
-
-            mlbbElement.textContent =
-                mlbbCount;
-
-        }
-
-
-        if (bar) {
-
-            bar.style.width =
-                `${percentage}%`;
-
-        }
-
-    }
-
-
-    updateRegistrationCounter();
-
-
-    /* =================================================
+    /* =====================================================
        RESIZE
-    ================================================= */
+    ====================================================== */
 
     window.addEventListener(
         "resize",
@@ -1938,46 +1145,148 @@
 
             }
 
-            updateProgress();
+            updateActiveNavigation();
 
-            updateActiveSection();
+            updateScrollProgress();
 
         }
     );
 
 
-    /* =================================================
-       COMBINED SCROLL HANDLER
-    ================================================= */
+    /* =====================================================
+       SCROLL
+    ====================================================== */
 
-    let ticking =
+    let scrollTicking =
         false;
 
 
-    function handleScroll() {
+    window.addEventListener(
+        "scroll",
+        () => {
 
-        if (ticking) {
-            return;
+            updateNavbar();
+
+            updateBackToTop();
+
+            updateScrollProgress();
+
+
+            if (!scrollTicking) {
+
+                window.requestAnimationFrame(
+                    () => {
+
+                        updateActiveNavigation();
+
+                        scrollTicking =
+                            false;
+
+                    }
+                );
+
+                scrollTicking =
+                    true;
+
+            }
+
+        },
+        {
+            passive: true
         }
+    );
 
 
-        ticking =
-            true;
+    /* =====================================================
+       BROWSER BACK / FORWARD
+    ====================================================== */
+
+    window.addEventListener(
+        "popstate",
+        () => {
+
+            updateActiveNavigation();
+
+        }
+    );
 
 
-        window.requestAnimationFrame(
-            () => {
+    /* =====================================================
+       REVEAL ANIMATIONS
+       
+       Animation repeats whenever an element leaves
+       and re-enters the viewport.
+    ====================================================== */
 
-                updateNavbar();
+    const revealElements =
+        document.querySelectorAll(
+            ".reveal"
+        );
 
-                updateProgress();
 
-                updateBackToTop();
+    if (
+        "IntersectionObserver"
+        in window
+    ) {
 
-                updateActiveSection();
+        const revealObserver =
+            new IntersectionObserver(
 
-                ticking =
-                    false;
+                entries => {
+
+                    entries.forEach(
+                        entry => {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "reveal-visible"
+                                );
+
+                            } else {
+
+                                entry.target.classList.remove(
+                                    "reveal-visible"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+
+                {
+                    threshold:
+                        0.12,
+
+                    rootMargin:
+                        "0px 0px -8% 0px"
+                }
+
+            );
+
+
+        revealElements.forEach(
+            element => {
+
+                revealObserver.observe(
+                    element
+                );
+
+            }
+        );
+
+    } else {
+
+        revealElements.forEach(
+            element => {
+
+                element.classList.add(
+                    "reveal-visible"
+                );
 
             }
         );
@@ -1985,46 +1294,26 @@
     }
 
 
-    window.addEventListener(
-        "scroll",
-        handleScroll,
-        {
-            passive:true
-        }
-    );
-
-
-    /* =================================================
-       INITIALIZATION
-    ================================================= */
-
-    setupRevealObserver();
-
-    setupCardStagger();
+    /* =====================================================
+       INITIAL STATE
+    ====================================================== */
 
     updateNavbar();
 
-    updateProgress();
+    updateScrollProgress();
 
     updateBackToTop();
 
-    updateActiveSection();
+    updateActiveNavigation();
 
-    startPageAnimation();
-
-
-    /* =================================================
-       FINAL CONSOLE MESSAGE
-    ================================================= */
-
-    console.log(
-        "%cKH ESPORTS CHAMPIONSHIP 2026",
-        "font-size:18px;font-weight:800;"
+    window.setTimeout(
+        updateActiveNavigation,
+        100
     );
 
-    console.log(
-        "Master Interaction System V2 initialized."
+    window.setTimeout(
+        updateActiveNavigation,
+        500
     );
 
-
-})();
+});
