@@ -1,6 +1,6 @@
 /* =========================================================
    KH ESPORTS CHAMPIONSHIP 2026
-   MASTER JAVASCRIPT 
+   JAVASCRIPT
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,6 +28,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const backToTop =
         document.getElementById("backToTop");
 
+    const flowDetailButton =
+        document.getElementById("flowDetailButton");
+
+    const flowModal =
+        document.getElementById("flowModal");
+
+    const teamModal =
+        document.getElementById("teamModal");
+
+    const teamModalList =
+        document.getElementById("teamModalList");
+
+    const teamModalTitle =
+        document.getElementById("teamModalTitle");
+
+    const teamModalSubtitle =
+        document.getElementById("teamModalSubtitle");
+
     const desktopLinks =
         Array.from(
             document.querySelectorAll(".nav-links a")
@@ -40,7 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const sections =
         Array.from(
-            document.querySelectorAll("main section[id]")
+            document.querySelectorAll(
+                "main section[id]"
+            )
         );
 
 
@@ -71,21 +91,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const scrollTop =
             window.scrollY;
 
-        const scrollable =
+        const scrollableHeight =
             document.documentElement.scrollHeight -
             window.innerHeight;
 
-        if (scrollable <= 0) {
+        if (scrollableHeight <= 0) {
 
             scrollProgress.style.width =
                 "100%";
 
             return;
-
         }
 
         const progress =
-            (scrollTop / scrollable) * 100;
+            (scrollTop / scrollableHeight) * 100;
 
         scrollProgress.style.width =
             Math.min(
@@ -111,7 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-
     if (backToTop) {
 
         backToTop.addEventListener(
@@ -119,11 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
             () => {
 
                 window.scrollTo({
-
                     top: 0,
-
                     behavior: "smooth"
-
                 });
 
             }
@@ -136,25 +151,24 @@ document.addEventListener("DOMContentLoaded", () => {
        ACTIVE NAVIGATION
     ===================================================== */
 
-    function setActiveSection(id) {
+    function setActiveSection(sectionId) {
 
         desktopLinks.forEach(link => {
 
             link.classList.toggle(
                 "active",
                 link.getAttribute("href") ===
-                "#" + id
+                "#" + sectionId
             );
 
         });
-
 
         mobileLinks.forEach(link => {
 
             link.classList.toggle(
                 "active",
                 link.getAttribute("href") ===
-                "#" + id
+                "#" + sectionId
             );
 
         });
@@ -176,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const activationPoint =
             window.scrollY +
             navbarHeight +
-            90;
+            100;
 
         let current =
             sections[0].id;
@@ -188,8 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.scrollY;
 
             if (
-                activationPoint >=
-                sectionTop
+                activationPoint >= sectionTop
             ) {
 
                 current =
@@ -322,7 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       SMOOTH NAVIGATION
+       INTERNAL NAVIGATION
     ===================================================== */
 
     function handleNavigationClick(event) {
@@ -414,7 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       ESC
+       ESCAPE
     ===================================================== */
 
     document.addEventListener(
@@ -427,17 +440,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 closeMenu();
 
-                closeModal(
-                    document.getElementById(
-                        "flowModal"
-                    )
-                );
+                closeFlowModal();
 
-                closeModal(
-                    document.getElementById(
-                        "teamModal"
-                    )
-                );
+                closeTeamModal();
 
             }
 
@@ -446,88 +451,139 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       RESIZE
+       COUNTDOWN
     ===================================================== */
 
-    window.addEventListener(
-        "resize",
-        () => {
-
-            if (
-                window.innerWidth > 1100
-            ) {
-
-                closeMenu();
-
-            }
-
-            updateActiveNavigation();
-
-            updateScrollProgress();
-
-        }
-    );
+    const countdowns =
+        Array.from(
+            document.querySelectorAll(
+                "[data-countdown]"
+            )
+        );
 
 
-    /* =====================================================
-       SCROLL
-    ===================================================== */
+    function pad(number) {
 
-    let scrollTicking =
-        false;
+        return String(number)
+            .padStart(2, "0");
 
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            updateNavbar();
-
-            updateBackToTop();
-
-            updateScrollProgress();
-
-            if (!scrollTicking) {
-
-                window.requestAnimationFrame(
-                    () => {
-
-                        updateActiveNavigation();
-
-                        scrollTicking =
-                            false;
-
-                    }
-                );
-
-                scrollTicking =
-                    true;
-
-            }
-
-        },
-        {
-            passive: true
-        }
-    );
+    }
 
 
-    /* =====================================================
-       BROWSER HISTORY
-    ===================================================== */
+    function updateCountdown(element) {
 
-    window.addEventListener(
-        "popstate",
-        () => {
+        const targetDate =
+            new Date(
+                element.dataset.countdown
+            ).getTime();
 
-            updateActiveNavigation();
+        const now =
+            Date.now();
+
+        const difference =
+            targetDate - now;
+
+
+        const days =
+            element.querySelector(
+                '[data-unit="days"]'
+            );
+
+        const hours =
+            element.querySelector(
+                '[data-unit="hours"]'
+            );
+
+        const minutes =
+            element.querySelector(
+                '[data-unit="minutes"]'
+            );
+
+        const seconds =
+            element.querySelector(
+                '[data-unit="seconds"]'
+            );
+
+
+        if (difference <= 0) {
+
+            if (days) days.textContent = "00";
+            if (hours) hours.textContent = "00";
+            if (minutes) minutes.textContent = "00";
+            if (seconds) seconds.textContent = "00";
+
+            return;
 
         }
+
+
+        const totalSeconds =
+            Math.floor(
+                difference / 1000
+            );
+
+        const dayValue =
+            Math.floor(
+                totalSeconds / 86400
+            );
+
+        const hourValue =
+            Math.floor(
+                (totalSeconds % 86400) / 3600
+            );
+
+        const minuteValue =
+            Math.floor(
+                (totalSeconds % 3600) / 60
+            );
+
+        const secondValue =
+            totalSeconds % 60;
+
+
+        if (days) {
+            days.textContent =
+                String(dayValue);
+        }
+
+        if (hours) {
+            hours.textContent =
+                pad(hourValue);
+        }
+
+        if (minutes) {
+            minutes.textContent =
+                pad(minuteValue);
+        }
+
+        if (seconds) {
+            seconds.textContent =
+                pad(secondValue);
+        }
+
+    }
+
+
+    function updateAllCountdowns() {
+
+        countdowns.forEach(
+            updateCountdown
+        );
+
+    }
+
+
+    updateAllCountdowns();
+
+    setInterval(
+        updateAllCountdowns,
+        1000
     );
 
 
     /* =====================================================
        REVEAL ANIMATION
+       Replays when entering viewport again.
     ===================================================== */
 
     const revealElements =
@@ -602,176 +658,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       COUNTDOWN
-    ===================================================== */
-
-    const countdownTargets = {
-
-        hok:
-            new Date(
-                "2026-11-20T08:00:00+08:00"
-            ).getTime(),
-
-        mlbb:
-            new Date(
-                "2026-11-27T08:00:00+08:00"
-            ).getTime()
-
-    };
-
-
-    function updateCountdown(
-        key
-    ) {
-
-        const container =
-            document.querySelector(
-                `[data-countdown="${key}"]`
-            );
-
-        if (!container) return;
-
-        const target =
-            countdownTargets[key];
-
-        const now =
-            Date.now();
-
-        let difference =
-            target - now;
-
-
-        if (difference <= 0) {
-
-            difference = 0;
-
-        }
-
-
-        const days =
-            Math.floor(
-                difference /
-                (1000 * 60 * 60 * 24)
-            );
-
-
-        const hours =
-            Math.floor(
-                (
-                    difference %
-                    (1000 * 60 * 60 * 24)
-                ) /
-                (1000 * 60 * 60)
-            );
-
-
-        const minutes =
-            Math.floor(
-                (
-                    difference %
-                    (1000 * 60 * 60)
-                ) /
-                (1000 * 60)
-            );
-
-
-        const seconds =
-            Math.floor(
-                (
-                    difference %
-                    (1000 * 60)
-                ) /
-                1000
-            );
-
-
-        const daysElement =
-            container.querySelector(
-                "[data-days]"
-            );
-
-        const hoursElement =
-            container.querySelector(
-                "[data-hours]"
-            );
-
-        const minutesElement =
-            container.querySelector(
-                "[data-minutes]"
-            );
-
-        const secondsElement =
-            container.querySelector(
-                "[data-seconds]"
-            );
-
-
-        if (daysElement) {
-
-            daysElement.textContent =
-                String(days).padStart(
-                    3,
-                    "0"
-                );
-
-        }
-
-
-        if (hoursElement) {
-
-            hoursElement.textContent =
-                String(hours).padStart(
-                    2,
-                    "0"
-                );
-
-        }
-
-
-        if (minutesElement) {
-
-            minutesElement.textContent =
-                String(minutes).padStart(
-                    2,
-                    "0"
-                );
-
-        }
-
-
-        if (secondsElement) {
-
-            secondsElement.textContent =
-                String(seconds).padStart(
-                    2,
-                    "0"
-                );
-
-        }
-
-    }
-
-
-    function updateAllCountdowns() {
-
-        updateCountdown("hok");
-
-        updateCountdown("mlbb");
-
-    }
-
-
-    updateAllCountdowns();
-
-
-    setInterval(
-        updateAllCountdowns,
-        1000
-    );
-
-
-    /* =====================================================
-       BRACKET TITLE TABS
+       BRACKET TITLE SWITCHER
     ===================================================== */
 
     const bracketTabs =
@@ -781,7 +668,6 @@ document.addEventListener("DOMContentLoaded", () => {
             )
         );
 
-
     const bracketPanels =
         Array.from(
             document.querySelectorAll(
@@ -790,58 +676,68 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-    bracketTabs.forEach(tab => {
+    bracketTabs.forEach(
+        tab => {
 
-        tab.addEventListener(
-            "click",
-            () => {
+            tab.addEventListener(
+                "click",
+                () => {
 
-                const target =
-                    tab.dataset.bracketTab;
-
-
-                bracketTabs.forEach(
-                    item => {
-
-                        item.classList.toggle(
-                            "active",
-                            item === tab
-                        );
-
-                    }
-                );
+                    const selected =
+                        tab.dataset.bracket;
 
 
-                bracketPanels.forEach(
-                    panel => {
+                    bracketTabs.forEach(
+                        item => {
 
-                        panel.classList.toggle(
-                            "active",
-                            panel.dataset.bracketPanel ===
-                            target
-                        );
+                            item.classList.toggle(
+                                "active",
+                                item === tab
+                            );
 
-                    }
-                );
+                        }
+                    );
 
-            }
-        );
 
-    });
+                    bracketPanels.forEach(
+                        panel => {
+
+                            panel.classList.toggle(
+                                "active",
+                                panel.id ===
+                                "bracket-" +
+                                selected
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+    );
 
 
     /* =====================================================
        BRACKET ACCORDIONS
+       DEFAULT = CLOSED
     ===================================================== */
 
     const accordionHeaders =
         document.querySelectorAll(
-            ".bracket-accordion-header"
+            ".accordion-header"
         );
 
 
     accordionHeaders.forEach(
         header => {
+
+            header.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
 
             header.addEventListener(
                 "click",
@@ -882,156 +778,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       FLOW MODAL
+       REGISTERED TEAM TABS
     ===================================================== */
 
-    const flowModal =
-        document.getElementById(
-            "flowModal"
+    const registeredTabs =
+        Array.from(
+            document.querySelectorAll(
+                ".registered-tab"
+            )
         );
 
-    const openFlowModal =
-        document.getElementById(
-            "openFlowModal"
-        );
-
-    const closeFlowModalButton =
-        document.getElementById(
-            "closeFlowModal"
-        );
-
-
-    function openModal(modal) {
-
-        if (!modal) return;
-
-        modal.classList.add("open");
-
-        modal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.classList.add(
-            "modal-open"
-        );
-
-    }
-
-
-    function closeModal(modal) {
-
-        if (!modal) return;
-
-        modal.classList.remove("open");
-
-        modal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        const anyModalOpen =
-            document.querySelector(
-                ".modal-overlay.open"
-            );
-
-        if (!anyModalOpen) {
-
-            document.body.classList.remove(
-                "modal-open"
-            );
-
-        }
-
-    }
-
-
-    if (openFlowModal) {
-
-        openFlowModal.addEventListener(
-            "click",
-            () => {
-
-                openModal(
-                    flowModal
-                );
-
-            }
-        );
-
-    }
-
-
-    if (closeFlowModalButton) {
-
-        closeFlowModalButton.addEventListener(
-            "click",
-            () => {
-
-                closeModal(
-                    flowModal
-                );
-
-            }
-        );
-
-    }
-
-
-    if (flowModal) {
-
-        flowModal.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target ===
-                    flowModal
-                ) {
-
-                    closeModal(
-                        flowModal
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       FLOW TAB
-       Kept ready for future expansion
-    ===================================================== */
-
-    const flowTabs =
-        document.querySelectorAll(
-            ".flow-tab"
+    const teamListPanels =
+        Array.from(
+            document.querySelectorAll(
+                ".team-list-panel"
+            )
         );
 
 
-    flowTabs.forEach(
+    registeredTabs.forEach(
         tab => {
 
             tab.addEventListener(
                 "click",
                 () => {
 
-                    flowTabs.forEach(
+                    const selected =
+                        tab.dataset.teamList;
+
+
+                    registeredTabs.forEach(
                         item => {
 
-                            item.classList.remove(
-                                "active"
+                            item.classList.toggle(
+                                "active",
+                                item === tab
                             );
 
                         }
                     );
 
 
-                    tab.classList.add(
-                        "active"
+                    teamListPanels.forEach(
+                        panel => {
+
+                            panel.classList.toggle(
+                                "active",
+                                panel.id ===
+                                "team-list-" +
+                                selected
+                            );
+
+                        }
                     );
 
                 }
@@ -1042,88 +840,295 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       REGISTERED TEAM MODAL
+       REGISTERED TEAM DATA
+       
+       Replace the empty arrays with real teams later.
+       Example:
+       "TEAM NAME"
     ===================================================== */
 
-    const teamModal =
-        document.getElementById(
-            "teamModal"
-        );
+    const registeredTeams = {
 
-    const closeTeamModalButton =
-        document.getElementById(
-            "closeTeamModal"
-        );
+        hok: [
 
-    const teamModalTitle =
-        document.getElementById(
-            "teamModalTitle"
-        );
+            // "Team Name 01",
+            // "Team Name 02"
 
-    const teamModalKicker =
-        document.getElementById(
-            "teamModalKicker"
-        );
+        ],
+
+        mlbb: [
+
+            // "Team Name 01",
+            // "Team Name 02"
+
+        ]
+
+    };
 
 
-    const teamListButtons =
-        document.querySelectorAll(
-            ".team-list-button"
-        );
+    /* =====================================================
+       UPDATE REGISTERED TEAM COUNTERS
+    ===================================================== */
+
+    function updateRegisteredCounters() {
+
+        const hokCount =
+            registeredTeams.hok.length;
+
+        const mlbbCount =
+            registeredTeams.mlbb.length;
 
 
-    function setTeamModalTitle(
-        title
-    ) {
+        const hokPanel =
+            document.getElementById(
+                "team-list-hok"
+            );
 
-        if (
-            !teamModalTitle ||
-            !teamModalKicker
-        ) {
-            return;
+        const mlbbPanel =
+            document.getElementById(
+                "team-list-mlbb"
+            );
+
+
+        if (hokPanel) {
+
+            const strong =
+                hokPanel.querySelector(
+                    ".team-progress-top strong"
+                );
+
+            const bar =
+                hokPanel.querySelector(
+                    ".team-progress-bar"
+                );
+
+            if (strong) {
+
+                strong.textContent =
+                    `${hokCount} / 32 TEAMS`;
+
+            }
+
+            if (bar) {
+
+                bar.style.width =
+                    `${Math.min(
+                        100,
+                        (hokCount / 32) * 100
+                    )}%`;
+
+            }
+
         }
 
 
-        if (title === "mlbb") {
+        if (mlbbPanel) {
 
-            teamModalKicker.textContent =
-                "REGISTERED TEAMS / MOBILE LEGENDS";
+            const strong =
+                mlbbPanel.querySelector(
+                    ".team-progress-top strong"
+                );
 
+            const bar =
+                mlbbPanel.querySelector(
+                    ".team-progress-bar"
+                );
 
-            teamModalTitle.innerHTML =
-                'MOBILE <span>LEGENDS</span>';
+            if (strong) {
 
-        } else {
+                strong.textContent =
+                    `${mlbbCount} / 32 TEAMS`;
 
-            teamModalKicker.textContent =
-                "REGISTERED TEAMS / HONOR OF KINGS";
+            }
 
+            if (bar) {
 
-            teamModalTitle.innerHTML =
-                'HONOR OF <span>KINGS</span>';
+                bar.style.width =
+                    `${Math.min(
+                        100,
+                        (mlbbCount / 32) * 100
+                    )}%`;
+
+            }
 
         }
 
     }
 
 
-    teamListButtons.forEach(
+    updateRegisteredCounters();
+
+
+    /* =====================================================
+       TEAM MODAL
+    ===================================================== */
+
+    function openTeamModal(type) {
+
+        if (!teamModal) {
+            return;
+        }
+
+
+        const teams =
+            registeredTeams[type] || [];
+
+
+        const title =
+            type === "hok"
+                ? "HONOR OF KINGS"
+                : "MOBILE LEGENDS";
+
+
+        if (teamModalSubtitle) {
+
+            teamModalSubtitle.textContent =
+                title;
+
+        }
+
+
+        if (teamModalList) {
+
+            teamModalList.innerHTML = "";
+
+
+            if (!teams.length) {
+
+                const empty =
+                    document.createElement(
+                        "div"
+                    );
+
+                empty.className =
+                    "team-entry";
+
+                empty.style.gridColumn =
+                    "1 / -1";
+
+                empty.textContent =
+                    "No teams have been registered yet.";
+
+                teamModalList.appendChild(
+                    empty
+                );
+
+            } else {
+
+                teams.forEach(
+                    (team, index) => {
+
+                        const entry =
+                            document.createElement(
+                                "div"
+                            );
+
+                        entry.className =
+                            "team-entry";
+
+
+                        const number =
+                            document.createElement(
+                                "span"
+                            );
+
+                        number.textContent =
+                            String(
+                                index + 1
+                            ).padStart(
+                                2,
+                                "0"
+                            );
+
+
+                        const name =
+                            document.createElement(
+                                "strong"
+                            );
+
+                        name.textContent =
+                            team;
+
+
+                        entry.appendChild(
+                            number
+                        );
+
+                        entry.appendChild(
+                            name
+                        );
+
+
+                        teamModalList.appendChild(
+                            entry
+                        );
+
+                    }
+                );
+
+            }
+
+        }
+
+
+        teamModal.classList.add(
+            "open"
+        );
+
+        teamModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.classList.add(
+            "menu-open"
+        );
+
+    }
+
+
+    function closeTeamModal() {
+
+        if (!teamModal) {
+            return;
+        }
+
+        teamModal.classList.remove(
+            "open"
+        );
+
+        teamModal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        if (
+            !flowModal ||
+            !flowModal.classList.contains(
+                "open"
+            )
+        ) {
+
+            document.body.classList.remove(
+                "menu-open"
+            );
+
+        }
+
+    }
+
+
+    document.querySelectorAll(
+        "[data-team-modal]"
+    ).forEach(
         button => {
 
             button.addEventListener(
                 "click",
                 () => {
 
-                    const teamTitle =
-                        button.dataset.teamList ||
-                        "hok";
-
-                    setTeamModalTitle(
-                        teamTitle
-                    );
-
-                    openModal(
-                        teamModal
+                    openTeamModal(
+                        button.dataset.teamModal
                     );
 
                 }
@@ -1133,20 +1138,18 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    if (closeTeamModalButton) {
+    document.querySelectorAll(
+        "[data-close-team-modal]"
+    ).forEach(
+        button => {
 
-        closeTeamModalButton.addEventListener(
-            "click",
-            () => {
+            button.addEventListener(
+                "click",
+                closeTeamModal
+            );
 
-                closeModal(
-                    teamModal
-                );
-
-            }
-        );
-
-    }
+        }
+    );
 
 
     if (teamModal) {
@@ -1160,9 +1163,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     teamModal
                 ) {
 
-                    closeModal(
-                        teamModal
-                    );
+                    closeTeamModal();
 
                 }
 
@@ -1170,6 +1171,191 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
+
+
+    /* =====================================================
+       TENTATIVE FLOW MODAL
+    ===================================================== */
+
+    function openFlowModal() {
+
+        if (!flowModal) {
+            return;
+        }
+
+        flowModal.classList.add(
+            "open"
+        );
+
+        flowModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.classList.add(
+            "menu-open"
+        );
+
+    }
+
+
+    function closeFlowModal() {
+
+        if (!flowModal) {
+            return;
+        }
+
+        flowModal.classList.remove(
+            "open"
+        );
+
+        flowModal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        if (
+            !teamModal ||
+            !teamModal.classList.contains(
+                "open"
+            )
+        ) {
+
+            document.body.classList.remove(
+                "menu-open"
+            );
+
+        }
+
+    }
+
+
+    if (flowDetailButton) {
+
+        flowDetailButton.addEventListener(
+            "click",
+            openFlowModal
+        );
+
+    }
+
+
+    document.querySelectorAll(
+        "[data-close-modal]"
+    ).forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                closeFlowModal
+            );
+
+        }
+    );
+
+
+    if (flowModal) {
+
+        flowModal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    flowModal
+                ) {
+
+                    closeFlowModal();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       RESIZE
+    ===================================================== */
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            if (
+                window.innerWidth > 1100
+            ) {
+
+                closeMenu();
+
+            }
+
+            updateActiveNavigation();
+
+            updateScrollProgress();
+
+        }
+    );
+
+
+    /* =====================================================
+       SCROLL
+    ===================================================== */
+
+    let scrollTicking =
+        false;
+
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            updateNavbar();
+
+            updateBackToTop();
+
+            updateScrollProgress();
+
+
+            if (!scrollTicking) {
+
+                window.requestAnimationFrame(
+                    () => {
+
+                        updateActiveNavigation();
+
+                        scrollTicking =
+                            false;
+
+                    }
+                );
+
+
+                scrollTicking =
+                    true;
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    /* =====================================================
+       BROWSER BACK / FORWARD
+    ===================================================== */
+
+    window.addEventListener(
+        "popstate",
+        () => {
+
+            updateActiveNavigation();
+
+        }
+    );
 
 
     /* =====================================================
