@@ -1,6 +1,6 @@
 /* =====================================================
    KH ESPORTS CHAMPIONSHIP 2026
-   MASTER INTERACTION SYSTEM
+   MASTER INTERACTION SYSTEM — V2
 ===================================================== */
 
 (() => {
@@ -8,9 +8,9 @@
     "use strict";
 
 
-    /* =====================================================
+    /* =================================================
        ELEMENTS
-    ===================================================== */
+    ================================================= */
 
     const navbar =
         document.getElementById("navbar");
@@ -34,7 +34,7 @@
     const mobileLinks =
         Array.from(
             document.querySelectorAll(
-                ".mobile-links a, .mobile-register"
+                ".mobile-links a"
             )
         );
 
@@ -46,22 +46,15 @@
         );
 
 
-    /* =====================================================
-       MOTION PREFERENCE
-    ===================================================== */
-
     const prefersReducedMotion =
         window.matchMedia(
             "(prefers-reduced-motion: reduce)"
         ).matches;
 
 
-    /* =====================================================
-       CREATE SCROLL PROGRESS BAR
-       
-       Created automatically.
-       No HTML modification required.
-    ===================================================== */
+    /* =================================================
+       SCROLL PROGRESS
+    ================================================= */
 
     const progressBar =
         document.createElement("div");
@@ -74,17 +67,35 @@
         "true"
     );
 
+    progressBar.style.cssText = `
+        position:fixed;
+        top:0;
+        left:0;
+        width:0%;
+        height:2px;
+        z-index:3000;
+        pointer-events:none;
+        background:
+            linear-gradient(
+                90deg,
+                #a855f7,
+                #c084fc,
+                #22d3ee
+            );
+        box-shadow:
+            0 0 10px rgba(168,85,247,.55),
+            0 0 18px rgba(34,211,238,.25);
+        transition:width .08s linear;
+    `;
+
     document.body.appendChild(
         progressBar
     );
 
 
-    /* =====================================================
-       CREATE BACK TO TOP BUTTON
-       
-       Created automatically.
-       No HTML modification required.
-    ===================================================== */
+    /* =================================================
+       BACK TO TOP
+    ================================================= */
 
     const backToTop =
         document.createElement("button");
@@ -100,538 +111,113 @@
         "Back to top"
     );
 
-    backToTop.setAttribute(
-        "title",
-        "Back to top"
-    );
+    backToTop.innerHTML = `
+        <span>—</span>
+        <strong>↑</strong>
+    `;
 
-    backToTop.innerHTML =
-        `
-            <span class="back-to-top-line"></span>
-            <span class="back-to-top-arrow">↑</span>
-        `;
+    backToTop.style.cssText = `
+        position:fixed;
+        right:28px;
+        bottom:28px;
+        width:46px;
+        height:46px;
+        z-index:1200;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:0;
+        color:#f4f5f7;
+        border:1px solid rgba(168,85,247,.35);
+        background:rgba(7,8,13,.82);
+        cursor:pointer;
+        opacity:0;
+        visibility:hidden;
+        transform:translateY(14px);
+        backdrop-filter:blur(14px);
+        -webkit-backdrop-filter:blur(14px);
+        transition:
+            opacity .3s ease,
+            visibility .3s ease,
+            transform .3s ease,
+            border-color .25s ease,
+            background .25s ease;
+    `;
 
     document.body.appendChild(
         backToTop
     );
 
 
-    /* =====================================================
-       INJECT REQUIRED MOTION STYLES
-       
-       This makes the new interaction system
-       work even if the existing CSS does not
-       contain animation styles yet.
-    ===================================================== */
-
-    const interactionStyles =
+    const backToTopStyle =
         document.createElement("style");
 
-    interactionStyles.id =
-        "khInteractionStyles";
-
-    interactionStyles.textContent = `
-
-        /* ---------------------------------------------
-           SCROLL PROGRESS
-        --------------------------------------------- */
-
-        #scrollProgress {
-            position: fixed;
-
-            top: 0;
-            left: 0;
-
-            width: 0%;
-            height: 2px;
-
-            z-index: 2000;
-
-            pointer-events: none;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #a855f7 0%,
-                    #c084fc 45%,
-                    #22d3ee 100%
-                );
-
-            box-shadow:
-                0 0 10px
-                rgba(168,85,247,0.55),
-                0 0 18px
-                rgba(34,211,238,0.25);
-
-            transform-origin: left center;
-
-            transition:
-                width 0.08s linear;
-
-            opacity: 0.95;
-        }
-
-
-        /* ---------------------------------------------
-           BACK TO TOP
-        --------------------------------------------- */
-
-        #backToTop {
-            position: fixed;
-
-            right: 28px;
-            bottom: 28px;
-
-            width: 46px;
-            height: 46px;
-
-            z-index: 1200;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            flex-direction: column;
-
-            gap: 2px;
-
-            padding: 0;
-
-            border:
-                1px solid
-                rgba(168,85,247,0.35);
-
-            background:
-                rgba(7,8,13,0.78);
-
-            color: #f4f5f7;
-
-            cursor: pointer;
-
-            opacity: 0;
-            visibility: hidden;
-
-            transform:
-                translateY(14px)
-                scale(0.92);
-
-            backdrop-filter:
-                blur(14px);
-
-            -webkit-backdrop-filter:
-                blur(14px);
-
-            box-shadow:
-                0 10px 35px
-                rgba(0,0,0,0.35);
-
-            transition:
-                opacity 0.3s ease,
-                visibility 0.3s ease,
-                transform 0.3s ease,
-                border-color 0.25s ease,
-                background 0.25s ease;
-        }
-
-
+    backToTopStyle.textContent = `
         #backToTop.visible {
-            opacity: 1;
-            visibility: visible;
-
-            transform:
-                translateY(0)
-                scale(1);
+            opacity:1 !important;
+            visibility:visible !important;
+            transform:translateY(0) !important;
         }
-
 
         #backToTop:hover {
-            border-color:
-                rgba(168,85,247,0.8);
-
-            background:
-                rgba(168,85,247,0.12);
-
-            transform:
-                translateY(-3px)
-                scale(1.02);
+            border-color:rgba(168,85,247,.8);
+            background:rgba(168,85,247,.12);
+            transform:translateY(-3px);
         }
 
-
-        .back-to-top-arrow {
-            font-size: 17px;
-
-            line-height: 1;
-
-            font-weight: 500;
+        #backToTop span {
+            font-size:9px;
+            color:#c084fc;
+            line-height:.5;
         }
 
-
-        .back-to-top-line {
-            width: 10px;
-            height: 1px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #a855f7,
-                    #22d3ee
-                );
-
-            opacity: 0.8;
+        #backToTop strong {
+            font-size:17px;
+            font-weight:500;
+            line-height:1;
         }
 
-
-        /* ---------------------------------------------
-           INITIAL HERO ANIMATION
-        --------------------------------------------- */
-
-        body.kh-page-ready
-        .hero .eyebrow {
-
-            opacity: 0;
-
-            transform:
-                translateY(14px);
-
-            animation:
-                khFadeUp
-                0.7s
-                cubic-bezier(.22,1,.36,1)
-                0.08s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero h1 span {
-
-            opacity: 0;
-
-            transform:
-                translateY(28px);
-
-            animation:
-                khFadeUp
-                0.85s
-                cubic-bezier(.22,1,.36,1)
-                0.16s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero h1 strong {
-
-            opacity: 0;
-
-            transform:
-                translateY(35px)
-                scale(0.985);
-
-            animation:
-                khHeroTitle
-                1s
-                cubic-bezier(.22,1,.36,1)
-                0.24s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero h1 em {
-
-            opacity: 0;
-
-            transform:
-                translateY(22px);
-
-            animation:
-                khFadeUp
-                0.85s
-                cubic-bezier(.22,1,.36,1)
-                0.36s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero h1 small {
-
-            opacity: 0;
-
-            transform:
-                translateY(15px);
-
-            animation:
-                khFadeUp
-                0.7s
-                cubic-bezier(.22,1,.36,1)
-                0.46s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero .hero-tagline {
-
-            opacity: 0;
-
-            transform:
-                translateY(12px);
-
-            animation:
-                khFadeUp
-                0.7s
-                cubic-bezier(.22,1,.36,1)
-                0.58s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero .hero-description {
-
-            opacity: 0;
-
-            transform:
-                translateY(12px);
-
-            animation:
-                khFadeUp
-                0.7s
-                cubic-bezier(.22,1,.36,1)
-                0.68s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero .hero-actions {
-
-            opacity: 0;
-
-            transform:
-                translateY(12px);
-
-            animation:
-                khFadeUp
-                0.7s
-                cubic-bezier(.22,1,.36,1)
-                0.78s
-                forwards;
-        }
-
-
-        body.kh-page-ready
-        .hero .hero-bottom {
-
-            opacity: 0;
-
-            transform:
-                translateY(10px);
-
-            animation:
-                khFadeUp
-                0.65s
-                cubic-bezier(.22,1,.36,1)
-                0.9s
-                forwards;
-        }
-
-
-        /* ---------------------------------------------
-           SCROLL REVEAL
-        --------------------------------------------- */
-
-        .kh-reveal {
-
-            opacity: 0;
-
-            transform:
-                translateY(28px);
-
-            transition:
-                opacity 0.75s
-                cubic-bezier(.22,1,.36,1),
-                transform 0.75s
-                cubic-bezier(.22,1,.36,1);
-        }
-
-
-        .kh-reveal.kh-visible {
-
-            opacity: 1;
-
-            transform:
-                translateY(0);
-        }
-
-
-        /* ---------------------------------------------
-           CARD REVEAL
-        --------------------------------------------- */
-
-        .kh-card-reveal {
-
-            opacity: 0;
-
-            transform:
-                translateY(24px)
-                scale(0.985);
-
-            transition:
-                opacity 0.7s
-                cubic-bezier(.22,1,.36,1),
-                transform 0.7s
-                cubic-bezier(.22,1,.36,1);
-        }
-
-
-        .kh-card-reveal.kh-visible {
-
-            opacity: 1;
-
-            transform:
-                translateY(0)
-                scale(1);
-        }
-
-
-        /* ---------------------------------------------
-           KEYFRAMES
-        --------------------------------------------- */
-
-        @keyframes khFadeUp {
-
-            from {
-                opacity: 0;
-
-                transform:
-                    translateY(18px);
-            }
-
-            to {
-                opacity: 1;
-
-                transform:
-                    translateY(0);
-            }
-
-        }
-
-
-        @keyframes khHeroTitle {
-
-            from {
-                opacity: 0;
-
-                transform:
-                    translateY(35px)
-                    scale(0.985);
-            }
-
-            to {
-                opacity: 1;
-
-                transform:
-                    translateY(0)
-                    scale(1);
-            }
-
-        }
-
-
-        /* ---------------------------------------------
-           MOBILE
-        --------------------------------------------- */
-
-        @media (max-width: 760px) {
-
-            #scrollProgress {
-                height: 2px;
-            }
-
+        @media (max-width:760px) {
             #backToTop {
-
-                right: 17px;
-                bottom: 18px;
-
-                width: 42px;
-                height: 42px;
+                right:17px;
+                bottom:18px;
+                width:42px;
+                height:42px;
             }
-
         }
-
-
-        /* ---------------------------------------------
-           REDUCED MOTION
-        --------------------------------------------- */
-
-        @media (prefers-reduced-motion: reduce) {
-
-            #scrollProgress {
-                transition: none;
-            }
-
-            #backToTop {
-                transition: none;
-            }
-
-            .kh-reveal,
-            .kh-card-reveal {
-
-                opacity: 1;
-
-                transform:
-                    none;
-
-                transition: none;
-            }
-
-            body.kh-page-ready
-            .hero .eyebrow,
-            body.kh-page-ready
-            .hero h1 span,
-            body.kh-page-ready
-            .hero h1 strong,
-            body.kh-page-ready
-            .hero h1 em,
-            body.kh-page-ready
-            .hero h1 small,
-            body.kh-page-ready
-            .hero .hero-tagline,
-            body.kh-page-ready
-            .hero .hero-description,
-            body.kh-page-ready
-            .hero .hero-actions,
-            body.kh-page-ready
-            .hero .hero-bottom {
-
-                opacity: 1;
-
-                transform:
-                    none;
-
-                animation: none;
-            }
-
-        }
-
     `;
 
     document.head.appendChild(
-        interactionStyles
+        backToTopStyle
     );
 
 
-    /* =====================================================
-       NAVBAR SCROLL EFFECT
-    ===================================================== */
+    backToTop.addEventListener(
+        "click",
+        () => {
+
+            window.scrollTo({
+                top:0,
+                behavior:
+                    prefersReducedMotion
+                        ? "auto"
+                        : "smooth"
+            });
+
+        }
+    );
+
+
+    /* =================================================
+       NAVBAR
+    ================================================= */
 
     function updateNavbar() {
 
-        if (!navbar) return;
+        if (!navbar) {
+            return;
+        }
 
         navbar.classList.toggle(
             "scrolled",
@@ -641,39 +227,46 @@
     }
 
 
-    /* =====================================================
+    /* =================================================
        SCROLL PROGRESS
-    ===================================================== */
+    ================================================= */
 
     function updateProgress() {
 
-        const documentHeight =
+        const scrollHeight =
             document.documentElement.scrollHeight -
             window.innerHeight;
 
-        if (documentHeight <= 0) {
+        if (scrollHeight <= 0) {
 
             progressBar.style.width =
                 "0%";
 
             return;
+
         }
 
         const progress =
             (
                 window.scrollY /
-                documentHeight
+                scrollHeight
             ) * 100;
 
         progressBar.style.width =
-            `${Math.min(100, Math.max(0, progress))}%`;
+            `${Math.min(
+                100,
+                Math.max(
+                    0,
+                    progress
+                )
+            )}%`;
 
     }
 
 
-    /* =====================================================
+    /* =================================================
        BACK TO TOP VISIBILITY
-    ===================================================== */
+    ================================================= */
 
     function updateBackToTop() {
 
@@ -685,30 +278,9 @@
     }
 
 
-    /* =====================================================
-       BACK TO TOP ACTION
-    ===================================================== */
-
-    backToTop.addEventListener(
-        "click",
-        () => {
-
-            window.scrollTo({
-                top: 0,
-
-                behavior:
-                    prefersReducedMotion
-                        ? "auto"
-                        : "smooth"
-            });
-
-        }
-    );
-
-
-    /* =====================================================
+    /* =================================================
        MOBILE MENU
-    ===================================================== */
+    ================================================= */
 
     function openMenu() {
 
@@ -720,11 +292,17 @@
             return;
         }
 
-        mobileMenu.classList.add("open");
+        mobileMenu.classList.add(
+            "open"
+        );
 
-        menuBackdrop.classList.add("open");
+        menuBackdrop.classList.add(
+            "open"
+        );
 
-        menuToggle.classList.add("open");
+        menuToggle.classList.add(
+            "open"
+        );
 
         document.body.classList.add(
             "menu-open"
@@ -763,11 +341,17 @@
             return;
         }
 
-        mobileMenu.classList.remove("open");
+        mobileMenu.classList.remove(
+            "open"
+        );
 
-        menuBackdrop.classList.remove("open");
+        menuBackdrop.classList.remove(
+            "open"
+        );
 
-        menuToggle.classList.remove("open");
+        menuToggle.classList.remove(
+            "open"
+        );
 
         document.body.classList.remove(
             "menu-open"
@@ -802,13 +386,12 @@
             "click",
             () => {
 
-                const isOpen =
+                if (
                     mobileMenu &&
                     mobileMenu.classList.contains(
                         "open"
-                    );
-
-                if (isOpen) {
+                    )
+                ) {
 
                     closeMenu();
 
@@ -834,22 +417,22 @@
     }
 
 
-    /* =====================================================
+    /* =================================================
        SMOOTH NAVIGATION
-    ===================================================== */
+    ================================================= */
 
     function getHeaderOffset() {
 
-        if (!navbar) {
-            return 0;
-        }
-
-        return navbar.offsetHeight + 12;
+        return navbar
+            ? navbar.offsetHeight + 12
+            : 0;
 
     }
 
 
-    function scrollToTarget(targetId) {
+    function scrollToTarget(
+        targetId
+    ) {
 
         const target =
             document.getElementById(
@@ -860,24 +443,21 @@
             return;
         }
 
-        const targetPosition =
+        const position =
             target.getBoundingClientRect().top +
             window.scrollY -
             getHeaderOffset();
 
         window.scrollTo({
-
             top:
                 Math.max(
                     0,
-                    targetPosition
+                    position
                 ),
-
             behavior:
                 prefersReducedMotion
                     ? "auto"
                     : "smooth"
-
         });
 
     }
@@ -891,14 +471,18 @@
             event.currentTarget;
 
         const href =
-            link.getAttribute("href");
+            link.getAttribute(
+                "href"
+            );
 
         if (
             !href ||
             !href.startsWith("#") ||
             href === "#"
         ) {
+
             return;
+
         }
 
         const targetId =
@@ -910,7 +494,9 @@
             );
 
         if (!target) {
+
             return;
+
         }
 
         event.preventDefault();
@@ -924,7 +510,10 @@
     }
 
 
-    desktopLinks.forEach(
+    [
+        ...desktopLinks,
+        ...mobileLinks
+    ].forEach(
         link => {
 
             link.addEventListener(
@@ -936,52 +525,26 @@
     );
 
 
-    mobileLinks.forEach(
-        link => {
-
-            link.addEventListener(
-                "click",
-                handleNavigationClick
-            );
-
-        }
-    );
-
-
-    /* =====================================================
-       ACTIVE NAVIGATION
-    ===================================================== */
+    /* =================================================
+       ACTIVE SECTION
+    ================================================= */
 
     function setActiveSection(
         sectionId
     ) {
 
-        desktopLinks.forEach(
+        [
+            ...desktopLinks,
+            ...mobileLinks
+        ].forEach(
             link => {
-
-                const matches =
-                    link.getAttribute("href") ===
-                    `#${sectionId}`;
 
                 link.classList.toggle(
                     "active",
-                    matches
-                );
-
-            }
-        );
-
-
-        mobileLinks.forEach(
-            link => {
-
-                const matches =
-                    link.getAttribute("href") ===
-                    `#${sectionId}`;
-
-                link.classList.toggle(
-                    "active",
-                    matches
+                    link.getAttribute(
+                        "href"
+                    ) ===
+                    `#${sectionId}`
                 );
 
             }
@@ -996,22 +559,21 @@
             return;
         }
 
-        const headerHeight =
-            navbar
-                ? navbar.offsetHeight
-                : 0;
-
         const marker =
             window.scrollY +
-            headerHeight +
+            (
+                navbar
+                    ? navbar.offsetHeight
+                    : 0
+            ) +
             Math.min(
                 window.innerHeight * 0.28,
                 220
             );
 
 
-        let currentSection =
-            "home";
+        let current =
+            sections[0].id;
 
 
         for (
@@ -1020,16 +582,13 @@
             i++
         ) {
 
-            const section =
-                sections[i];
-
             if (
                 marker >=
-                section.offsetTop
+                sections[i].offsetTop
             ) {
 
-                currentSection =
-                    section.id;
+                current =
+                    sections[i].id;
 
             } else {
 
@@ -1040,38 +599,24 @@
         }
 
 
-        if (
-            currentSection ===
-            "register"
-        ) {
-
-            currentSection =
-                "rules";
-
-        }
-
-
         setActiveSection(
-            currentSection
+            current
         );
 
     }
 
 
-    /* =====================================================
-       SCROLL REVEAL SETUP
-    ===================================================== */
+    /* =================================================
+       SCROLL REVEAL
+    ================================================= */
 
     function prepareRevealElements() {
-
-        /*
-         * Section headings
-         */
 
         const headings =
             document.querySelectorAll(
                 ".section-heading"
             );
+
 
         headings.forEach(
             element => {
@@ -1084,18 +629,15 @@
         );
 
 
-        /*
-         * Main content blocks
-         */
-
         const contentBlocks =
             document.querySelectorAll(
                 `
                 .about-main,
+                .format-intro,
                 .format-flow,
                 .format-features,
                 .schedule-grid,
-                .venue-banner,
+                .registration-status-grid,
                 .prize-total,
                 .prize-grid,
                 .rules-grid,
@@ -1103,6 +645,7 @@
                 .footer-main
                 `
             );
+
 
         contentBlocks.forEach(
             element => {
@@ -1115,10 +658,6 @@
         );
 
 
-        /*
-         * Cards
-         */
-
         const cards =
             document.querySelectorAll(
                 `
@@ -1128,9 +667,11 @@
                 .feature-card,
                 .schedule-card,
                 .prize-card,
-                .rule
+                .rule,
+                .countdown-card
                 `
             );
+
 
         cards.forEach(
             element => {
@@ -1152,18 +693,64 @@
     }
 
 
-    /* =====================================================
-       REVEAL OBSERVER
-    ===================================================== */
+    const revealStyle =
+        document.createElement("style");
+
+    revealStyle.textContent = `
+
+        .kh-reveal {
+            opacity:0;
+            transform:translateY(28px);
+            transition:
+                opacity .75s cubic-bezier(.22,1,.36,1),
+                transform .75s cubic-bezier(.22,1,.36,1);
+        }
+
+        .kh-reveal.kh-visible {
+            opacity:1;
+            transform:translateY(0);
+        }
+
+        .kh-card-reveal {
+            opacity:0;
+            transform:
+                translateY(24px)
+                scale(.985);
+            transition:
+                opacity .7s cubic-bezier(.22,1,.36,1),
+                transform .7s cubic-bezier(.22,1,.36,1);
+        }
+
+        .kh-card-reveal.kh-visible {
+            opacity:1;
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            .kh-reveal,
+            .kh-card-reveal {
+                opacity:1;
+                transform:none;
+                transition:none;
+            }
+        }
+
+    `;
+
+    document.head.appendChild(
+        revealStyle
+    );
+
 
     function setupRevealObserver() {
 
-        const revealElements =
+        const elements =
             prepareRevealElements();
 
-        if (
-            !revealElements.length
-        ) {
+
+        if (!elements.length) {
             return;
         }
 
@@ -1173,7 +760,7 @@
             !("IntersectionObserver" in window)
         ) {
 
-            revealElements.forEach(
+            elements.forEach(
                 element => {
 
                     element.classList.add(
@@ -1184,6 +771,7 @@
             );
 
             return;
+
         }
 
 
@@ -1197,7 +785,9 @@
                             if (
                                 !entry.isIntersecting
                             ) {
+
                                 return;
+
                             }
 
                             entry.target.classList.add(
@@ -1213,7 +803,8 @@
 
                 },
                 {
-                    threshold: 0.12,
+                    threshold:
+                        0.12,
 
                     rootMargin:
                         "0px 0px -60px 0px"
@@ -1221,7 +812,7 @@
             );
 
 
-        revealElements.forEach(
+        elements.forEach(
             element => {
 
                 observer.observe(
@@ -1234,25 +825,21 @@
     }
 
 
-    /* =====================================================
-       STAGGER CARD ANIMATIONS
-    ===================================================== */
+    /* =================================================
+       CARD STAGGER
+    ================================================= */
 
     function setupCardStagger() {
 
         const groups = [
 
-            ".stats-section",
-
+            ".stats-grid",
             ".title-grid",
-
             ".format-features",
-
             ".schedule-grid",
-
             ".prize-grid",
-
-            ".rules-grid"
+            ".rules-grid",
+            ".countdown-grid"
 
         ];
 
@@ -1277,7 +864,10 @@
 
 
                 cards.forEach(
-                    (card, index) => {
+                    (
+                        card,
+                        index
+                    ) => {
 
                         card.style.transitionDelay =
                             `${Math.min(
@@ -1294,19 +884,252 @@
     }
 
 
-    /* =====================================================
-       INITIAL PAGE ANIMATION
-    ===================================================== */
+    /* =================================================
+       HERO INITIAL ANIMATION
+    ================================================= */
+
+    const heroAnimationStyle =
+        document.createElement("style");
+
+    heroAnimationStyle.textContent = `
+
+        body.kh-page-ready
+        .hero .eyebrow {
+
+            opacity:0;
+
+            transform:
+                translateY(14px);
+
+            animation:
+                khFadeUp
+                .7s
+                cubic-bezier(.22,1,.36,1)
+                .08s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero h1 strong {
+
+            opacity:0;
+
+            transform:
+                translateY(35px)
+                scale(.985);
+
+            animation:
+                khHeroTitle
+                1s
+                cubic-bezier(.22,1,.36,1)
+                .18s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero h1 em {
+
+            opacity:0;
+
+            transform:
+                translateY(22px);
+
+            animation:
+                khFadeUp
+                .85s
+                cubic-bezier(.22,1,.36,1)
+                .3s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero h1 small {
+
+            opacity:0;
+
+            transform:
+                translateY(15px);
+
+            animation:
+                khFadeUp
+                .7s
+                cubic-bezier(.22,1,.36,1)
+                .4s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero .hero-tagline {
+
+            opacity:0;
+
+            transform:
+                translateY(12px);
+
+            animation:
+                khFadeUp
+                .7s
+                cubic-bezier(.22,1,.36,1)
+                .52s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero .hero-description {
+
+            opacity:0;
+
+            transform:
+                translateY(12px);
+
+            animation:
+                khFadeUp
+                .7s
+                cubic-bezier(.22,1,.36,1)
+                .62s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero .hero-actions {
+
+            opacity:0;
+
+            transform:
+                translateY(12px);
+
+            animation:
+                khFadeUp
+                .7s
+                cubic-bezier(.22,1,.36,1)
+                .72s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero .hero-events {
+
+            opacity:0;
+
+            transform:
+                translateY(12px);
+
+            animation:
+                khFadeUp
+                .7s
+                cubic-bezier(.22,1,.36,1)
+                .82s
+                forwards;
+        }
+
+
+        body.kh-page-ready
+        .hero .hero-bottom {
+
+            opacity:0;
+
+            transform:
+                translateY(10px);
+
+            animation:
+                khFadeUp
+                .65s
+                cubic-bezier(.22,1,.36,1)
+                .92s
+                forwards;
+        }
+
+
+        @keyframes khFadeUp {
+
+            from {
+                opacity:0;
+                transform:
+                    translateY(18px);
+            }
+
+            to {
+                opacity:1;
+                transform:
+                    translateY(0);
+            }
+
+        }
+
+
+        @keyframes khHeroTitle {
+
+            from {
+                opacity:0;
+
+                transform:
+                    translateY(35px)
+                    scale(.985);
+            }
+
+            to {
+                opacity:1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+
+
+        @media (prefers-reduced-motion:reduce) {
+
+            body.kh-page-ready
+            .hero .eyebrow,
+
+            body.kh-page-ready
+            .hero h1 strong,
+
+            body.kh-page-ready
+            .hero h1 em,
+
+            body.kh-page-ready
+            .hero h1 small,
+
+            body.kh-page-ready
+            .hero .hero-tagline,
+
+            body.kh-page-ready
+            .hero .hero-description,
+
+            body.kh-page-ready
+            .hero .hero-actions,
+
+            body.kh-page-ready
+            .hero .hero-events,
+
+            body.kh-page-ready
+            .hero .hero-bottom {
+
+                opacity:1;
+                transform:none;
+                animation:none;
+
+            }
+
+        }
+
+    `;
+
+    document.head.appendChild(
+        heroAnimationStyle
+    );
+
 
     function startPageAnimation() {
-
-        /*
-         * Add class on next frame.
-         *
-         * This guarantees that the browser
-         * sees the initial state before
-         * starting the animation.
-         */
 
         requestAnimationFrame(
             () => {
@@ -1327,9 +1150,805 @@
     }
 
 
-    /* =====================================================
+    /* =================================================
+       COUNTDOWN SYSTEM
+    ================================================= */
+
+    function pad(
+        number
+    ) {
+
+        return String(
+            Math.max(
+                0,
+                number
+            )
+        ).padStart(
+            2,
+            "0"
+        );
+
+    }
+
+
+    function updateCountdown(
+        element
+    ) {
+
+        const targetString =
+            element.dataset.countdown;
+
+        const target =
+            new Date(
+                targetString
+            ).getTime();
+
+        if (
+            Number.isNaN(target)
+        ) {
+            return;
+        }
+
+
+        const now =
+            Date.now();
+
+        let difference =
+            target - now;
+
+
+        if (difference <= 0) {
+
+            difference = 0;
+
+        }
+
+
+        const totalSeconds =
+            Math.floor(
+                difference / 1000
+            );
+
+
+        const days =
+            Math.floor(
+                totalSeconds / 86400
+            );
+
+
+        const hours =
+            Math.floor(
+                (
+                    totalSeconds % 86400
+                ) / 3600
+            );
+
+
+        const minutes =
+            Math.floor(
+                (
+                    totalSeconds % 3600
+                ) / 60
+            );
+
+
+        const seconds =
+            totalSeconds % 60;
+
+
+        const daysElement =
+            element.querySelector(
+                "[data-days]"
+            );
+
+        const hoursElement =
+            element.querySelector(
+                "[data-hours]"
+            );
+
+        const minutesElement =
+            element.querySelector(
+                "[data-minutes]"
+            );
+
+        const secondsElement =
+            element.querySelector(
+                "[data-seconds]"
+            );
+
+
+        if (daysElement) {
+            daysElement.textContent =
+                pad(days);
+        }
+
+        if (hoursElement) {
+            hoursElement.textContent =
+                pad(hours);
+        }
+
+        if (minutesElement) {
+            minutesElement.textContent =
+                pad(minutes);
+        }
+
+        if (secondsElement) {
+            secondsElement.textContent =
+                pad(seconds);
+        }
+
+
+        if (
+            difference === 0
+        ) {
+
+            element.classList.add(
+                "countdown-live"
+            );
+
+        }
+
+    }
+
+
+    const countdowns =
+        Array.from(
+            document.querySelectorAll(
+                "[data-countdown]"
+            )
+        );
+
+
+    function updateAllCountdowns() {
+
+        countdowns.forEach(
+            updateCountdown
+        );
+
+    }
+
+
+    updateAllCountdowns();
+
+
+    setInterval(
+        updateAllCountdowns,
+        1000
+    );
+
+
+    /* =================================================
+       BRACKET TABS
+    ================================================= */
+
+    const bracketTabs =
+        Array.from(
+            document.querySelectorAll(
+                ".bracket-tab"
+            )
+        );
+
+
+    const bracketPanels =
+        Array.from(
+            document.querySelectorAll(
+                "[data-bracket-panel]"
+            )
+        );
+
+
+    bracketTabs.forEach(
+        tab => {
+
+            tab.addEventListener(
+                "click",
+                () => {
+
+                    const target =
+                        tab.dataset.bracket;
+
+
+                    bracketTabs.forEach(
+                        item => {
+
+                            item.classList.toggle(
+                                "active",
+                                item === tab
+                            );
+
+                        }
+                    );
+
+
+                    bracketPanels.forEach(
+                        panel => {
+
+                            panel.classList.toggle(
+                                "active",
+                                panel.dataset.bracketPanel ===
+                                target
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =================================================
+       MODAL SYSTEM
+    ================================================= */
+
+    const tentativeModal =
+        document.getElementById(
+            "tentativeModal"
+        );
+
+    const tentativeButton =
+        document.getElementById(
+            "tentativeButton"
+        );
+
+
+    const teamsModal =
+        document.getElementById(
+            "teamsModal"
+        );
+
+    const registeredTeamsButton =
+        document.getElementById(
+            "registeredTeamsButton"
+        );
+
+
+    function openModal(
+        modal
+    ) {
+
+        if (!modal) {
+            return;
+        }
+
+        modal.classList.add(
+            "open"
+        );
+
+        modal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.classList.add(
+            "modal-open"
+        );
+
+    }
+
+
+    function closeModal(
+        modal
+    ) {
+
+        if (!modal) {
+            return;
+        }
+
+        modal.classList.remove(
+            "open"
+        );
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        if (
+            !document.querySelector(
+                ".modal.open"
+            )
+        ) {
+
+            document.body.classList.remove(
+                "modal-open"
+            );
+
+        }
+
+    }
+
+
+    if (tentativeButton) {
+
+        tentativeButton.addEventListener(
+            "click",
+            () => {
+
+                openModal(
+                    tentativeModal
+                );
+
+            }
+        );
+
+    }
+
+
+    if (registeredTeamsButton) {
+
+        registeredTeamsButton.addEventListener(
+            "click",
+            () => {
+
+                renderTeams(
+                    "hok"
+                );
+
+                openModal(
+                    teamsModal
+                );
+
+            }
+        );
+
+    }
+
+
+    document.querySelectorAll(
+        "[data-close-modal]"
+    ).forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    closeModal(
+                        button.closest(
+                            ".modal"
+                        )
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    document.querySelectorAll(
+        ".modal-backdrop"
+    ).forEach(
+        backdrop => {
+
+            backdrop.addEventListener(
+                "click",
+                () => {
+
+                    closeModal(
+                        backdrop.closest(
+                            ".modal"
+                        )
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                document.querySelectorAll(
+                    ".modal.open"
+                ).forEach(
+                    modal => {
+
+                        closeModal(
+                            modal
+                        );
+
+                    }
+                );
+
+                closeMenu();
+
+            }
+
+        }
+    );
+
+
+    /* =================================================
+       TENTATIVE FLOW TABS
+    ================================================= */
+
+    const flowTabs =
+        Array.from(
+            document.querySelectorAll(
+                "[data-flow-tab]"
+            )
+        );
+
+
+    const flowPanels =
+        Array.from(
+            document.querySelectorAll(
+                "[data-flow-panel]"
+            )
+        );
+
+
+    flowTabs.forEach(
+        tab => {
+
+            tab.addEventListener(
+                "click",
+                () => {
+
+                    const target =
+                        tab.dataset.flowTab;
+
+
+                    flowTabs.forEach(
+                        item => {
+
+                            item.classList.toggle(
+                                "active",
+                                item === tab
+                            );
+
+                        }
+                    );
+
+
+                    flowPanels.forEach(
+                        panel => {
+
+                            panel.classList.toggle(
+                                "active",
+                                panel.dataset.flowPanel ===
+                                target
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =================================================
+       REGISTERED TEAM DATABASE
+       
+       IMPORTANT:
+       Do not invent real registered teams.
+       Add confirmed names into these arrays.
+    ================================================= */
+
+    const registeredTeams = {
+
+        hok: [
+
+            /*
+             * Example:
+             *
+             * "Team Name"
+             *
+             * Only add officially confirmed teams.
+             */
+
+        ],
+
+        mlbb: [
+
+            /*
+             * Example:
+             *
+             * "Team Name"
+             *
+             * Only add officially confirmed teams.
+             */
+
+        ]
+
+    };
+
+
+    const teamTabs =
+        Array.from(
+            document.querySelectorAll(
+                "[data-team-tab]"
+            )
+        );
+
+
+    const teamList =
+        document.getElementById(
+            "teamList"
+        );
+
+
+    function renderTeams(
+        game
+    ) {
+
+        if (!teamList) {
+            return;
+        }
+
+
+        const teams =
+            registeredTeams[game] || [];
+
+
+        teamList.innerHTML =
+            "";
+
+
+        if (!teams.length) {
+
+            const empty =
+                document.createElement(
+                    "div"
+                );
+
+            empty.className =
+                "team-empty";
+
+            empty.textContent =
+                "No officially confirmed registered teams have been published yet.";
+
+            teamList.appendChild(
+                empty
+            );
+
+            return;
+
+        }
+
+
+        teams.forEach(
+            (
+                team,
+                index
+            ) => {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+                item.className =
+                    "team-item";
+
+
+                const number =
+                    document.createElement(
+                        "span"
+                    );
+
+                number.className =
+                    "team-item-number";
+
+                number.textContent =
+                    String(
+                        index + 1
+                    ).padStart(
+                        2,
+                        "0"
+                    );
+
+
+                const name =
+                    document.createElement(
+                        "span"
+                    );
+
+                name.className =
+                    "team-item-name";
+
+                name.textContent =
+                    team;
+
+
+                item.appendChild(
+                    number
+                );
+
+                item.appendChild(
+                    name
+                );
+
+
+                teamList.appendChild(
+                    item
+                );
+
+            }
+        );
+
+    }
+
+
+    teamTabs.forEach(
+        tab => {
+
+            tab.addEventListener(
+                "click",
+                () => {
+
+                    const game =
+                        tab.dataset.teamTab;
+
+
+                    teamTabs.forEach(
+                        item => {
+
+                            item.classList.toggle(
+                                "active",
+                                item === tab
+                            );
+
+                        }
+                    );
+
+
+                    renderTeams(
+                        game
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =================================================
+       REGISTRATION COUNTER
+    ================================================= */
+
+    function updateRegistrationCounter() {
+
+        const hokCount =
+            registeredTeams.hok.length;
+
+        const mlbbCount =
+            registeredTeams.mlbb.length;
+
+        const total =
+            hokCount +
+            mlbbCount;
+
+
+        const capacity =
+            64;
+
+
+        const percentage =
+            Math.min(
+                100,
+                (
+                    total /
+                    capacity
+                ) * 100
+            );
+
+
+        const totalElement =
+            document.getElementById(
+                "registeredTotal"
+            );
+
+        const capacityElement =
+            document.getElementById(
+                "registeredCapacity"
+            );
+
+        const hokElement =
+            document.getElementById(
+                "hokRegistered"
+            );
+
+        const mlbbElement =
+            document.getElementById(
+                "mlbbRegistered"
+            );
+
+        const bar =
+            document.getElementById(
+                "registrationBar"
+            );
+
+
+        if (totalElement) {
+
+            totalElement.textContent =
+                total;
+
+        }
+
+
+        if (capacityElement) {
+
+            capacityElement.textContent =
+                capacity;
+
+        }
+
+
+        if (hokElement) {
+
+            hokElement.textContent =
+                hokCount;
+
+        }
+
+
+        if (mlbbElement) {
+
+            mlbbElement.textContent =
+                mlbbCount;
+
+        }
+
+
+        if (bar) {
+
+            bar.style.width =
+                `${percentage}%`;
+
+        }
+
+    }
+
+
+    updateRegistrationCounter();
+
+
+    /* =================================================
+       RESIZE
+    ================================================= */
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            if (
+                window.innerWidth >
+                1100
+            ) {
+
+                closeMenu();
+
+            }
+
+            updateProgress();
+
+            updateActiveSection();
+
+        }
+    );
+
+
+    /* =================================================
        COMBINED SCROLL HANDLER
-    ===================================================== */
+    ================================================= */
 
     let ticking =
         false;
@@ -1340,6 +1959,7 @@
         if (ticking) {
             return;
         }
+
 
         ticking =
             true;
@@ -1369,59 +1989,14 @@
         "scroll",
         handleScroll,
         {
-            passive: true
+            passive:true
         }
     );
 
 
-    /* =====================================================
-       RESIZE
-    ===================================================== */
-
-    window.addEventListener(
-        "resize",
-        () => {
-
-            if (
-                window.innerWidth > 900
-            ) {
-
-                closeMenu();
-
-            }
-
-            updateProgress();
-
-            updateActiveSection();
-
-        }
-    );
-
-
-    /* =====================================================
-       ESCAPE KEY
-    ===================================================== */
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key ===
-                "Escape"
-            ) {
-
-                closeMenu();
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
+    /* =================================================
        INITIALIZATION
-    ===================================================== */
+    ================================================= */
 
     setupRevealObserver();
 
@@ -1436,6 +2011,20 @@
     updateActiveSection();
 
     startPageAnimation();
+
+
+    /* =================================================
+       FINAL CONSOLE MESSAGE
+    ================================================= */
+
+    console.log(
+        "%cKH ESPORTS CHAMPIONSHIP 2026",
+        "font-size:18px;font-weight:800;"
+    );
+
+    console.log(
+        "Master Interaction System V2 initialized."
+    );
 
 
 })();
