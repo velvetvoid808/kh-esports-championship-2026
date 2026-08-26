@@ -1,13 +1,14 @@
-/* =====================================================
+/* =========================================================
    KH ESPORTS CHAMPIONSHIP 2026
-   MAIN JAVASCRIPT
-===================================================== */
+   MASTER JAVASCRIPT
+========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =================================================
+
+    /* =====================================================
        ELEMENTS
-    ================================================= */
+    ===================================================== */
 
     const navbar =
         document.getElementById("navbar");
@@ -29,64 +30,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const desktopLinks =
         Array.from(
-            document.querySelectorAll(
-                ".nav-links a"
-            )
+            document.querySelectorAll(".nav-links a")
         );
 
     const mobileLinks =
         Array.from(
-            document.querySelectorAll(
-                ".mobile-links a"
-            )
+            document.querySelectorAll(".mobile-links a")
         );
 
     const sections =
         Array.from(
-            document.querySelectorAll(
-                "main section[id]"
-            )
+            document.querySelectorAll("main section[id]")
         );
 
 
-    /* =================================================
-       REGISTERED TEAM DATA
-
-       IMPORTANT:
-       Replace the empty arrays below with the REAL
-       registered team names.
-
-       Example:
-
-       const HOK_TEAMS = [
-           "Team Alpha",
-           "Team Bravo"
-       ];
-
-       Maximum: 32 teams per title.
-    ================================================= */
-
-    const HOK_TEAMS = [
-
-        // "Team Name 01",
-        // "Team Name 02",
-        // "Team Name 03"
-
-    ];
-
-
-    const MLBB_TEAMS = [
-
-        // "Team Name 01",
-        // "Team Name 02",
-        // "Team Name 03"
-
-    ];
-
-
-    /* =================================================
-       NAVBAR SCROLL
-    ================================================= */
+    /* =====================================================
+       NAVBAR
+    ===================================================== */
 
     function updateNavbar() {
 
@@ -100,9 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =================================================
+    /* =====================================================
        SCROLL PROGRESS
-    ================================================= */
+    ===================================================== */
 
     function updateScrollProgress() {
 
@@ -111,45 +71,34 @@ document.addEventListener("DOMContentLoaded", () => {
         const scrollTop =
             window.scrollY;
 
-        const documentHeight =
-            document.documentElement.scrollHeight;
-
-        const viewportHeight =
+        const scrollable =
+            document.documentElement.scrollHeight -
             window.innerHeight;
 
-        const scrollableHeight =
-            documentHeight -
-            viewportHeight;
-
-        if (scrollableHeight <= 0) {
+        if (scrollable <= 0) {
 
             scrollProgress.style.width =
                 "100%";
 
             return;
+
         }
 
         const progress =
-            (
-                scrollTop /
-                scrollableHeight
-            ) * 100;
+            (scrollTop / scrollable) * 100;
 
         scrollProgress.style.width =
             Math.min(
                 100,
-                Math.max(
-                    0,
-                    progress
-                )
+                Math.max(0, progress)
             ) + "%";
 
     }
 
 
-    /* =================================================
+    /* =====================================================
        BACK TO TOP
-    ================================================= */
+    ===================================================== */
 
     function updateBackToTop() {
 
@@ -162,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
     if (backToTop) {
 
         backToTop.addEventListener(
@@ -172,8 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     top: 0,
 
-                    behavior:
-                        "smooth"
+                    behavior: "smooth"
 
                 });
 
@@ -183,43 +132,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =================================================
+    /* =====================================================
        ACTIVE NAVIGATION
-    ================================================= */
+    ===================================================== */
 
-    function setActiveSection(
-        sectionId
-    ) {
+    function setActiveSection(id) {
 
-        desktopLinks.forEach(
-            link => {
+        desktopLinks.forEach(link => {
 
-                link.classList.toggle(
-                    "active",
+            link.classList.toggle(
+                "active",
+                link.getAttribute("href") ===
+                "#" + id
+            );
 
-                    link.getAttribute(
-                        "href"
-                    ) ===
-                    "#" + sectionId
-                );
+        });
 
-            }
-        );
 
-        mobileLinks.forEach(
-            link => {
+        mobileLinks.forEach(link => {
 
-                link.classList.toggle(
-                    "active",
+            link.classList.toggle(
+                "active",
+                link.getAttribute("href") ===
+                "#" + id
+            );
 
-                    link.getAttribute(
-                        "href"
-                    ) ===
-                    "#" + sectionId
-                );
-
-            }
-        );
+        });
 
     }
 
@@ -227,9 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function getCurrentSection() {
 
         if (!sections.length) {
-
             return "home";
-
         }
 
         const navbarHeight =
@@ -240,19 +176,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const activationPoint =
             window.scrollY +
             navbarHeight +
-            100;
+            90;
 
         let current =
             sections[0].id;
 
-        for (
-            const section of sections
-        ) {
+        for (const section of sections) {
 
             const sectionTop =
-                section
-                    .getBoundingClientRect()
-                    .top +
+                section.getBoundingClientRect().top +
                 window.scrollY;
 
             if (
@@ -285,9 +217,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =================================================
+    /* =====================================================
        MOBILE MENU
-    ================================================= */
+    ===================================================== */
 
     function openMenu() {
 
@@ -299,17 +231,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        mobileMenu.classList.add(
-            "open"
-        );
+        mobileMenu.classList.add("open");
 
-        menuBackdrop.classList.add(
-            "open"
-        );
+        menuBackdrop.classList.add("open");
 
-        menuToggle.classList.add(
-            "open"
-        );
+        menuToggle.classList.add("open");
 
         menuToggle.setAttribute(
             "aria-expanded",
@@ -338,17 +264,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        mobileMenu.classList.remove(
-            "open"
-        );
+        mobileMenu.classList.remove("open");
 
-        menuBackdrop.classList.remove(
-            "open"
-        );
+        menuBackdrop.classList.remove("open");
 
-        menuToggle.classList.remove(
-            "open"
-        );
+        menuToggle.classList.remove("open");
 
         menuToggle.setAttribute(
             "aria-expanded",
@@ -374,10 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
             () => {
 
                 if (
-                    mobileMenu &&
-                    mobileMenu.classList.contains(
-                        "open"
-                    )
+                    mobileMenu.classList.contains("open")
                 ) {
 
                     closeMenu();
@@ -404,30 +321,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =================================================
-       INTERNAL NAVIGATION
-    ================================================= */
+    /* =====================================================
+       SMOOTH NAVIGATION
+    ===================================================== */
 
-    function handleNavigationClick(
-        event
-    ) {
+    function handleNavigationClick(event) {
 
         const link =
             event.currentTarget;
 
         const href =
-            link.getAttribute(
-                "href"
-            );
+            link.getAttribute("href");
 
         if (
             !href ||
             !href.startsWith("#") ||
             href === "#"
         ) {
-
             return;
-
         }
 
         const target =
@@ -436,9 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
         if (!target) {
-
             return;
-
         }
 
         event.preventDefault();
@@ -451,9 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 : 0;
 
         const targetTop =
-            target
-                .getBoundingClientRect()
-                .top +
+            target.getBoundingClientRect().top +
             window.scrollY -
             navbarHeight;
 
@@ -486,51 +393,50 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    desktopLinks.forEach(
-        link => {
+    desktopLinks.forEach(link => {
 
-            link.addEventListener(
-                "click",
-                handleNavigationClick
-            );
+        link.addEventListener(
+            "click",
+            handleNavigationClick
+        );
 
-        }
-    );
+    });
 
 
-    mobileLinks.forEach(
-        link => {
+    mobileLinks.forEach(link => {
 
-            link.addEventListener(
-                "click",
-                handleNavigationClick
-            );
+        link.addEventListener(
+            "click",
+            handleNavigationClick
+        );
 
-        }
-    );
+    });
 
 
-    /* =================================================
-       ESCAPE KEY
-    ================================================= */
+    /* =====================================================
+       ESC
+    ===================================================== */
 
     document.addEventListener(
         "keydown",
         event => {
 
             if (
-                event.key ===
-                "Escape"
+                event.key === "Escape"
             ) {
 
                 closeMenu();
 
                 closeModal(
-                    tentativeModal
+                    document.getElementById(
+                        "flowModal"
+                    )
                 );
 
                 closeModal(
-                    teamModal
+                    document.getElementById(
+                        "teamModal"
+                    )
                 );
 
             }
@@ -539,23 +445,103 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =================================================
-       REPEATING REVEAL ANIMATION
-    ================================================= */
+    /* =====================================================
+       RESIZE
+    ===================================================== */
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            if (
+                window.innerWidth > 1100
+            ) {
+
+                closeMenu();
+
+            }
+
+            updateActiveNavigation();
+
+            updateScrollProgress();
+
+        }
+    );
+
+
+    /* =====================================================
+       SCROLL
+    ===================================================== */
+
+    let scrollTicking =
+        false;
+
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            updateNavbar();
+
+            updateBackToTop();
+
+            updateScrollProgress();
+
+            if (!scrollTicking) {
+
+                window.requestAnimationFrame(
+                    () => {
+
+                        updateActiveNavigation();
+
+                        scrollTicking =
+                            false;
+
+                    }
+                );
+
+                scrollTicking =
+                    true;
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    /* =====================================================
+       BROWSER HISTORY
+    ===================================================== */
+
+    window.addEventListener(
+        "popstate",
+        () => {
+
+            updateActiveNavigation();
+
+        }
+    );
+
+
+    /* =====================================================
+       REVEAL ANIMATION
+    ===================================================== */
 
     const revealElements =
         document.querySelectorAll(
             ".reveal"
         );
 
+
     if (
-        "IntersectionObserver"
-        in window
+        "IntersectionObserver" in window
     ) {
 
         const revealObserver =
             new IntersectionObserver(
-
                 entries => {
 
                     entries.forEach(
@@ -581,15 +567,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     );
 
                 },
-
                 {
-                    threshold:
-                        0.12,
+                    threshold: 0.12,
 
                     rootMargin:
                         "0px 0px -8% 0px"
                 }
-
             );
 
 
@@ -618,166 +601,151 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =================================================
+    /* =====================================================
        COUNTDOWN
-    ================================================= */
+    ===================================================== */
 
-    /*
-       Dates use Malaysia local time.
-       The exact start times can be changed here later.
+    const countdownTargets = {
 
-       HOK:
-       20 November 2026, 8:00 AM
+        hok:
+            new Date(
+                "2026-11-20T08:00:00+08:00"
+            ).getTime(),
 
-       MLBB:
-       27 November 2026, 8:00 AM
-    */
+        mlbb:
+            new Date(
+                "2026-11-27T08:00:00+08:00"
+            ).getTime()
 
-    const HOK_DATE =
-        new Date(
-            "2026-11-20T08:00:00+08:00"
-        ).getTime();
-
-    const MLBB_DATE =
-        new Date(
-            "2026-11-27T08:00:00+08:00"
-        ).getTime();
+    };
 
 
     function updateCountdown(
-        targetDate,
-        prefix
+        key
     ) {
+
+        const container =
+            document.querySelector(
+                `[data-countdown="${key}"]`
+            );
+
+        if (!container) return;
+
+        const target =
+            countdownTargets[key];
 
         const now =
             Date.now();
 
         let difference =
-            targetDate -
-            now;
+            target - now;
 
-        if (difference < 0) {
+
+        if (difference <= 0) {
 
             difference = 0;
 
         }
 
+
         const days =
             Math.floor(
                 difference /
-                (
-                    1000 *
-                    60 *
-                    60 *
-                    24
-                )
+                (1000 * 60 * 60 * 24)
             );
+
 
         const hours =
             Math.floor(
                 (
                     difference %
-                    (
-                        1000 *
-                        60 *
-                        60 *
-                        24
-                    )
+                    (1000 * 60 * 60 * 24)
                 ) /
-                (
-                    1000 *
-                    60 *
-                    60
-                )
+                (1000 * 60 * 60)
             );
+
 
         const minutes =
             Math.floor(
                 (
                     difference %
-                    (
-                        1000 *
-                        60 *
-                        60
-                    )
+                    (1000 * 60 * 60)
                 ) /
-                (
-                    1000 *
-                    60
-                )
+                (1000 * 60)
             );
+
 
         const seconds =
             Math.floor(
                 (
                     difference %
-                    (
-                        1000 *
-                        60
-                    )
+                    (1000 * 60)
                 ) /
                 1000
             );
 
 
-        const dayElement =
-            document.getElementById(
-                prefix + "Days"
+        const daysElement =
+            container.querySelector(
+                "[data-days]"
             );
 
-        const hourElement =
-            document.getElementById(
-                prefix + "Hours"
+        const hoursElement =
+            container.querySelector(
+                "[data-hours]"
             );
 
-        const minuteElement =
-            document.getElementById(
-                prefix + "Minutes"
+        const minutesElement =
+            container.querySelector(
+                "[data-minutes]"
             );
 
-        const secondElement =
-            document.getElementById(
-                prefix + "Seconds"
+        const secondsElement =
+            container.querySelector(
+                "[data-seconds]"
             );
 
 
-        if (dayElement) {
+        if (daysElement) {
 
-            dayElement.textContent =
-                String(days);
+            daysElement.textContent =
+                String(days).padStart(
+                    3,
+                    "0"
+                );
 
         }
 
-        if (hourElement) {
 
-            hourElement.textContent =
-                String(hours)
-                    .padStart(
-                        2,
-                        "0"
-                    );
+        if (hoursElement) {
 
-        }
-
-        if (minuteElement) {
-
-            minuteElement.textContent =
-                String(minutes)
-                    .padStart(
-                        2,
-                        "0"
-                    );
+            hoursElement.textContent =
+                String(hours).padStart(
+                    2,
+                    "0"
+                );
 
         }
 
-        if (secondElement) {
 
-            secondElement.textContent =
-                String(seconds)
-                    .padStart(
-                        2,
-                        "0"
-                    );
+        if (minutesElement) {
+
+            minutesElement.textContent =
+                String(minutes).padStart(
+                    2,
+                    "0"
+                );
+
+        }
+
+
+        if (secondsElement) {
+
+            secondsElement.textContent =
+                String(seconds).padStart(
+                    2,
+                    "0"
+                );
 
         }
 
@@ -786,15 +754,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateAllCountdowns() {
 
-        updateCountdown(
-            HOK_DATE,
-            "hok"
-        );
+        updateCountdown("hok");
 
-        updateCountdown(
-            MLBB_DATE,
-            "mlbb"
-        );
+        updateCountdown("mlbb");
 
     }
 
@@ -808,181 +770,55 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =================================================
-       GROUP STAGE GENERATOR
-    ================================================= */
+    /* =====================================================
+       BRACKET TITLE TABS
+    ===================================================== */
 
-    function createGroups(
-        containerId,
-        teams
-    ) {
-
-        const container =
-            document.getElementById(
-                containerId
-            );
-
-        if (!container) {
-
-            return;
-
-        }
-
-        container.innerHTML = "";
+    const bracketTabs =
+        Array.from(
+            document.querySelectorAll(
+                ".bracket-tab"
+            )
+        );
 
 
-        for (
-            let groupIndex = 0;
-            groupIndex < 8;
-            groupIndex++
-        ) {
-
-            const groupCard =
-                document.createElement(
-                    "article"
-                );
-
-            groupCard.className =
-                "group-card reveal";
+    const bracketPanels =
+        Array.from(
+            document.querySelectorAll(
+                ".bracket-panel"
+            )
+        );
 
 
-            const groupHeader =
-                document.createElement(
-                    "div"
-                );
+    bracketTabs.forEach(tab => {
 
-            groupHeader.className =
-                "group-header";
-
-
-            const groupName =
-                document.createElement(
-                    "strong"
-                );
-
-            groupName.textContent =
-                "GROUP " +
-                String.fromCharCode(
-                    65 + groupIndex
-                );
-
-
-            const groupFormat =
-                document.createElement(
-                    "span"
-                );
-
-            groupFormat.textContent =
-                "4 TEAMS";
-
-
-            groupHeader.appendChild(
-                groupName
-            );
-
-            groupHeader.appendChild(
-                groupFormat
-            );
-
-
-            const teamList =
-                document.createElement(
-                    "div"
-                );
-
-            teamList.className =
-                "group-team-list";
-
-
-            for (
-                let teamIndex = 0;
-                teamIndex < 4;
-                teamIndex++
-            ) {
-
-                const team =
-                    document.createElement(
-                        "div"
-                    );
-
-                team.className =
-                    "group-team";
-
-                team.setAttribute(
-                    "contenteditable",
-                    "true"
-                );
-
-                team.setAttribute(
-                    "spellcheck",
-                    "false"
-                );
-
-                const overallIndex =
-                    groupIndex * 4 +
-                    teamIndex;
-
-                if (
-                    teams[
-                        overallIndex
-                    ]
-                ) {
-
-                    team.textContent =
-                        teams[
-                            overallIndex
-                        ];
-
-                } else {
-
-                    team.textContent =
-                        "TEAM " +
-                        String(
-                            overallIndex + 1
-                        );
-
-                }
-
-                teamList.appendChild(
-                    team
-                );
-
-            }
-
-
-            groupCard.appendChild(
-                groupHeader
-            );
-
-            groupCard.appendChild(
-                teamList
-            );
-
-            container.appendChild(
-                groupCard
-            );
-
-        }
-
-
-        /*
-           Make generated elements visible
-           immediately if they are already in view.
-        */
-
-        requestAnimationFrame(
+        tab.addEventListener(
+            "click",
             () => {
 
-                const generated =
-                    container.querySelectorAll(
-                        ".reveal"
-                    );
+                const target =
+                    tab.dataset.bracketTab;
 
-                generated.forEach(
-                    element => {
 
-                        element.classList.add(
-                            "reveal-visible"
+                bracketTabs.forEach(
+                    item => {
+
+                        item.classList.toggle(
+                            "active",
+                            item === tab
+                        );
+
+                    }
+                );
+
+
+                bracketPanels.forEach(
+                    panel => {
+
+                        panel.classList.toggle(
+                            "active",
+                            panel.dataset.bracketPanel ===
+                            target
                         );
 
                     }
@@ -991,117 +827,237 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         );
 
-    }
+    });
 
 
-    createGroups(
-        "hokGroups",
-        HOK_TEAMS
-    );
+    /* =====================================================
+       BRACKET ACCORDIONS
+    ===================================================== */
 
-    createGroups(
-        "mlbbGroups",
-        MLBB_TEAMS
-    );
-
-
-    /* =================================================
-       REGISTERED TEAM COUNTERS
-    ================================================= */
-
-    function updateRegisteredCounter(
-        teams,
-        countId,
-        barId
-    ) {
-
-        const countElement =
-            document.getElementById(
-                countId
-            );
-
-        const barElement =
-            document.getElementById(
-                barId
-            );
-
-        const count =
-            Math.min(
-                teams.length,
-                32
-            );
-
-        const percentage =
-            (
-                count /
-                32
-            ) * 100;
-
-
-        if (countElement) {
-
-            countElement.textContent =
-                count;
-
-        }
-
-
-        if (barElement) {
-
-            barElement.style.width =
-                percentage + "%";
-
-        }
-
-    }
-
-
-    updateRegisteredCounter(
-        HOK_TEAMS,
-        "hokRegisteredCount",
-        "hokRegisteredBar"
-    );
-
-
-    updateRegisteredCounter(
-        MLBB_TEAMS,
-        "mlbbRegisteredCount",
-        "mlbbRegisteredBar"
-    );
-
-
-    /* =================================================
-       MODALS
-    ================================================= */
-
-    const tentativeModal =
-        document.getElementById(
-            "tentativeModal"
+    const accordionHeaders =
+        document.querySelectorAll(
+            ".bracket-accordion-header"
         );
+
+
+    accordionHeaders.forEach(
+        header => {
+
+            header.addEventListener(
+                "click",
+                () => {
+
+                    const accordion =
+                        header.closest(
+                            ".bracket-accordion"
+                        );
+
+                    if (!accordion) {
+                        return;
+                    }
+
+
+                    const isOpen =
+                        accordion.classList.contains(
+                            "open"
+                        );
+
+
+                    accordion.classList.toggle(
+                        "open",
+                        !isOpen
+                    );
+
+
+                    header.setAttribute(
+                        "aria-expanded",
+                        String(!isOpen)
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       FLOW MODAL
+    ===================================================== */
+
+    const flowModal =
+        document.getElementById(
+            "flowModal"
+        );
+
+    const openFlowModal =
+        document.getElementById(
+            "openFlowModal"
+        );
+
+    const closeFlowModalButton =
+        document.getElementById(
+            "closeFlowModal"
+        );
+
+
+    function openModal(modal) {
+
+        if (!modal) return;
+
+        modal.classList.add("open");
+
+        modal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.classList.add(
+            "modal-open"
+        );
+
+    }
+
+
+    function closeModal(modal) {
+
+        if (!modal) return;
+
+        modal.classList.remove("open");
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        const anyModalOpen =
+            document.querySelector(
+                ".modal-overlay.open"
+            );
+
+        if (!anyModalOpen) {
+
+            document.body.classList.remove(
+                "modal-open"
+            );
+
+        }
+
+    }
+
+
+    if (openFlowModal) {
+
+        openFlowModal.addEventListener(
+            "click",
+            () => {
+
+                openModal(
+                    flowModal
+                );
+
+            }
+        );
+
+    }
+
+
+    if (closeFlowModalButton) {
+
+        closeFlowModalButton.addEventListener(
+            "click",
+            () => {
+
+                closeModal(
+                    flowModal
+                );
+
+            }
+        );
+
+    }
+
+
+    if (flowModal) {
+
+        flowModal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    flowModal
+                ) {
+
+                    closeModal(
+                        flowModal
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       FLOW TAB
+       Kept ready for future expansion
+    ===================================================== */
+
+    const flowTabs =
+        document.querySelectorAll(
+            ".flow-tab"
+        );
+
+
+    flowTabs.forEach(
+        tab => {
+
+            tab.addEventListener(
+                "click",
+                () => {
+
+                    flowTabs.forEach(
+                        item => {
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    tab.classList.add(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       REGISTERED TEAM MODAL
+    ===================================================== */
 
     const teamModal =
         document.getElementById(
             "teamModal"
         );
 
-    const openTentativeFlow =
+    const closeTeamModalButton =
         document.getElementById(
-            "openTentativeFlow"
-        );
-
-    const teamList =
-        document.getElementById(
-            "teamList"
+            "closeTeamModal"
         );
 
     const teamModalTitle =
         document.getElementById(
             "teamModalTitle"
-        );
-
-    const teamModalSubtitle =
-        document.getElementById(
-            "teamModalSubtitle"
         );
 
     const teamModalKicker =
@@ -1110,304 +1066,65 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-    function openModal(
-        modal
+    const teamListButtons =
+        document.querySelectorAll(
+            ".team-list-button"
+        );
+
+
+    function setTeamModalTitle(
+        title
     ) {
-
-        if (!modal) return;
-
-        modal.classList.add(
-            "open"
-        );
-
-        modal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-        document.body.classList.add(
-            "menu-open"
-        );
-
-    }
-
-
-    function closeModal(
-        modal
-    ) {
-
-        if (!modal) return;
-
-        modal.classList.remove(
-            "open"
-        );
-
-        modal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-        /*
-           Only remove body lock if neither
-           modal nor mobile menu is open.
-        */
-
-        const anotherModalOpen =
-            document.querySelector(
-                ".modal.open"
-            );
-
-        const menuOpen =
-            mobileMenu &&
-            mobileMenu.classList.contains(
-                "open"
-            );
 
         if (
-            !anotherModalOpen &&
-            !menuOpen
+            !teamModalTitle ||
+            !teamModalKicker
         ) {
-
-            document.body.classList.remove(
-                "menu-open"
-            );
-
-        }
-
-    }
-
-
-    if (openTentativeFlow) {
-
-        openTentativeFlow.addEventListener(
-            "click",
-            () => {
-
-                openModal(
-                    tentativeModal
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =================================================
-       CLOSE MODALS
-    ================================================= */
-
-    document.querySelectorAll(
-        "[data-close-modal]"
-    ).forEach(
-        element => {
-
-            element.addEventListener(
-                "click",
-                () => {
-
-                    const type =
-                        element.getAttribute(
-                            "data-close-modal"
-                        );
-
-                    if (
-                        type ===
-                        "tentative"
-                    ) {
-
-                        closeModal(
-                            tentativeModal
-                        );
-
-                    }
-
-                    if (
-                        type ===
-                        "teams"
-                    ) {
-
-                        closeModal(
-                            teamModal
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =================================================
-       REGISTERED TEAM LIST MODAL
-    ================================================= */
-
-    function openTeamList(
-        title,
-        teams,
-        game
-    ) {
-
-        if (!teamList) return;
-
-
-        teamList.innerHTML = "";
-
-
-        if (teamModalTitle) {
-
-            teamModalTitle.innerHTML =
-                "TEAM <span>LIST</span>";
-
+            return;
         }
 
 
-        if (teamModalKicker) {
+        if (title === "mlbb") {
 
             teamModalKicker.textContent =
-                game +
-                " / REGISTERED TEAMS";
-
-        }
+                "REGISTERED TEAMS / MOBILE LEGENDS";
 
 
-        if (teamModalSubtitle) {
-
-            teamModalSubtitle.textContent =
-                teams.length +
-                " / 32 teams registered";
-
-        }
-
-
-        if (!teams.length) {
-
-            const empty =
-                document.createElement(
-                    "div"
-                );
-
-            empty.className =
-                "empty-team-list";
-
-            empty.innerHTML =
-                "No registered teams have been published yet.<br>" +
-                "The team list will appear here once registration data is added.";
-
-            teamList.appendChild(
-                empty
-            );
+            teamModalTitle.innerHTML =
+                'MOBILE <span>LEGENDS</span>';
 
         } else {
 
-            teams
-                .slice(0, 32)
-                .forEach(
-                    (
-                        teamName,
-                        index
-                    ) => {
-
-                        const item =
-                            document.createElement(
-                                "div"
-                            );
-
-                        item.className =
-                            "team-list-item";
+            teamModalKicker.textContent =
+                "REGISTERED TEAMS / HONOR OF KINGS";
 
 
-                        const number =
-                            document.createElement(
-                                "span"
-                            );
-
-                        number.textContent =
-                            String(
-                                index + 1
-                            ).padStart(
-                                2,
-                                "0"
-                            );
-
-
-                        const name =
-                            document.createElement(
-                                "strong"
-                            );
-
-                        name.textContent =
-                            teamName;
-
-
-                        item.appendChild(
-                            number
-                        );
-
-                        item.appendChild(
-                            name
-                        );
-
-                        teamList.appendChild(
-                            item
-                        );
-
-                    }
-                );
+            teamModalTitle.innerHTML =
+                'HONOR OF <span>KINGS</span>';
 
         }
-
-
-        openModal(
-            teamModal
-        );
 
     }
 
 
-    document.querySelectorAll(
-        "[data-team-list]"
-    ).forEach(
+    teamListButtons.forEach(
         button => {
 
             button.addEventListener(
                 "click",
                 () => {
 
-                    const type =
-                        button.getAttribute(
-                            "data-team-list"
-                        );
+                    const teamTitle =
+                        button.dataset.teamList ||
+                        "hok";
 
+                    setTeamModalTitle(
+                        teamTitle
+                    );
 
-                    if (
-                        type ===
-                        "hok"
-                    ) {
-
-                        openTeamList(
-                            "Honor of Kings",
-                            HOK_TEAMS,
-                            "HONOR OF KINGS"
-                        );
-
-                    }
-
-
-                    if (
-                        type ===
-                        "mlbb"
-                    ) {
-
-                        openTeamList(
-                            "Mobile Legends",
-                            MLBB_TEAMS,
-                            "MOBILE LEGENDS"
-                        );
-
-                    }
+                    openModal(
+                        teamModal
+                    );
 
                 }
             );
@@ -1416,125 +1133,48 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =================================================
-       CONTENTEDITABLE TEAM SLOTS
-    ================================================= */
+    if (closeTeamModalButton) {
 
-    /*
-       Allows you to click on group/bracket team
-       placeholders and type the actual team name.
+        closeTeamModalButton.addEventListener(
+            "click",
+            () => {
 
-       This is intentionally local/browser-side.
-       It does not upload data anywhere.
-    */
-
-    document.querySelectorAll(
-        ".editable-team"
-    ).forEach(
-        slot => {
-
-            slot.setAttribute(
-                "contenteditable",
-                "true"
-            );
-
-            slot.setAttribute(
-                "spellcheck",
-                "false"
-            );
-
-        }
-    );
-
-
-    /* =================================================
-       RESIZE
-    ================================================= */
-
-    window.addEventListener(
-        "resize",
-        () => {
-
-            if (
-                window.innerWidth >
-                1100
-            ) {
-
-                closeMenu();
-
-            }
-
-            updateActiveNavigation();
-
-            updateScrollProgress();
-
-        }
-    );
-
-
-    /* =================================================
-       SCROLL
-    ================================================= */
-
-    let scrollTicking =
-        false;
-
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            updateNavbar();
-
-            updateBackToTop();
-
-            updateScrollProgress();
-
-
-            if (
-                !scrollTicking
-            ) {
-
-                window.requestAnimationFrame(
-                    () => {
-
-                        updateActiveNavigation();
-
-                        scrollTicking =
-                            false;
-
-                    }
+                closeModal(
+                    teamModal
                 );
 
-                scrollTicking =
-                    true;
+            }
+        );
+
+    }
+
+
+    if (teamModal) {
+
+        teamModal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    teamModal
+                ) {
+
+                    closeModal(
+                        teamModal
+                    );
+
+                }
 
             }
+        );
 
-        },
-        {
-            passive: true
-        }
-    );
+    }
 
 
-    /* =================================================
-       BROWSER BACK / FORWARD
-    ================================================= */
-
-    window.addEventListener(
-        "popstate",
-        () => {
-
-            updateActiveNavigation();
-
-        }
-    );
-
-
-    /* =================================================
+    /* =====================================================
        INITIAL STATE
-    ================================================= */
+    ===================================================== */
 
     updateNavbar();
 
@@ -1549,6 +1189,7 @@ document.addEventListener("DOMContentLoaded", () => {
         updateActiveNavigation,
         100
     );
+
 
     window.setTimeout(
         updateActiveNavigation,
