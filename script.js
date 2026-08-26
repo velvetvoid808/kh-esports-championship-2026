@@ -5,50 +5,9 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =====================================================
-       CONFIGURATION
-       
-       IMPORTANT:
-       ONLY EDIT THIS SECTION WHEN UPDATING REGISTERED TEAMS.
-    ===================================================== */
-
-    const REGISTERED_TEAMS = [
-
-        /*
-        Example:
-
-        {
-            name: "Team Name",
-            title: "MLBB"
-        },
-
-        {
-            name: "Another Team",
-            title: "HOK"
-        }
-
-        */
-
-    ];
-
-    const TOTAL_CAPACITY = 64;
-
-    /*
-       Tournament starts:
-       HOK  : 20 November 2026, 8:00 AM Malaysia
-       MLBB : 27 November 2026, 8:00 AM Malaysia
-    */
-
-    const HOK_DATE =
-        "2026-11-20T08:00:00+08:00";
-
-    const MLBB_DATE =
-        "2026-11-27T08:00:00+08:00";
-
-
-    /* =====================================================
-       DOM
-    ===================================================== */
+    /* =================================================
+       ELEMENTS
+    ================================================= */
 
     const navbar =
         document.getElementById("navbar");
@@ -70,12 +29,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const desktopLinks =
         Array.from(
-            document.querySelectorAll(".nav-links a")
+            document.querySelectorAll(
+                ".nav-links a"
+            )
         );
 
     const mobileLinks =
         Array.from(
-            document.querySelectorAll(".mobile-links a")
+            document.querySelectorAll(
+                ".mobile-links a"
+            )
         );
 
     const sections =
@@ -86,9 +49,44 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-    /* =====================================================
-       NAVBAR
-    ===================================================== */
+    /* =================================================
+       REGISTERED TEAM DATA
+
+       IMPORTANT:
+       Replace the empty arrays below with the REAL
+       registered team names.
+
+       Example:
+
+       const HOK_TEAMS = [
+           "Team Alpha",
+           "Team Bravo"
+       ];
+
+       Maximum: 32 teams per title.
+    ================================================= */
+
+    const HOK_TEAMS = [
+
+        // "Team Name 01",
+        // "Team Name 02",
+        // "Team Name 03"
+
+    ];
+
+
+    const MLBB_TEAMS = [
+
+        // "Team Name 01",
+        // "Team Name 02",
+        // "Team Name 03"
+
+    ];
+
+
+    /* =================================================
+       NAVBAR SCROLL
+    ================================================= */
 
     function updateNavbar() {
 
@@ -102,9 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
+    /* =================================================
        SCROLL PROGRESS
-    ===================================================== */
+    ================================================= */
 
     function updateScrollProgress() {
 
@@ -129,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 "100%";
 
             return;
-
         }
 
         const progress =
@@ -141,15 +138,18 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollProgress.style.width =
             Math.min(
                 100,
-                Math.max(0, progress)
+                Math.max(
+                    0,
+                    progress
+                )
             ) + "%";
 
     }
 
 
-    /* =====================================================
+    /* =================================================
        BACK TO TOP
-    ===================================================== */
+    ================================================= */
 
     function updateBackToTop() {
 
@@ -169,8 +169,12 @@ document.addEventListener("DOMContentLoaded", () => {
             () => {
 
                 window.scrollTo({
+
                     top: 0,
-                    behavior: "smooth"
+
+                    behavior:
+                        "smooth"
+
                 });
 
             }
@@ -179,35 +183,46 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
+    /* =================================================
        ACTIVE NAVIGATION
-    ===================================================== */
+    ================================================= */
 
     function setActiveSection(
         sectionId
     ) {
 
-        desktopLinks.forEach(link => {
+        desktopLinks.forEach(
+            link => {
 
-            link.classList.toggle(
-                "active",
-                link.getAttribute("href") ===
-                "#" + sectionId
-            );
+                link.classList.toggle(
+                    "active",
 
-        });
+                    link.getAttribute(
+                        "href"
+                    ) ===
+                    "#" + sectionId
+                );
 
-        mobileLinks.forEach(link => {
+            }
+        );
 
-            link.classList.toggle(
-                "active",
-                link.getAttribute("href") ===
-                "#" + sectionId
-            );
+        mobileLinks.forEach(
+            link => {
 
-        });
+                link.classList.toggle(
+                    "active",
+
+                    link.getAttribute(
+                        "href"
+                    ) ===
+                    "#" + sectionId
+                );
+
+            }
+        );
 
     }
+
 
     function getCurrentSection() {
 
@@ -225,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const activationPoint =
             window.scrollY +
             navbarHeight +
-            80;
+            100;
 
         let current =
             sections[0].id;
@@ -235,7 +250,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
 
             const sectionTop =
-                section.getBoundingClientRect().top +
+                section
+                    .getBoundingClientRect()
+                    .top +
                 window.scrollY;
 
             if (
@@ -258,6 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
     function updateActiveNavigation() {
 
         setActiveSection(
@@ -267,9 +285,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
+    /* =================================================
        MOBILE MENU
-    ===================================================== */
+    ================================================= */
 
     function openMenu() {
 
@@ -278,9 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
             !menuBackdrop ||
             !menuToggle
         ) {
-
             return;
-
         }
 
         mobileMenu.classList.add(
@@ -311,6 +327,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
     function closeMenu() {
 
         if (
@@ -318,9 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
             !menuBackdrop ||
             !menuToggle
         ) {
-
             return;
-
         }
 
         mobileMenu.classList.remove(
@@ -351,6 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
     if (menuToggle) {
 
         menuToggle.addEventListener(
@@ -377,6 +393,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
     if (menuBackdrop) {
 
         menuBackdrop.addEventListener(
@@ -387,9 +404,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
-       NAVIGATION CLICK
-    ===================================================== */
+    /* =================================================
+       INTERNAL NAVIGATION
+    ================================================= */
 
     function handleNavigationClick(
         event
@@ -399,7 +416,9 @@ document.addEventListener("DOMContentLoaded", () => {
             event.currentTarget;
 
         const href =
-            link.getAttribute("href");
+            link.getAttribute(
+                "href"
+            );
 
         if (
             !href ||
@@ -432,7 +451,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 : 0;
 
         const targetTop =
-            target.getBoundingClientRect().top +
+            target
+                .getBoundingClientRect()
+                .top +
             window.scrollY -
             navbarHeight;
 
@@ -464,6 +485,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
     desktopLinks.forEach(
         link => {
 
@@ -474,6 +496,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
     );
+
 
     mobileLinks.forEach(
         link => {
@@ -487,26 +510,27 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =====================================================
-       ESCAPE
-    ===================================================== */
+    /* =================================================
+       ESCAPE KEY
+    ================================================= */
 
     document.addEventListener(
         "keydown",
         event => {
 
             if (
-                event.key === "Escape"
+                event.key ===
+                "Escape"
             ) {
 
                 closeMenu();
 
                 closeModal(
-                    flowModal
+                    tentativeModal
                 );
 
                 closeModal(
-                    teamsModal
+                    teamModal
                 );
 
             }
@@ -515,181 +539,9 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =====================================================
-       COUNTDOWN
-    ===================================================== */
-
-    function updateCountdown(
-        targetDate,
-        elements
-    ) {
-
-        const now =
-            Date.now();
-
-        const target =
-            new Date(
-                targetDate
-            ).getTime();
-
-        let difference =
-            target - now;
-
-        if (
-            Number.isNaN(target)
-        ) {
-
-            return;
-
-        }
-
-        if (
-            difference < 0
-        ) {
-
-            difference = 0;
-
-        }
-
-        const totalSeconds =
-            Math.floor(
-                difference / 1000
-            );
-
-        const days =
-            Math.floor(
-                totalSeconds /
-                86400
-            );
-
-        const hours =
-            Math.floor(
-                (
-                    totalSeconds %
-                    86400
-                ) / 3600
-            );
-
-        const minutes =
-            Math.floor(
-                (
-                    totalSeconds %
-                    3600
-                ) / 60
-            );
-
-        const seconds =
-            totalSeconds %
-            60;
-
-        if (elements.days) {
-
-            elements.days.textContent =
-                String(days)
-                    .padStart(2, "0");
-
-        }
-
-        if (elements.hours) {
-
-            elements.hours.textContent =
-                String(hours)
-                    .padStart(2, "0");
-
-        }
-
-        if (elements.minutes) {
-
-            elements.minutes.textContent =
-                String(minutes)
-                    .padStart(2, "0");
-
-        }
-
-        if (elements.seconds) {
-
-            elements.seconds.textContent =
-                String(seconds)
-                    .padStart(2, "0");
-
-        }
-
-    }
-
-    const hokCountdownElements = {
-
-        days:
-            document.getElementById(
-                "hokDays"
-            ),
-
-        hours:
-            document.getElementById(
-                "hokHours"
-            ),
-
-        minutes:
-            document.getElementById(
-                "hokMinutes"
-            ),
-
-        seconds:
-            document.getElementById(
-                "hokSeconds"
-            )
-
-    };
-
-    const mlbbCountdownElements = {
-
-        days:
-            document.getElementById(
-                "mlbbDays"
-            ),
-
-        hours:
-            document.getElementById(
-                "mlbbHours"
-            ),
-
-        minutes:
-            document.getElementById(
-                "mlbbMinutes"
-            ),
-
-        seconds:
-            document.getElementById(
-                "mlbbSeconds"
-            )
-
-    };
-
-    function updateAllCountdowns() {
-
-        updateCountdown(
-            HOK_DATE,
-            hokCountdownElements
-        );
-
-        updateCountdown(
-            MLBB_DATE,
-            mlbbCountdownElements
-        );
-
-    }
-
-    updateAllCountdowns();
-
-    setInterval(
-        updateAllCountdowns,
-        1000
-    );
-
-
-    /* =====================================================
-       REVEAL ANIMATION
-       REPEATS WHEN ENTERING / LEAVING VIEWPORT
-    ===================================================== */
+    /* =================================================
+       REPEATING REVEAL ANIMATION
+    ================================================= */
 
     const revealElements =
         document.querySelectorAll(
@@ -697,7 +549,8 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     if (
-        "IntersectionObserver" in window
+        "IntersectionObserver"
+        in window
     ) {
 
         const revealObserver =
@@ -730,14 +583,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
 
                 {
-                    threshold: 0.12,
+                    threshold:
+                        0.12,
 
                     rootMargin:
                         "0px 0px -8% 0px"
-
                 }
 
             );
+
 
         revealElements.forEach(
             element => {
@@ -764,38 +618,495 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
-       MODAL SYSTEM
-    ===================================================== */
+    /* =================================================
+       COUNTDOWN
+    ================================================= */
 
-    const flowButton =
-        document.getElementById(
-            "flowButton"
+    /*
+       Dates use Malaysia local time.
+       The exact start times can be changed here later.
+
+       HOK:
+       20 November 2026, 8:00 AM
+
+       MLBB:
+       27 November 2026, 8:00 AM
+    */
+
+    const HOK_DATE =
+        new Date(
+            "2026-11-20T08:00:00+08:00"
+        ).getTime();
+
+    const MLBB_DATE =
+        new Date(
+            "2026-11-27T08:00:00+08:00"
+        ).getTime();
+
+
+    function updateCountdown(
+        targetDate,
+        prefix
+    ) {
+
+        const now =
+            Date.now();
+
+        let difference =
+            targetDate -
+            now;
+
+        if (difference < 0) {
+
+            difference = 0;
+
+        }
+
+        const days =
+            Math.floor(
+                difference /
+                (
+                    1000 *
+                    60 *
+                    60 *
+                    24
+                )
+            );
+
+        const hours =
+            Math.floor(
+                (
+                    difference %
+                    (
+                        1000 *
+                        60 *
+                        60 *
+                        24
+                    )
+                ) /
+                (
+                    1000 *
+                    60 *
+                    60
+                )
+            );
+
+        const minutes =
+            Math.floor(
+                (
+                    difference %
+                    (
+                        1000 *
+                        60 *
+                        60
+                    )
+                ) /
+                (
+                    1000 *
+                    60
+                )
+            );
+
+        const seconds =
+            Math.floor(
+                (
+                    difference %
+                    (
+                        1000 *
+                        60
+                    )
+                ) /
+                1000
+            );
+
+
+        const dayElement =
+            document.getElementById(
+                prefix + "Days"
+            );
+
+        const hourElement =
+            document.getElementById(
+                prefix + "Hours"
+            );
+
+        const minuteElement =
+            document.getElementById(
+                prefix + "Minutes"
+            );
+
+        const secondElement =
+            document.getElementById(
+                prefix + "Seconds"
+            );
+
+
+        if (dayElement) {
+
+            dayElement.textContent =
+                String(days);
+
+        }
+
+        if (hourElement) {
+
+            hourElement.textContent =
+                String(hours)
+                    .padStart(
+                        2,
+                        "0"
+                    );
+
+        }
+
+        if (minuteElement) {
+
+            minuteElement.textContent =
+                String(minutes)
+                    .padStart(
+                        2,
+                        "0"
+                    );
+
+        }
+
+        if (secondElement) {
+
+            secondElement.textContent =
+                String(seconds)
+                    .padStart(
+                        2,
+                        "0"
+                    );
+
+        }
+
+    }
+
+
+    function updateAllCountdowns() {
+
+        updateCountdown(
+            HOK_DATE,
+            "hok"
         );
 
-    const flowModal =
-        document.getElementById(
-            "flowModal"
+        updateCountdown(
+            MLBB_DATE,
+            "mlbb"
         );
 
-    const flowModalClose =
-        document.getElementById(
-            "flowModalClose"
+    }
+
+
+    updateAllCountdowns();
+
+
+    setInterval(
+        updateAllCountdowns,
+        1000
+    );
+
+
+    /* =================================================
+       GROUP STAGE GENERATOR
+    ================================================= */
+
+    function createGroups(
+        containerId,
+        teams
+    ) {
+
+        const container =
+            document.getElementById(
+                containerId
+            );
+
+        if (!container) {
+
+            return;
+
+        }
+
+        container.innerHTML = "";
+
+
+        for (
+            let groupIndex = 0;
+            groupIndex < 8;
+            groupIndex++
+        ) {
+
+            const groupCard =
+                document.createElement(
+                    "article"
+                );
+
+            groupCard.className =
+                "group-card reveal";
+
+
+            const groupHeader =
+                document.createElement(
+                    "div"
+                );
+
+            groupHeader.className =
+                "group-header";
+
+
+            const groupName =
+                document.createElement(
+                    "strong"
+                );
+
+            groupName.textContent =
+                "GROUP " +
+                String.fromCharCode(
+                    65 + groupIndex
+                );
+
+
+            const groupFormat =
+                document.createElement(
+                    "span"
+                );
+
+            groupFormat.textContent =
+                "4 TEAMS";
+
+
+            groupHeader.appendChild(
+                groupName
+            );
+
+            groupHeader.appendChild(
+                groupFormat
+            );
+
+
+            const teamList =
+                document.createElement(
+                    "div"
+                );
+
+            teamList.className =
+                "group-team-list";
+
+
+            for (
+                let teamIndex = 0;
+                teamIndex < 4;
+                teamIndex++
+            ) {
+
+                const team =
+                    document.createElement(
+                        "div"
+                    );
+
+                team.className =
+                    "group-team";
+
+                team.setAttribute(
+                    "contenteditable",
+                    "true"
+                );
+
+                team.setAttribute(
+                    "spellcheck",
+                    "false"
+                );
+
+                const overallIndex =
+                    groupIndex * 4 +
+                    teamIndex;
+
+                if (
+                    teams[
+                        overallIndex
+                    ]
+                ) {
+
+                    team.textContent =
+                        teams[
+                            overallIndex
+                        ];
+
+                } else {
+
+                    team.textContent =
+                        "TEAM " +
+                        String(
+                            overallIndex + 1
+                        );
+
+                }
+
+                teamList.appendChild(
+                    team
+                );
+
+            }
+
+
+            groupCard.appendChild(
+                groupHeader
+            );
+
+            groupCard.appendChild(
+                teamList
+            );
+
+            container.appendChild(
+                groupCard
+            );
+
+        }
+
+
+        /*
+           Make generated elements visible
+           immediately if they are already in view.
+        */
+
+        requestAnimationFrame(
+            () => {
+
+                const generated =
+                    container.querySelectorAll(
+                        ".reveal"
+                    );
+
+                generated.forEach(
+                    element => {
+
+                        element.classList.add(
+                            "reveal-visible"
+                        );
+
+                    }
+                );
+
+            }
         );
 
-    const teamsButton =
+    }
+
+
+    createGroups(
+        "hokGroups",
+        HOK_TEAMS
+    );
+
+    createGroups(
+        "mlbbGroups",
+        MLBB_TEAMS
+    );
+
+
+    /* =================================================
+       REGISTERED TEAM COUNTERS
+    ================================================= */
+
+    function updateRegisteredCounter(
+        teams,
+        countId,
+        barId
+    ) {
+
+        const countElement =
+            document.getElementById(
+                countId
+            );
+
+        const barElement =
+            document.getElementById(
+                barId
+            );
+
+        const count =
+            Math.min(
+                teams.length,
+                32
+            );
+
+        const percentage =
+            (
+                count /
+                32
+            ) * 100;
+
+
+        if (countElement) {
+
+            countElement.textContent =
+                count;
+
+        }
+
+
+        if (barElement) {
+
+            barElement.style.width =
+                percentage + "%";
+
+        }
+
+    }
+
+
+    updateRegisteredCounter(
+        HOK_TEAMS,
+        "hokRegisteredCount",
+        "hokRegisteredBar"
+    );
+
+
+    updateRegisteredCounter(
+        MLBB_TEAMS,
+        "mlbbRegisteredCount",
+        "mlbbRegisteredBar"
+    );
+
+
+    /* =================================================
+       MODALS
+    ================================================= */
+
+    const tentativeModal =
         document.getElementById(
-            "teamsButton"
+            "tentativeModal"
         );
 
-    const teamsModal =
+    const teamModal =
         document.getElementById(
-            "teamsModal"
+            "teamModal"
         );
 
-    const teamsModalClose =
+    const openTentativeFlow =
         document.getElementById(
-            "teamsModalClose"
+            "openTentativeFlow"
+        );
+
+    const teamList =
+        document.getElementById(
+            "teamList"
+        );
+
+    const teamModalTitle =
+        document.getElementById(
+            "teamModalTitle"
+        );
+
+    const teamModalSubtitle =
+        document.getElementById(
+            "teamModalSubtitle"
+        );
+
+    const teamModalKicker =
+        document.getElementById(
+            "teamModalKicker"
         );
 
 
@@ -820,6 +1131,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
     function closeModal(
         modal
     ) {
@@ -835,13 +1147,25 @@ document.addEventListener("DOMContentLoaded", () => {
             "true"
         );
 
+        /*
+           Only remove body lock if neither
+           modal nor mobile menu is open.
+        */
+
+        const anotherModalOpen =
+            document.querySelector(
+                ".modal.open"
+            );
+
+        const menuOpen =
+            mobileMenu &&
+            mobileMenu.classList.contains(
+                "open"
+            );
+
         if (
-            !flowModal.classList.contains(
-                "open"
-            ) &&
-            !teamsModal.classList.contains(
-                "open"
-            )
+            !anotherModalOpen &&
+            !menuOpen
         ) {
 
             document.body.classList.remove(
@@ -853,33 +1177,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
-       FLOW MODAL
-    ===================================================== */
+    if (openTentativeFlow) {
 
-    if (flowButton) {
-
-        flowButton.addEventListener(
+        openTentativeFlow.addEventListener(
             "click",
             () => {
 
                 openModal(
-                    flowModal
-                );
-
-            }
-        );
-
-    }
-
-    if (flowModalClose) {
-
-        flowModalClose.addEventListener(
-            "click",
-            () => {
-
-                closeModal(
-                    flowModal
+                    tentativeModal
                 );
 
             }
@@ -888,77 +1193,45 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* Close by clicking overlay */
+    /* =================================================
+       CLOSE MODALS
+    ================================================= */
 
-    if (flowModal) {
+    document.querySelectorAll(
+        "[data-close-modal]"
+    ).forEach(
+        element => {
 
-        flowModal.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target ===
-                    flowModal
-                ) {
-
-                    closeModal(
-                        flowModal
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       FLOW TABS
-    ===================================================== */
-
-    const flowTabs =
-        document.querySelectorAll(
-            ".flow-tab"
-        );
-
-    const flowPanels =
-        document.querySelectorAll(
-            ".flow-panel"
-        );
-
-    flowTabs.forEach(
-        tab => {
-
-            tab.addEventListener(
+            element.addEventListener(
                 "click",
                 () => {
 
-                    const selected =
-                        tab.dataset.flowTitle;
+                    const type =
+                        element.getAttribute(
+                            "data-close-modal"
+                        );
 
-                    flowTabs.forEach(
-                        item => {
+                    if (
+                        type ===
+                        "tentative"
+                    ) {
 
-                            item.classList.toggle(
-                                "active",
-                                item === tab
-                            );
+                        closeModal(
+                            tentativeModal
+                        );
 
-                        }
-                    );
+                    }
 
-                    flowPanels.forEach(
-                        panel => {
+                    if (
+                        type ===
+                        "teams"
+                    ) {
 
-                            panel.classList.toggle(
-                                "active",
-                                panel.dataset.flowPanel ===
-                                selected
-                            );
+                        closeModal(
+                            teamModal
+                        );
 
-                        }
-                    );
+                    }
 
                 }
             );
@@ -967,133 +1240,49 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =====================================================
-       REGISTERED TEAMS
-    ===================================================== */
+    /* =================================================
+       REGISTERED TEAM LIST MODAL
+    ================================================= */
 
-    const registeredCount =
-        document.getElementById(
-            "registeredCount"
-        );
+    function openTeamList(
+        title,
+        teams,
+        game
+    ) {
 
-    const registeredTotal =
-        document.getElementById(
-            "registeredTotal"
-        );
-
-    const registrationPercentage =
-        document.getElementById(
-            "registrationPercentage"
-        );
-
-    const registrationBar =
-        document.getElementById(
-            "registrationBar"
-        );
-
-    const modalRegisteredCount =
-        document.getElementById(
-            "modalRegisteredCount"
-        );
-
-    const modalAvailableCount =
-        document.getElementById(
-            "modalAvailableCount"
-        );
-
-    const registeredTeamList =
-        document.getElementById(
-            "registeredTeamList"
-        );
+        if (!teamList) return;
 
 
-    function updateRegisteredTeams() {
+        teamList.innerHTML = "";
 
-        const count =
-            REGISTERED_TEAMS.length;
 
-        const available =
-            Math.max(
-                0,
-                TOTAL_CAPACITY -
-                count
-            );
+        if (teamModalTitle) {
 
-        const percentage =
-            Math.min(
-                100,
-                (
-                    count /
-                    TOTAL_CAPACITY
-                ) * 100
-            );
-
-        if (registeredCount) {
-
-            registeredCount.textContent =
-                count;
+            teamModalTitle.innerHTML =
+                "TEAM <span>LIST</span>";
 
         }
 
-        if (registeredTotal) {
 
-            registeredTotal.textContent =
-                TOTAL_CAPACITY;
+        if (teamModalKicker) {
 
-        }
-
-        if (registrationPercentage) {
-
-            registrationPercentage.textContent =
-                Math.round(
-                    percentage
-                ) + "%";
+            teamModalKicker.textContent =
+                game +
+                " / REGISTERED TEAMS";
 
         }
 
-        if (registrationBar) {
 
-            requestAnimationFrame(
-                () => {
+        if (teamModalSubtitle) {
 
-                    registrationBar.style.width =
-                        percentage + "%";
-
-                }
-            );
+            teamModalSubtitle.textContent =
+                teams.length +
+                " / 32 teams registered";
 
         }
 
-        if (modalRegisteredCount) {
 
-            modalRegisteredCount.textContent =
-                count;
-
-        }
-
-        if (modalAvailableCount) {
-
-            modalAvailableCount.textContent =
-                available;
-
-        }
-
-        renderRegisteredTeams();
-
-    }
-
-
-    function renderRegisteredTeams() {
-
-        if (!registeredTeamList) {
-            return;
-        }
-
-        registeredTeamList.innerHTML = "";
-
-        if (
-            REGISTERED_TEAMS.length === 0
-        ) {
+        if (!teams.length) {
 
             const empty =
                 document.createElement(
@@ -1101,159 +1290,166 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
             empty.className =
-                "empty-teams";
+                "empty-team-list";
 
-            empty.innerHTML = `
-                <strong>NO TEAMS YET</strong>
-                <p>
-                    Registered teams will appear here
-                    once registration is confirmed.
-                </p>
-            `;
+            empty.innerHTML =
+                "No registered teams have been published yet.<br>" +
+                "The team list will appear here once registration data is added.";
 
-            registeredTeamList.appendChild(
+            teamList.appendChild(
                 empty
             );
 
-            return;
+        } else {
+
+            teams
+                .slice(0, 32)
+                .forEach(
+                    (
+                        teamName,
+                        index
+                    ) => {
+
+                        const item =
+                            document.createElement(
+                                "div"
+                            );
+
+                        item.className =
+                            "team-list-item";
+
+
+                        const number =
+                            document.createElement(
+                                "span"
+                            );
+
+                        number.textContent =
+                            String(
+                                index + 1
+                            ).padStart(
+                                2,
+                                "0"
+                            );
+
+
+                        const name =
+                            document.createElement(
+                                "strong"
+                            );
+
+                        name.textContent =
+                            teamName;
+
+
+                        item.appendChild(
+                            number
+                        );
+
+                        item.appendChild(
+                            name
+                        );
+
+                        teamList.appendChild(
+                            item
+                        );
+
+                    }
+                );
 
         }
 
-        REGISTERED_TEAMS.forEach(
-            (
-                team,
-                index
-            ) => {
 
-                const item =
-                    document.createElement(
-                        "div"
-                    );
+        openModal(
+            teamModal
+        );
 
-                item.className =
-                    "registered-team";
+    }
 
-                const number =
-                    document.createElement(
-                        "span"
-                    );
 
-                number.className =
-                    "registered-team-number";
+    document.querySelectorAll(
+        "[data-team-list]"
+    ).forEach(
+        button => {
 
-                number.textContent =
-                    String(
-                        index + 1
-                    ).padStart(
-                        2,
-                        "0"
-                    );
+            button.addEventListener(
+                "click",
+                () => {
 
-                const name =
-                    document.createElement(
-                        "span"
-                    );
+                    const type =
+                        button.getAttribute(
+                            "data-team-list"
+                        );
 
-                name.className =
-                    "registered-team-name";
 
-                if (
-                    typeof team ===
-                    "string"
-                ) {
+                    if (
+                        type ===
+                        "hok"
+                    ) {
 
-                    name.textContent =
-                        team;
+                        openTeamList(
+                            "Honor of Kings",
+                            HOK_TEAMS,
+                            "HONOR OF KINGS"
+                        );
 
-                } else {
+                    }
 
-                    name.textContent =
-                        team.name || "Unnamed Team";
+
+                    if (
+                        type ===
+                        "mlbb"
+                    ) {
+
+                        openTeamList(
+                            "Mobile Legends",
+                            MLBB_TEAMS,
+                            "MOBILE LEGENDS"
+                        );
+
+                    }
 
                 }
+            );
 
-                item.appendChild(
-                    number
-                );
-
-                item.appendChild(
-                    name
-                );
-
-                registeredTeamList.appendChild(
-                    item
-                );
-
-            }
-        );
-
-    }
-
-    updateRegisteredTeams();
+        }
+    );
 
 
-    /* =====================================================
-       REGISTERED TEAM MODAL
-    ===================================================== */
+    /* =================================================
+       CONTENTEDITABLE TEAM SLOTS
+    ================================================= */
 
-    if (teamsButton) {
+    /*
+       Allows you to click on group/bracket team
+       placeholders and type the actual team name.
 
-        teamsButton.addEventListener(
-            "click",
-            () => {
+       This is intentionally local/browser-side.
+       It does not upload data anywhere.
+    */
 
-                updateRegisteredTeams();
+    document.querySelectorAll(
+        ".editable-team"
+    ).forEach(
+        slot => {
 
-                openModal(
-                    teamsModal
-                );
+            slot.setAttribute(
+                "contenteditable",
+                "true"
+            );
 
-            }
-        );
+            slot.setAttribute(
+                "spellcheck",
+                "false"
+            );
 
-    }
-
-    if (teamsModalClose) {
-
-        teamsModalClose.addEventListener(
-            "click",
-            () => {
-
-                closeModal(
-                    teamsModal
-                );
-
-            }
-        );
-
-    }
-
-    if (teamsModal) {
-
-        teamsModal.addEventListener(
-            "click",
-            event => {
-
-                if (
-                    event.target ===
-                    teamsModal
-                ) {
-
-                    closeModal(
-                        teamsModal
-                    );
-
-                }
-
-            }
-        );
-
-    }
+        }
+    );
 
 
-    /* =====================================================
+    /* =================================================
        RESIZE
-    ===================================================== */
+    ================================================= */
 
     window.addEventListener(
         "resize",
@@ -1276,17 +1472,16 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =====================================================
+    /* =================================================
        SCROLL
-    ===================================================== */
+    ================================================= */
 
     let scrollTicking =
         false;
 
+
     window.addEventListener(
-
         "scroll",
-
         () => {
 
             updateNavbar();
@@ -1294,6 +1489,7 @@ document.addEventListener("DOMContentLoaded", () => {
             updateBackToTop();
 
             updateScrollProgress();
+
 
             if (
                 !scrollTicking
@@ -1316,17 +1512,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
         },
-
         {
             passive: true
         }
-
     );
 
 
-    /* =====================================================
+    /* =================================================
        BROWSER BACK / FORWARD
-    ===================================================== */
+    ================================================= */
 
     window.addEventListener(
         "popstate",
@@ -1338,9 +1532,9 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* =====================================================
+    /* =================================================
        INITIAL STATE
-    ===================================================== */
+    ================================================= */
 
     updateNavbar();
 
@@ -1349,6 +1543,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateBackToTop();
 
     updateActiveNavigation();
+
 
     window.setTimeout(
         updateActiveNavigation,
