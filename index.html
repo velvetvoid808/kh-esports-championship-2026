@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>KH Esports Championship 2026</title>
 
@@ -14,24 +11,21 @@
         content="Keat Hwa Esports Championship 2026 — Honor of Kings × Mobile Legends: Bang Bang"
     >
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+<!-- =====================================================
+     SCROLL PROGRESS
+===================================================== -->
 
 <div
     class="scroll-progress"
     id="scrollProgress"
     aria-hidden="true"
 ></div>
+
 
 <!-- =====================================================
      NAVIGATION
@@ -59,6 +53,7 @@
             <a href="#titles">TITLES</a>
             <a href="#tournament">TOURNAMENT</a>
             <a href="#schedule">SCHEDULE</a>
+            <a href="#brackets">BRACKETS</a>
             <a href="#prizes">PRIZES</a>
             <a href="#rules">RULES</a>
         </nav>
@@ -71,7 +66,8 @@
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                RULEBOOK ↗
+                RULEBOOK
+                <span class="external-arrow" aria-hidden="true"></span>
             </a>
 
             <a
@@ -81,6 +77,7 @@
                 rel="noopener noreferrer"
             >
                 REGISTER
+                <span class="external-arrow" aria-hidden="true"></span>
             </a>
 
         </div>
@@ -100,6 +97,7 @@
     </div>
 
 </header>
+
 
 <!-- =====================================================
      MOBILE MENU
@@ -130,6 +128,7 @@
             <a href="#titles">TITLES</a>
             <a href="#tournament">TOURNAMENT</a>
             <a href="#schedule">SCHEDULE</a>
+            <a href="#brackets">BRACKETS</a>
             <a href="#prizes">PRIZES</a>
             <a href="#rules">RULES</a>
         </nav>
@@ -140,7 +139,8 @@
             target="_blank"
             rel="noopener noreferrer"
         >
-            RULEBOOK ↗
+            RULEBOOK
+            <span class="external-arrow" aria-hidden="true"></span>
         </a>
 
         <a
@@ -149,14 +149,21 @@
             target="_blank"
             rel="noopener noreferrer"
         >
-            REGISTER NOW ↗
+            REGISTER NOW
+            <span class="external-arrow" aria-hidden="true"></span>
         </a>
 
     </div>
 
 </div>
 
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main>
+
 
 <!-- =====================================================
      HERO
@@ -177,9 +184,7 @@
 
             <span>KH</span>
 
-            <strong class="rainbow-word">
-                ESPORTS
-            </strong>
+            <strong>ESPORTS</strong>
 
             <em>CHAMPIONSHIP</em>
 
@@ -203,7 +208,7 @@
                 class="primary-button"
             >
                 EXPLORE CHAMPIONSHIP
-                <span>↗</span>
+                <span class="inline-arrow" aria-hidden="true"></span>
             </a>
 
             <a
@@ -227,7 +232,9 @@
 
         <div class="hero-date">
 
-            <span>HONOR OF KINGS</span>
+            <span>
+                HONOR OF KINGS
+            </span>
 
             <strong>
                 20—21 NOV 2026
@@ -239,7 +246,9 @@
 
         <div class="hero-date">
 
-            <span>MOBILE LEGENDS</span>
+            <span>
+                MOBILE LEGENDS
+            </span>
 
             <strong>
                 27—28 NOV 2026
@@ -251,131 +260,6 @@
 
 </section>
 
-<!-- =====================================================
-     COUNTDOWN
-===================================================== -->
-
-<section class="countdown-section">
-
-    <div class="section-heading compact-heading reveal">
-
-        <span class="section-index">
-            LIVE
-        </span>
-
-        <div>
-            <p class="section-kicker">
-                THE COUNTDOWN BEGINS
-            </p>
-
-            <h2>
-                UNTIL THE <span>ARENA OPENS</span>
-            </h2>
-        </div>
-
-    </div>
-
-    <div class="countdown-grid">
-
-        <!-- HOK -->
-
-        <article class="countdown-card hok-countdown reveal">
-
-            <div class="countdown-top">
-                <span>HONOR OF KINGS</span>
-                <small>20 NOV 2026</small>
-            </div>
-
-            <div
-                class="countdown-timer"
-                id="hokCountdown"
-            >
-
-                <div>
-                    <strong id="hokDays">--</strong>
-                    <span>DAYS</span>
-                </div>
-
-                <b>:</b>
-
-                <div>
-                    <strong id="hokHours">--</strong>
-                    <span>HOURS</span>
-                </div>
-
-                <b>:</b>
-
-                <div>
-                    <strong id="hokMinutes">--</strong>
-                    <span>MIN</span>
-                </div>
-
-                <b>:</b>
-
-                <div>
-                    <strong id="hokSeconds">--</strong>
-                    <span>SEC</span>
-                </div>
-
-            </div>
-
-            <p>
-                CHAMPIONSHIP DAY 01
-            </p>
-
-        </article>
-
-        <!-- MLBB -->
-
-        <article class="countdown-card mlbb-countdown reveal reveal-delay-1">
-
-            <div class="countdown-top">
-                <span>MOBILE LEGENDS</span>
-                <small>27 NOV 2026</small>
-            </div>
-
-            <div
-                class="countdown-timer"
-                id="mlbbCountdown"
-            >
-
-                <div>
-                    <strong id="mlbbDays">--</strong>
-                    <span>DAYS</span>
-                </div>
-
-                <b>:</b>
-
-                <div>
-                    <strong id="mlbbHours">--</strong>
-                    <span>HOURS</span>
-                </div>
-
-                <b>:</b>
-
-                <div>
-                    <strong id="mlbbMinutes">--</strong>
-                    <span>MIN</span>
-                </div>
-
-                <b>:</b>
-
-                <div>
-                    <strong id="mlbbSeconds">--</strong>
-                    <span>SEC</span>
-                </div>
-
-            </div>
-
-            <p>
-                CHAMPIONSHIP DAY 01
-            </p>
-
-        </article>
-
-    </div>
-
-</section>
 
 <!-- =====================================================
      QUICK STATS
@@ -404,6 +288,7 @@
     </div>
 
 </section>
+
 
 <!-- =====================================================
      ABOUT
@@ -446,7 +331,7 @@
                 teamwork and sportsmanship.
             </p>
 
-            <p class="about-description">
+            <p class="about-secondary">
                 Organised by Techverse Club SMJK Keat Hwa,
                 the championship brings together two competitive
                 titles in a structured and professional tournament
@@ -464,7 +349,7 @@
 
             <div class="objective reveal reveal-delay-2">
                 <span>02</span>
-                <p>Communication & teamwork</p>
+                <p>Communication &amp; teamwork</p>
             </div>
 
             <div class="objective reveal reveal-delay-3">
@@ -482,6 +367,7 @@
     </div>
 
 </section>
+
 
 <!-- =====================================================
      TITLES
@@ -552,10 +438,11 @@
             </div>
 
             <div class="card-arrow">
-                ↗
+                <span class="large-arrow" aria-hidden="true"></span>
             </div>
 
         </article>
+
 
         <article class="title-card mlbb-card reveal reveal-delay-1">
 
@@ -595,7 +482,7 @@
             </div>
 
             <div class="card-arrow">
-                ↗
+                <span class="large-arrow" aria-hidden="true"></span>
             </div>
 
         </article>
@@ -604,8 +491,9 @@
 
 </section>
 
+
 <!-- =====================================================
-     TOURNAMENT
+     TOURNAMENT FORMAT
 ===================================================== -->
 
 <section
@@ -633,7 +521,8 @@
 
     </div>
 
-    <!-- FORMAT FLOW -->
+
+    <!-- FORMAT LINE -->
 
     <div class="format-flow">
 
@@ -664,7 +553,7 @@
         <div class="format-step reveal reveal-delay-3">
             <span>04</span>
             <strong>QUARTERFINALS</strong>
-            <small>8 TEAMS • BO3</small>
+            <small>BO3</small>
         </div>
 
         <div class="flow-line"></div>
@@ -685,22 +574,13 @@
 
     </div>
 
-    <div class="format-note reveal">
-        <span>FORMAT</span>
-        <p>
-            32 teams are divided into 8 groups of 4.
-            Each group plays a single round-robin Group Stage.
-            The 8 group winners advance directly to the
-            Quarterfinals.
-        </p>
-    </div>
 
     <div class="format-features">
 
         <div class="feature-card reveal">
             <span>GLOBAL BP</span>
             <p>
-                Global Ban & Pick is used throughout
+                Global Ban &amp; Pick is used throughout
                 the tournament.
             </p>
         </div>
@@ -723,328 +603,11 @@
 
     </div>
 
-    <!-- =================================================
-         GROUP STAGE
-    ================================================= -->
-
-    <div class="subsection-heading reveal">
-
-        <span>GROUP STAGE</span>
-
-        <p>
-            32 TEAMS → 8 GROUPS → 8 GROUP WINNERS
-        </p>
-
-    </div>
-
-    <div class="groups-grid">
-
-        <div class="group-card reveal">
-            <span>GROUP A</span>
-            <div>TEAM A1</div>
-            <div>TEAM A2</div>
-            <div>TEAM A3</div>
-            <div>TEAM A4</div>
-            <small>WINNER → QF</small>
-        </div>
-
-        <div class="group-card reveal reveal-delay-1">
-            <span>GROUP B</span>
-            <div>TEAM B1</div>
-            <div>TEAM B2</div>
-            <div>TEAM B3</div>
-            <div>TEAM B4</div>
-            <small>WINNER → QF</small>
-        </div>
-
-        <div class="group-card reveal reveal-delay-2">
-            <span>GROUP C</span>
-            <div>TEAM C1</div>
-            <div>TEAM C2</div>
-            <div>TEAM C3</div>
-            <div>TEAM C4</div>
-            <small>WINNER → QF</small>
-        </div>
-
-        <div class="group-card reveal reveal-delay-3">
-            <span>GROUP D</span>
-            <div>TEAM D1</div>
-            <div>TEAM D2</div>
-            <div>TEAM D3</div>
-            <div>TEAM D4</div>
-            <small>WINNER → QF</small>
-        </div>
-
-        <div class="group-card reveal">
-            <span>GROUP E</span>
-            <div>TEAM E1</div>
-            <div>TEAM E2</div>
-            <div>TEAM E3</div>
-            <div>TEAM E4</div>
-            <small>WINNER → QF</small>
-        </div>
-
-        <div class="group-card reveal reveal-delay-1">
-            <span>GROUP F</span>
-            <div>TEAM F1</div>
-            <div>TEAM F2</div>
-            <div>TEAM F3</div>
-            <div>TEAM F4</div>
-            <small>WINNER → QF</small>
-        </div>
-
-        <div class="group-card reveal reveal-delay-2">
-            <span>GROUP G</span>
-            <div>TEAM G1</div>
-            <div>TEAM G2</div>
-            <div>TEAM G3</div>
-            <div>TEAM G4</div>
-            <small>WINNER → QF</small>
-        </div>
-
-        <div class="group-card reveal reveal-delay-3">
-            <span>GROUP H</span>
-            <div>TEAM H1</div>
-            <div>TEAM H2</div>
-            <div>TEAM H3</div>
-            <div>TEAM H4</div>
-            <small>WINNER → QF</small>
-        </div>
-
-    </div>
-
-    <!-- =================================================
-         BRACKET
-    ================================================= -->
-
-    <div class="subsection-heading bracket-heading reveal">
-
-        <span>KNOCKOUT STAGE</span>
-
-        <p>
-            8 GROUP WINNERS → CHAMPION
-        </p>
-
-    </div>
-
-    <div class="bracket-wrapper reveal">
-
-        <div class="bracket">
-
-            <!-- QUARTERFINALS -->
-
-            <div class="bracket-column">
-
-                <div class="bracket-title">
-                    QUARTERFINALS
-                </div>
-
-                <div class="match">
-                    <span>GROUP A</span>
-                    <i>VS</i>
-                    <span>GROUP B</span>
-                    <small>BO3</small>
-                </div>
-
-                <div class="match">
-                    <span>GROUP C</span>
-                    <i>VS</i>
-                    <span>GROUP D</span>
-                    <small>BO3</small>
-                </div>
-
-                <div class="match">
-                    <span>GROUP E</span>
-                    <i>VS</i>
-                    <span>GROUP F</span>
-                    <small>BO3</small>
-                </div>
-
-                <div class="match">
-                    <span>GROUP G</span>
-                    <i>VS</i>
-                    <span>GROUP H</span>
-                    <small>BO3</small>
-                </div>
-
-            </div>
-
-            <!-- SEMIFINALS -->
-
-            <div class="bracket-column">
-
-                <div class="bracket-title">
-                    SEMIFINALS
-                </div>
-
-                <div class="match match-sf">
-                    <span>QF 1 WINNER</span>
-                    <i>VS</i>
-                    <span>QF 2 WINNER</span>
-                    <small>BO3</small>
-                </div>
-
-                <div class="match match-sf">
-                    <span>QF 3 WINNER</span>
-                    <i>VS</i>
-                    <span>QF 4 WINNER</span>
-                    <small>BO3</small>
-                </div>
-
-            </div>
-
-            <!-- GRAND FINAL -->
-
-            <div class="bracket-column">
-
-                <div class="bracket-title">
-                    GRAND FINAL
-                </div>
-
-                <div class="match match-final">
-                    <span>SF 1 WINNER</span>
-                    <i>VS</i>
-                    <span>SF 2 WINNER</span>
-                    <small>BO5</small>
-                </div>
-
-            </div>
-
-            <!-- CHAMPION -->
-
-            <div class="bracket-column champion-column">
-
-                <div class="bracket-title">
-                    CHAMPION
-                </div>
-
-                <div class="champion-box">
-                    <span>🏆</span>
-                    <strong>CHAMPION</strong>
-                    <small>THE LAST TEAM STANDING</small>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="bracket-note reveal">
-        <span>FINAL BRACKET STRUCTURE</span>
-        <p>
-            Group winners advance directly into the
-            Quarterfinals. Knockout Stage follows a
-            single-elimination format.
-        </p>
-    </div>
-
-    <!-- DETAILED FLOW BUTTON -->
-
-    <div class="rules-action reveal">
-
-        <button
-            class="rules-book-button"
-            id="flowButton"
-            type="button"
-        >
-            VIEW DETAILED TENTATIVE FLOW ↗
-        </button>
-
-    </div>
-
 </section>
 
-<!-- =====================================================
-     REGISTERED TEAMS
-===================================================== -->
-
-<section
-    id="registered"
-    class="registered-section section"
->
-
-    <div class="section-heading reveal">
-
-        <span class="section-index">
-            LIVE
-        </span>
-
-        <div>
-
-            <p class="section-kicker">
-                THE FIELD IS FORMING
-            </p>
-
-            <h2>
-                REGISTERED <span>TEAMS</span>
-            </h2>
-
-        </div>
-
-    </div>
-
-    <div class="registration-status reveal">
-
-        <div class="registration-status-top">
-
-            <div>
-                <span>REGISTRATION STATUS</span>
-                <strong>
-                    <b id="registeredCount">0</b>
-                    /
-                    <b id="registeredTotal">64</b>
-                    TEAMS
-                </strong>
-            </div>
-
-            <div class="registration-percentage">
-                <span id="registrationPercentage">
-                    0%
-                </span>
-            </div>
-
-        </div>
-
-        <div class="registration-bar">
-
-            <div
-                class="registration-bar-fill"
-                id="registrationBar"
-            ></div>
-
-        </div>
-
-        <div class="registration-status-bottom">
-
-            <span>
-                32 TEAMS / TITLE
-            </span>
-
-            <span>
-                64 TOTAL SLOTS
-            </span>
-
-        </div>
-
-    </div>
-
-    <div class="registered-action reveal">
-
-        <button
-            class="rules-book-button"
-            id="teamsButton"
-            type="button"
-        >
-            VIEW REGISTERED TEAM LIST ↗
-        </button>
-
-    </div>
-
-</section>
 
 <!-- =====================================================
-     SCHEDULE
+     EVENT SCHEDULE
 ===================================================== -->
 
 <section
@@ -1072,6 +635,7 @@
 
     </div>
 
+
     <div class="schedule-grid">
 
         <article class="schedule-card reveal">
@@ -1098,6 +662,7 @@
 
         </article>
 
+
         <article class="schedule-card reveal reveal-delay-1">
 
             <div class="schedule-date">
@@ -1122,6 +687,7 @@
 
         </article>
 
+
         <article class="schedule-card reveal reveal-delay-2">
 
             <div class="schedule-date">
@@ -1145,6 +711,7 @@
             </div>
 
         </article>
+
 
         <article class="schedule-card reveal reveal-delay-3">
 
@@ -1172,6 +739,7 @@
 
     </div>
 
+
     <div class="venue-banner reveal">
 
         <span>VENUE</span>
@@ -1186,7 +754,469 @@
 
     </div>
 
+
+    <!-- =================================================
+         TENTATIVE FLOW BUTTON
+    ================================================= -->
+
+    <div class="tentative-action reveal">
+
+        <button
+            class="tentative-button"
+            id="openTentativeFlow"
+            type="button"
+        >
+            VIEW DETAILED TENTATIVE FLOW
+            <span class="inline-arrow" aria-hidden="true"></span>
+        </button>
+
+    </div>
+
 </section>
+
+
+<!-- =====================================================
+     COUNTDOWN
+===================================================== -->
+
+<section class="countdown-section">
+
+    <div class="countdown-heading reveal">
+
+        <p class="section-kicker">
+            COUNTDOWN TO BATTLE
+        </p>
+
+        <h2>
+            THE ARENA <span>AWAITS.</span>
+        </h2>
+
+    </div>
+
+
+    <div class="countdown-grid">
+
+        <article class="countdown-card hok-countdown reveal">
+
+            <div class="countdown-top">
+                <span>HONOR OF KINGS</span>
+                <strong>20 NOV 2026</strong>
+            </div>
+
+            <div
+                class="countdown-values"
+                id="hokCountdown"
+            >
+
+                <div>
+                    <strong id="hokDays">--</strong>
+                    <span>DAYS</span>
+                </div>
+
+                <div>
+                    <strong id="hokHours">--</strong>
+                    <span>HOURS</span>
+                </div>
+
+                <div>
+                    <strong id="hokMinutes">--</strong>
+                    <span>MINUTES</span>
+                </div>
+
+                <div>
+                    <strong id="hokSeconds">--</strong>
+                    <span>SECONDS</span>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="countdown-card mlbb-countdown reveal reveal-delay-1">
+
+            <div class="countdown-top">
+                <span>MOBILE LEGENDS</span>
+                <strong>27 NOV 2026</strong>
+            </div>
+
+            <div
+                class="countdown-values"
+                id="mlbbCountdown"
+            >
+
+                <div>
+                    <strong id="mlbbDays">--</strong>
+                    <span>DAYS</span>
+                </div>
+
+                <div>
+                    <strong id="mlbbHours">--</strong>
+                    <span>HOURS</span>
+                </div>
+
+                <div>
+                    <strong id="mlbbMinutes">--</strong>
+                    <span>MINUTES</span>
+                </div>
+
+                <div>
+                    <strong id="mlbbSeconds">--</strong>
+                    <span>SECONDS</span>
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BRACKETS
+===================================================== -->
+
+<section
+    id="brackets"
+    class="section brackets-section"
+>
+
+    <div class="section-heading reveal">
+
+        <span class="section-index">
+            05
+        </span>
+
+        <div>
+
+            <p class="section-kicker">
+                FROM GROUPS TO GLORY
+            </p>
+
+            <h2>
+                TOURNAMENT <span>BRACKETS</span>
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         HOK BRACKET
+    ================================================= -->
+
+    <div
+        class="bracket-title-block hok-bracket"
+        id="hokBracket"
+    >
+
+        <div class="bracket-title-header reveal">
+
+            <div>
+                <span class="bracket-kicker">
+                    TITLE 01
+                </span>
+
+                <h3>
+                    HONOR <span>OF KINGS</span>
+                </h3>
+            </div>
+
+            <div class="bracket-format">
+                32 TEAMS / 8 GROUPS
+            </div>
+
+        </div>
+
+
+        <!-- GROUP STAGE -->
+
+        <div class="stage-heading reveal">
+
+            <span>01</span>
+
+            <div>
+                <small>GROUP STAGE</small>
+                <strong>8 GROUPS • 4 TEAMS EACH</strong>
+            </div>
+
+        </div>
+
+
+        <div
+            class="groups-grid"
+            id="hokGroups"
+        ></div>
+
+
+        <!-- KNOCKOUT STAGE -->
+
+        <div class="stage-heading reveal">
+
+            <span>02</span>
+
+            <div>
+                <small>KNOCKOUT STAGE</small>
+                <strong>QUARTERFINALS → SEMIFINALS → GRAND FINAL</strong>
+            </div>
+
+        </div>
+
+
+        <div class="knockout-wrapper reveal">
+
+            <div class="knockout-bracket">
+
+                <div class="bracket-column qf-column">
+
+                    <div class="bracket-column-title">
+                        QUARTERFINALS
+                        <small>BO3</small>
+                    </div>
+
+                    <div class="match qf-match">
+                        <span>QF1</span>
+                        <div class="team-slot editable-team">GROUP A WINNER</div>
+                        <div class="team-slot editable-team">GROUP B RUNNER-UP</div>
+                    </div>
+
+                    <div class="match qf-match">
+                        <span>QF2</span>
+                        <div class="team-slot editable-team">GROUP C WINNER</div>
+                        <div class="team-slot editable-team">GROUP D RUNNER-UP</div>
+                    </div>
+
+                    <div class="match qf-match">
+                        <span>QF3</span>
+                        <div class="team-slot editable-team">GROUP E WINNER</div>
+                        <div class="team-slot editable-team">GROUP F RUNNER-UP</div>
+                    </div>
+
+                    <div class="match qf-match">
+                        <span>QF4</span>
+                        <div class="team-slot editable-team">GROUP G WINNER</div>
+                        <div class="team-slot editable-team">GROUP H RUNNER-UP</div>
+                    </div>
+
+                </div>
+
+
+                <div class="bracket-column sf-column">
+
+                    <div class="bracket-column-title">
+                        SEMIFINALS
+                        <small>BO3</small>
+                    </div>
+
+                    <div class="match sf-match">
+                        <span>SF1</span>
+                        <div class="team-slot editable-team">QF1 WINNER</div>
+                        <div class="team-slot editable-team">QF2 WINNER</div>
+                    </div>
+
+                    <div class="match sf-match">
+                        <span>SF2</span>
+                        <div class="team-slot editable-team">QF3 WINNER</div>
+                        <div class="team-slot editable-team">QF4 WINNER</div>
+                    </div>
+
+                </div>
+
+
+                <div class="bracket-column gf-column">
+
+                    <div class="bracket-column-title">
+                        GRAND FINAL
+                        <small>BO5</small>
+                    </div>
+
+                    <div class="match gf-match">
+
+                        <span>GRAND FINAL</span>
+
+                        <div class="team-slot editable-team">
+                            SF1 WINNER
+                        </div>
+
+                        <div class="team-slot editable-team">
+                            SF2 WINNER
+                        </div>
+
+                        <div class="champion-slot">
+                            CHAMPION
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         MLBB BRACKET
+    ================================================= -->
+
+    <div
+        class="bracket-title-block mlbb-bracket"
+        id="mlbbBracket"
+    >
+
+        <div class="bracket-title-header reveal">
+
+            <div>
+                <span class="bracket-kicker">
+                    TITLE 02
+                </span>
+
+                <h3>
+                    MOBILE <span>LEGENDS</span>
+                </h3>
+            </div>
+
+            <div class="bracket-format">
+                32 TEAMS / 8 GROUPS
+            </div>
+
+        </div>
+
+
+        <!-- GROUP STAGE -->
+
+        <div class="stage-heading reveal">
+
+            <span>01</span>
+
+            <div>
+                <small>GROUP STAGE</small>
+                <strong>8 GROUPS • 4 TEAMS EACH</strong>
+            </div>
+
+        </div>
+
+
+        <div
+            class="groups-grid"
+            id="mlbbGroups"
+        ></div>
+
+
+        <!-- KNOCKOUT STAGE -->
+
+        <div class="stage-heading reveal">
+
+            <span>02</span>
+
+            <div>
+                <small>KNOCKOUT STAGE</small>
+                <strong>QUARTERFINALS → SEMIFINALS → GRAND FINAL</strong>
+            </div>
+
+        </div>
+
+
+        <div class="knockout-wrapper reveal">
+
+            <div class="knockout-bracket">
+
+                <div class="bracket-column qf-column">
+
+                    <div class="bracket-column-title">
+                        QUARTERFINALS
+                        <small>BO3</small>
+                    </div>
+
+                    <div class="match qf-match">
+                        <span>QF1</span>
+                        <div class="team-slot editable-team">GROUP A WINNER</div>
+                        <div class="team-slot editable-team">GROUP B RUNNER-UP</div>
+                    </div>
+
+                    <div class="match qf-match">
+                        <span>QF2</span>
+                        <div class="team-slot editable-team">GROUP C WINNER</div>
+                        <div class="team-slot editable-team">GROUP D RUNNER-UP</div>
+                    </div>
+
+                    <div class="match qf-match">
+                        <span>QF3</span>
+                        <div class="team-slot editable-team">GROUP E WINNER</div>
+                        <div class="team-slot editable-team">GROUP F RUNNER-UP</div>
+                    </div>
+
+                    <div class="match qf-match">
+                        <span>QF4</span>
+                        <div class="team-slot editable-team">GROUP G WINNER</div>
+                        <div class="team-slot editable-team">GROUP H RUNNER-UP</div>
+                    </div>
+
+                </div>
+
+
+                <div class="bracket-column sf-column">
+
+                    <div class="bracket-column-title">
+                        SEMIFINALS
+                        <small>BO3</small>
+                    </div>
+
+                    <div class="match sf-match">
+                        <span>SF1</span>
+                        <div class="team-slot editable-team">QF1 WINNER</div>
+                        <div class="team-slot editable-team">QF2 WINNER</div>
+                    </div>
+
+                    <div class="match sf-match">
+                        <span>SF2</span>
+                        <div class="team-slot editable-team">QF3 WINNER</div>
+                        <div class="team-slot editable-team">QF4 WINNER</div>
+                    </div>
+
+                </div>
+
+
+                <div class="bracket-column gf-column">
+
+                    <div class="bracket-column-title">
+                        GRAND FINAL
+                        <small>BO5</small>
+                    </div>
+
+                    <div class="match gf-match">
+
+                        <span>GRAND FINAL</span>
+
+                        <div class="team-slot editable-team">
+                            SF1 WINNER
+                        </div>
+
+                        <div class="team-slot editable-team">
+                            SF2 WINNER
+                        </div>
+
+                        <div class="champion-slot">
+                            CHAMPION
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 
 <!-- =====================================================
      PRIZES
@@ -1200,7 +1230,7 @@
     <div class="section-heading reveal">
 
         <span class="section-index">
-            05
+            06
         </span>
 
         <div>
@@ -1217,6 +1247,7 @@
 
     </div>
 
+
     <div class="prize-total reveal">
 
         <span>
@@ -1232,6 +1263,7 @@
         </small>
 
     </div>
+
 
     <div class="prize-grid">
 
@@ -1263,6 +1295,7 @@
 
 </section>
 
+
 <!-- =====================================================
      RULES
 ===================================================== -->
@@ -1275,7 +1308,7 @@
     <div class="section-heading reveal">
 
         <span class="section-index">
-            06
+            07
         </span>
 
         <div>
@@ -1292,6 +1325,7 @@
 
     </div>
 
+
     <div class="rules-grid">
 
         <div class="rule reveal">
@@ -1301,7 +1335,7 @@
             <div>
 
                 <h3>
-                    GLOBAL BAN & PICK
+                    GLOBAL BAN &amp; PICK
                 </h3>
 
                 <p>
@@ -1312,6 +1346,7 @@
             </div>
 
         </div>
+
 
         <div class="rule reveal reveal-delay-1">
 
@@ -1333,6 +1368,7 @@
 
         </div>
 
+
         <div class="rule reveal reveal-delay-2">
 
             <span>03</span>
@@ -1351,6 +1387,7 @@
             </div>
 
         </div>
+
 
         <div class="rule reveal reveal-delay-3">
 
@@ -1373,6 +1410,7 @@
 
     </div>
 
+
     <div class="rules-action reveal">
 
         <a
@@ -1381,12 +1419,170 @@
             target="_blank"
             rel="noopener noreferrer"
         >
-            VIEW FULL RULEBOOK ↗
+            VIEW FULL RULEBOOK
+            <span class="external-arrow" aria-hidden="true"></span>
         </a>
 
     </div>
 
 </section>
+
+
+<!-- =====================================================
+     REGISTERED TEAMS
+===================================================== -->
+
+<section
+    id="registered"
+    class="section registered-section"
+>
+
+    <div class="section-heading reveal">
+
+        <span class="section-index">
+            08
+        </span>
+
+        <div>
+
+            <p class="section-kicker">
+                THE COMPETITORS
+            </p>
+
+            <h2>
+                REGISTERED <span>TEAMS</span>
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="registered-grid">
+
+        <!-- HOK -->
+
+        <article class="registered-card hok-registered reveal">
+
+            <div class="registered-card-top">
+
+                <div>
+
+                    <span>
+                        TITLE 01
+                    </span>
+
+                    <h3>
+                        HONOR <strong>OF KINGS</strong>
+                    </h3>
+
+                </div>
+
+                <div class="registered-number">
+
+                    <strong id="hokRegisteredCount">
+                        0
+                    </strong>
+
+                    <span>
+                        / 32
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="registered-progress">
+
+                <div
+                    class="registered-progress-bar"
+                    id="hokRegisteredBar"
+                ></div>
+
+            </div>
+
+
+            <p>
+                Registered teams for Honor of Kings.
+            </p>
+
+
+            <button
+                class="registered-button"
+                type="button"
+                data-team-list="hok"
+            >
+                VIEW REGISTERED TEAMS
+                <span class="inline-arrow" aria-hidden="true"></span>
+            </button>
+
+        </article>
+
+
+        <!-- MLBB -->
+
+        <article class="registered-card mlbb-registered reveal reveal-delay-1">
+
+            <div class="registered-card-top">
+
+                <div>
+
+                    <span>
+                        TITLE 02
+                    </span>
+
+                    <h3>
+                        MOBILE <strong>LEGENDS</strong>
+                    </h3>
+
+                </div>
+
+                <div class="registered-number">
+
+                    <strong id="mlbbRegisteredCount">
+                        0
+                    </strong>
+
+                    <span>
+                        / 32
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="registered-progress">
+
+                <div
+                    class="registered-progress-bar"
+                    id="mlbbRegisteredBar"
+                ></div>
+
+            </div>
+
+
+            <p>
+                Registered teams for Mobile Legends.
+            </p>
+
+
+            <button
+                class="registered-button"
+                type="button"
+                data-team-list="mlbb"
+            >
+                VIEW REGISTERED TEAMS
+                <span class="inline-arrow" aria-hidden="true"></span>
+            </button>
+
+        </article>
+
+    </div>
+
+</section>
+
 
 <!-- =====================================================
      REGISTRATION CTA
@@ -1422,7 +1618,7 @@
             rel="noopener noreferrer"
         >
             REGISTRATION FORM
-            <span>↗</span>
+            <span class="external-arrow" aria-hidden="true"></span>
         </a>
 
     </div>
@@ -1430,6 +1626,7 @@
 </section>
 
 </main>
+
 
 <!-- =====================================================
      FOOTER
@@ -1451,6 +1648,7 @@
 
         </div>
 
+
         <div class="footer-info">
 
             <span>
@@ -1463,6 +1661,7 @@
             </strong>
 
         </div>
+
 
         <div class="footer-info">
 
@@ -1479,6 +1678,7 @@
 
     </div>
 
+
     <div class="footer-bottom">
 
         <span>
@@ -1493,6 +1693,7 @@
 
 </footer>
 
+
 <!-- =====================================================
      BACK TO TOP
 ===================================================== -->
@@ -1503,236 +1704,175 @@
     aria-label="Back to top"
     type="button"
 >
-    <span>↑</span>
+    <span class="up-arrow" aria-hidden="true"></span>
 </button>
+
 
 <!-- =====================================================
      TENTATIVE FLOW MODAL
 ===================================================== -->
 
 <div
-    class="modal-overlay"
-    id="flowModal"
+    class="modal"
+    id="tentativeModal"
     aria-hidden="true"
 >
 
     <div
-        class="modal flow-modal"
+        class="modal-backdrop"
+        data-close-modal="tentative"
+    ></div>
+
+    <div
+        class="modal-panel tentative-panel"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="flowModalTitle"
+        aria-labelledby="tentativeTitle"
     >
 
         <button
             class="modal-close"
-            id="flowModalClose"
             type="button"
+            data-close-modal="tentative"
             aria-label="Close"
         >
-            ×
+            <span></span>
+            <span></span>
         </button>
+
 
         <div class="modal-header">
 
-            <span>EVENT OPERATIONS / 2026</span>
+            <span class="modal-kicker">
+                TENTATIVE FLOW / 2026
+            </span>
 
-            <h2 id="flowModalTitle">
-                DETAILED <strong>TENTATIVE FLOW</strong>
+            <h2 id="tentativeTitle">
+                EVENT <span>FLOW</span>
             </h2>
 
             <p>
-                Both Honor of Kings and Mobile Legends:
-                Bang Bang follow the same planned tournament flow.
+                Both Honor of Kings and Mobile Legends
             </p>
 
         </div>
 
-        <div class="flow-title-tabs">
 
-            <button
-                class="flow-tab active"
-                type="button"
-                data-flow-title="both"
-            >
-                BOTH TITLES
-            </button>
+        <div class="flow-days">
 
-            <button
-                class="flow-tab"
-                type="button"
-                data-flow-title="hok"
-            >
-                HONOR OF KINGS
-            </button>
+            <!-- DAY 01 -->
 
-            <button
-                class="flow-tab"
-                type="button"
-                data-flow-title="mlbb"
-            >
-                MOBILE LEGENDS
-            </button>
+            <div class="flow-day">
 
-        </div>
+                <div class="flow-day-heading">
 
-        <div
-            class="flow-panel active"
-            data-flow-panel="both"
-        >
+                    <span>DAY 01</span>
 
-            <div class="tentative-title-card">
+                    <strong>
+                        GROUP STAGE + QUARTERFINALS
+                    </strong>
 
-                <span>DAY 01</span>
-
-                <strong>
-                    GROUP STAGE + QUARTERFINALS
-                </strong>
-
-            </div>
-
-            <div class="timeline">
-
-                <div class="timeline-item">
-                    <span>R1</span>
-                    <strong>8:00 AM</strong>
-                    <small>GROUP STAGE • BO1</small>
                 </div>
 
-                <div class="timeline-item">
-                    <span>R2</span>
-                    <strong>9:00 AM</strong>
-                    <small>GROUP STAGE • BO1</small>
-                </div>
 
-                <div class="timeline-item">
-                    <span>R3</span>
-                    <strong>10:00 AM</strong>
-                    <small>GROUP STAGE • BO1</small>
-                </div>
+                <div class="flow-timeline">
 
-                <div class="timeline-item">
-                    <span>R4</span>
-                    <strong>11:00 AM</strong>
-                    <small>GROUP STAGE • BO1</small>
-                </div>
+                    <div class="flow-item">
+                        <strong>R1</strong>
+                        <span>8:00 AM</span>
+                    </div>
 
-                <div class="timeline-item">
-                    <span>R5</span>
-                    <strong>12:00 PM</strong>
-                    <small>GROUP STAGE • BO1</small>
-                </div>
+                    <div class="flow-item">
+                        <strong>R2</strong>
+                        <span>9:00 AM</span>
+                    </div>
 
-                <div class="timeline-item">
-                    <span>R6</span>
-                    <strong>1:00 PM</strong>
-                    <small>GROUP STAGE • BO1</small>
-                </div>
+                    <div class="flow-item">
+                        <strong>R3</strong>
+                        <span>10:00 AM</span>
+                    </div>
 
-                <div class="timeline-item rest-item">
-                    <span>—</span>
-                    <strong>REST</strong>
-                    <small>BREAK</small>
-                </div>
+                    <div class="flow-item">
+                        <strong>R4</strong>
+                        <span>11:00 AM</span>
+                    </div>
 
-                <div class="timeline-item highlight">
-                    <span>QF</span>
-                    <strong>3:00 PM — 6:00 PM</strong>
-                    <small>QUARTERFINALS • BO3</small>
+                    <div class="flow-item">
+                        <strong>R5</strong>
+                        <span>12:00 PM</span>
+                    </div>
+
+                    <div class="flow-item">
+                        <strong>R6</strong>
+                        <span>1:00 PM</span>
+                    </div>
+
+                    <div class="flow-item rest-item">
+                        <strong>REST</strong>
+                        <span>1:00 PM — 3:00 PM</span>
+                    </div>
+
+                    <div class="flow-item major-item">
+                        <strong>QF</strong>
+                        <span>3:00 PM — 6:00 PM • BO3</span>
+                    </div>
+
                 </div>
 
             </div>
 
-            <div class="tentative-title-card day-two">
 
-                <span>DAY 02</span>
+            <!-- DAY 02 -->
 
-                <strong>
-                    SEMIFINALS + GRAND FINAL
-                </strong>
+            <div class="flow-day">
 
-            </div>
+                <div class="flow-day-heading">
 
-            <div class="timeline">
+                    <span>DAY 02</span>
 
-                <div class="timeline-item highlight">
-                    <span>SF</span>
-                    <strong>9:00 AM — 12:00 PM</strong>
-                    <small>SEMIFINALS • BO3</small>
+                    <strong>
+                        SEMIFINALS + GRAND FINAL
+                    </strong>
+
                 </div>
 
-                <div class="timeline-item rest-item">
-                    <span>—</span>
-                    <strong>REST</strong>
-                    <small>BREAK</small>
-                </div>
 
-                <div class="timeline-item final-timeline">
-                    <span>GF</span>
-                    <strong>2:00 PM — 7:00 PM</strong>
-                    <small>GRAND FINAL • BO5</small>
-                </div>
+                <div class="flow-timeline">
 
-                <div class="timeline-item">
-                    <span>🏆</span>
-                    <strong>PRIZE GIVING CEREMONY</strong>
-                    <small>AFTER GRAND FINAL</small>
+                    <div class="flow-item major-item">
+                        <strong>SF</strong>
+                        <span>9:00 AM — 12:00 PM • BO3</span>
+                    </div>
+
+                    <div class="flow-item rest-item">
+                        <strong>REST</strong>
+                        <span>12:00 PM — 2:00 PM</span>
+                    </div>
+
+                    <div class="flow-item grand-item">
+                        <strong>GF</strong>
+                        <span>2:00 PM — 7:00 PM • BO5</span>
+                    </div>
+
+                    <div class="flow-item ceremony-item">
+                        <strong>PRIZE</strong>
+                        <span>PRIZE GIVING CEREMONY</span>
+                    </div>
+
                 </div>
 
             </div>
 
         </div>
 
-        <div
-            class="flow-panel"
-            data-flow-panel="hok"
-        >
-
-            <div class="flow-game-banner">
-                <span>HONOR OF KINGS</span>
-                <strong>20—21 NOVEMBER 2026</strong>
-            </div>
-
-            <p class="flow-copy">
-                Day 01: Group Stage + Quarterfinals.
-                Day 02: Semifinals + Grand Final.
-            </p>
-
-            <div class="same-flow">
-                SAME TENTATIVE FLOW AS ABOVE
-            </div>
-
-        </div>
-
-        <div
-            class="flow-panel"
-            data-flow-panel="mlbb"
-        >
-
-            <div class="flow-game-banner">
-                <span>MOBILE LEGENDS</span>
-                <strong>27—28 NOVEMBER 2026</strong>
-            </div>
-
-            <p class="flow-copy">
-                Day 01: Group Stage + Quarterfinals.
-                Day 02: Semifinals + Grand Final.
-            </p>
-
-            <div class="same-flow">
-                SAME TENTATIVE FLOW AS ABOVE
-            </div>
-
-        </div>
 
         <div class="flow-disclaimer">
 
-            <span>IMPORTANT</span>
+            <span class="disclaimer-mark">!</span>
 
             <p>
-                All times shown are tentative and are for
-                planning preference only. The actual schedule
-                may be adjusted according to the situation
-                during the tournament.
+                All time is just for preference, and will be
+                adjusted based on actual situations.
             </p>
 
         </div>
@@ -1741,77 +1881,69 @@
 
 </div>
 
+
 <!-- =====================================================
-     REGISTERED TEAMS MODAL
+     REGISTERED TEAM MODAL
 ===================================================== -->
 
 <div
-    class="modal-overlay"
-    id="teamsModal"
+    class="modal"
+    id="teamModal"
     aria-hidden="true"
 >
 
     <div
-        class="modal teams-modal"
+        class="modal-backdrop"
+        data-close-modal="teams"
+    ></div>
+
+    <div
+        class="modal-panel team-panel"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="teamsModalTitle"
+        aria-labelledby="teamModalTitle"
     >
 
         <button
             class="modal-close"
-            id="teamsModalClose"
             type="button"
+            data-close-modal="teams"
             aria-label="Close"
         >
-            ×
+            <span></span>
+            <span></span>
         </button>
+
 
         <div class="modal-header">
 
-            <span>REGISTRATION / 2026</span>
+            <span
+                class="modal-kicker"
+                id="teamModalKicker"
+            >
+                REGISTERED TEAMS
+            </span>
 
-            <h2 id="teamsModalTitle">
-                REGISTERED <strong>TEAMS</strong>
+            <h2 id="teamModalTitle">
+                TEAM <span>LIST</span>
             </h2>
 
-            <p>
-                Officially registered teams will appear here.
+            <p id="teamModalSubtitle">
+                Registered teams
             </p>
 
         </div>
 
-        <div class="team-modal-summary">
-
-            <div>
-                <span>REGISTERED</span>
-                <strong id="modalRegisteredCount">
-                    0
-                </strong>
-            </div>
-
-            <div>
-                <span>AVAILABLE</span>
-                <strong id="modalAvailableCount">
-                    64
-                </strong>
-            </div>
-
-            <div>
-                <span>CAPACITY</span>
-                <strong>64</strong>
-            </div>
-
-        </div>
 
         <div
-            class="registered-team-list"
-            id="registeredTeamList"
+            class="team-list"
+            id="teamList"
         ></div>
 
     </div>
 
 </div>
+
 
 <script src="script.js"></script>
 
