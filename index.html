@@ -95,9 +95,6 @@
             justify-content: flex-end;
             gap: 8px;
 
-            /* IMPORTANT:
-               Keeps Rulebook + Register pushed to the
-               far right, immediately before the menu button. */
             margin-left: auto;
 
             flex-shrink: 0;
@@ -565,6 +562,21 @@
 
 
         /* =====================================================
+           REGISTRATION REVEAL
+           
+           The registration section now uses the same
+           repeating reveal animation system as the rest
+           of the website, with a subtle stagger effect.
+        ===================================================== */
+
+        .register-content .reveal {
+            will-change:
+                opacity,
+                transform;
+        }
+
+
+        /* =====================================================
            RESPONSIVE NAVIGATION
         ===================================================== */
 
@@ -760,8 +772,6 @@
 
         <div class="nav-actions">
 
-            <!-- RULEBOOK -->
-
             <a
                 href="https://docs.google.com/document/d/1CHqOSmuEXEscJ_CEOeg7fHXTDzFF-yI-7PfxptN_4qU/edit?usp=drivesdk"
                 class="nav-rulebook"
@@ -771,8 +781,6 @@
                 RULEBOOK ↗
             </a>
 
-
-            <!-- REGISTRATION -->
 
             <a
                 href="https://forms.gle/n1F13zaxE4oSdtKV6"
@@ -864,8 +872,6 @@
         </nav>
 
 
-        <!-- RULEBOOK -->
-
         <a
             href="https://docs.google.com/document/d/1CHqOSmuEXEscJ_CEOeg7fHXTDzFF-yI-7PfxptN_4qU/edit?usp=drivesdk"
             class="mobile-action mobile-rulebook"
@@ -875,8 +881,6 @@
             RULEBOOK ↗
         </a>
 
-
-        <!-- REGISTER -->
 
         <a
             href="https://forms.gle/n1F13zaxE4oSdtKV6"
@@ -1720,18 +1724,18 @@
 
     <div class="register-content">
 
-        <p class="section-kicker">
+        <p class="section-kicker reveal">
             READY TO COMPETE?
         </p>
 
 
-        <h2>
+        <h2 class="reveal reveal-delay-1">
             ENTER THE<br>
             <span>ARENA.</span>
         </h2>
 
 
-        <p>
+        <p class="reveal reveal-delay-2">
             Open to students currently registered
             at educational institutions in Malaysia.
         </p>
@@ -1739,7 +1743,7 @@
 
         <a
             href="https://forms.gle/n1F13zaxE4oSdtKV6"
-            class="primary-button"
+            class="primary-button reveal reveal-delay-3"
             target="_blank"
             rel="noopener noreferrer"
         >
@@ -2298,12 +2302,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         } else {
 
-                            /*
-                             * Remove the class when the element
-                             * leaves the viewport so the animation
-                             * can replay on the next scroll.
-                             */
-
                             entry.target.classList.remove(
                                 "reveal-visible"
                             );
@@ -2333,9 +2331,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     } else {
 
-        /*
-         * Fallback for older browsers.
-         */
+        /* Fallback for older browsers */
 
         revealElements.forEach(
             element => {
