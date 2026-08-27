@@ -13,3 +13,4 @@
 @media (max-width:360px){.hero h1 strong{font-size:51px}.hero h1 em{font-size:22px}.hero-date strong{font-size:6px}.section-heading h2{font-size:31px}.title-content h3{font-size:35px}}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.hero-content>*{opacity:1;transform:none;animation:none}*,*:before,*:after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+ 
